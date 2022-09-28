@@ -1,0 +1,11 @@
+E:\SystemProgramming\AppForDll\AppForDll\bin\Release\AppForDll.exe.config
+E:\SystemProgramming\AppForDll\AppForDll\bin\Release\AppForDll.exe
+E:\SystemProgramming\AppForDll\AppForDll\bin\Release\AppForDll.pdb
+E:\SystemProgramming\AppForDll\AppForDll\obj\Release\AppForDll.csproj.AssemblyReference.cache
+E:\SystemProgramming\AppForDll\AppForDll\obj\Release\AppForDll.csproj.SuggestedBindingRedirects.cache
+E:\SystemProgramming\AppForDll\AppForDll\obj\Release\AppForDll.Form1.resources
+E:\SystemProgramming\AppForDll\AppForDll\obj\Release\AppForDll.Properties.Resources.resources
+E:\SystemProgramming\AppForDll\AppForDll\obj\Release\AppForDll.csproj.GenerateResource.cache
+E:\SystemProgramming\AppForDll\AppForDll\obj\Release\AppForDll.csproj.CoreCompileInputs.cache
+E:\SystemProgramming\AppForDll\AppForDll\obj\Release\AppForDll.exe
+E:\SystemProgramming\AppForDll\AppForDll\obj\Release\AppForDll.pdb

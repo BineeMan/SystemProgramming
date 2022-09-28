@@ -1,0 +1,9 @@
+﻿  pch.cpp
+  dllmain.cpp
+  Source.cpp
+     Создается библиотека E:\SystemProgramming\DLL_Cpp\Release\DLL_Cpp.lib и объект E:\SystemProgramming\DLL_Cpp\Release\DLL_Cpp.exp
+  Создание кода
+  Previous IPDB not found, fall back to full compilation.
+  All 241 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Создание кода завершено
+  DLL_Cpp.vcxproj -> E:\SystemProgramming\DLL_Cpp\Release\DLL_Cpp.dll

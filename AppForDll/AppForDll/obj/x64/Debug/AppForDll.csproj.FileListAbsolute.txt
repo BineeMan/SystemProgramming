@@ -1,0 +1,11 @@
+E:\SystemProgramming\AppForDll\AppForDll\bin\x64\Debug\AppForDll.exe.config
+E:\SystemProgramming\AppForDll\AppForDll\bin\x64\Debug\AppForDll.exe
+E:\SystemProgramming\AppForDll\AppForDll\bin\x64\Debug\AppForDll.pdb
+E:\SystemProgramming\AppForDll\AppForDll\obj\x64\Debug\AppForDll.csproj.AssemblyReference.cache
+E:\SystemProgramming\AppForDll\AppForDll\obj\x64\Debug\AppForDll.csproj.SuggestedBindingRedirects.cache
+E:\SystemProgramming\AppForDll\AppForDll\obj\x64\Debug\AppForDll.Form1.resources
+E:\SystemProgramming\AppForDll\AppForDll\obj\x64\Debug\AppForDll.Properties.Resources.resources
+E:\SystemProgramming\AppForDll\AppForDll\obj\x64\Debug\AppForDll.csproj.GenerateResource.cache
+E:\SystemProgramming\AppForDll\AppForDll\obj\x64\Debug\AppForDll.csproj.CoreCompileInputs.cache
+E:\SystemProgramming\AppForDll\AppForDll\obj\x64\Debug\AppForDll.exe
+E:\SystemProgramming\AppForDll\AppForDll\obj\x64\Debug\AppForDll.pdb
