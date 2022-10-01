@@ -9,3 +9,13 @@ E:\SystemProgramming\AppForDll\AppForDll\obj\x64\Debug\AppForDll.csproj.Generate
 E:\SystemProgramming\AppForDll\AppForDll\obj\x64\Debug\AppForDll.csproj.CoreCompileInputs.cache
 E:\SystemProgramming\AppForDll\AppForDll\obj\x64\Debug\AppForDll.exe
 E:\SystemProgramming\AppForDll\AppForDll\obj\x64\Debug\AppForDll.pdb
+G:\Системное Программирование\v0.21\AppForDll\AppForDll\bin\x64\Debug\AppForDll.exe.config
+G:\Системное Программирование\v0.21\AppForDll\AppForDll\bin\x64\Debug\AppForDll.exe
+G:\Системное Программирование\v0.21\AppForDll\AppForDll\bin\x64\Debug\AppForDll.pdb
+G:\Системное Программирование\v0.21\AppForDll\AppForDll\obj\x64\Debug\AppForDll.Form1.resources
+G:\Системное Программирование\v0.21\AppForDll\AppForDll\obj\x64\Debug\AppForDll.Properties.Resources.resources
+G:\Системное Программирование\v0.21\AppForDll\AppForDll\obj\x64\Debug\AppForDll.csproj.GenerateResource.cache
+G:\Системное Программирование\v0.21\AppForDll\AppForDll\obj\x64\Debug\AppForDll.csproj.CoreCompileInputs.cache
+G:\Системное Программирование\v0.21\AppForDll\AppForDll\obj\x64\Debug\AppForDll.exe
+G:\Системное Программирование\v0.21\AppForDll\AppForDll\obj\x64\Debug\AppForDll.pdb
+G:\Системное Программирование\v0.21\AppForDll\AppForDll\obj\x64\Debug\AppForDll.csproj.AssemblyReference.cache

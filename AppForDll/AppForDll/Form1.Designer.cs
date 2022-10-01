@@ -44,11 +44,11 @@ namespace AppForDll
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.button_fileDelphi = new System.Windows.Forms.Button();
             this.button_FileCpp = new System.Windows.Forms.Button();
             this.textBox_FilePath = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.button_ChooseFile = new System.Windows.Forms.Button();
-            this.button_fileDelphi = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -189,6 +189,16 @@ namespace AppForDll
             this.tabPage2.Text = "Лаб2 Файл";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // button_fileDelphi
+            // 
+            this.button_fileDelphi.Location = new System.Drawing.Point(352, 171);
+            this.button_fileDelphi.Name = "button_fileDelphi";
+            this.button_fileDelphi.Size = new System.Drawing.Size(89, 23);
+            this.button_fileDelphi.TabIndex = 4;
+            this.button_fileDelphi.Text = "Запуск Delphi";
+            this.button_fileDelphi.UseVisualStyleBackColor = true;
+            this.button_fileDelphi.Click += new System.EventHandler(this.button_fileDelphi_Click);
+            // 
             // button_FileCpp
             // 
             this.button_FileCpp.Location = new System.Drawing.Point(218, 171);
@@ -205,7 +215,7 @@ namespace AppForDll
             this.textBox_FilePath.Name = "textBox_FilePath";
             this.textBox_FilePath.Size = new System.Drawing.Size(293, 20);
             this.textBox_FilePath.TabIndex = 2;
-            this.textBox_FilePath.Text = "E:\\\\SystemProgramming\\\\Files\\\\test.tsv";
+            this.textBox_FilePath.Text = "G:\\\\Системное Программирование\\\\v0.21\\\\Files\\\\test.tsv";
             // 
             // label8
             // 
@@ -225,16 +235,6 @@ namespace AppForDll
             this.button_ChooseFile.Text = "Выбрать Файл";
             this.button_ChooseFile.UseVisualStyleBackColor = true;
             this.button_ChooseFile.Click += new System.EventHandler(this.button_ChooseFile_Click);
-            // 
-            // button_fileDelphi
-            // 
-            this.button_fileDelphi.Location = new System.Drawing.Point(352, 171);
-            this.button_fileDelphi.Name = "button_fileDelphi";
-            this.button_fileDelphi.Size = new System.Drawing.Size(89, 23);
-            this.button_fileDelphi.TabIndex = 4;
-            this.button_fileDelphi.Text = "Запуск Delphi";
-            this.button_fileDelphi.UseVisualStyleBackColor = true;
-            this.button_fileDelphi.Click += new System.EventHandler(this.button_fileDelphi_Click);
             // 
             // Form1
             // 

@@ -1,1 +1,6 @@
-﻿  DLL_Cpp.vcxproj -> E:\SystemProgramming\DLL_Cpp\x64\Debug\DLL_Cpp.dll
+﻿  pch.cpp
+  dllmain.cpp
+  Libraries.cpp
+  Создание кода...
+     Создается библиотека G:\Системное Программирование\v0.21\DLL_Cpp\x64\Debug\DLL_Cpp.lib и объект G:\Системное Программирование\v0.21\DLL_Cpp\x64\Debug\DLL_Cpp.exp
+  DLL_Cpp.vcxproj -> G:\Системное Программирование\v0.21\DLL_Cpp\x64\Debug\DLL_Cpp.dll
