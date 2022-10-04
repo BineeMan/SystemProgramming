@@ -22,41 +22,42 @@ namespace AppForDll
             InitializeComponent();
         }
 
-#if smth
-        [DllImport("E:\\SystemProgramming\\DLL_Cpp\\x64\\Debug\\DLL_Cpp.dll", CallingConvention = CallingConvention.StdCall)] //импорт C++ dll библиотеки
-        public static extern int Add1(int val1, int val2);
+        [DllImport("..\\..\\..\\..\\..\\DLL_Cpp\\x64\\Debug\\DLL_Cpp.dll", CallingConvention = CallingConvention.StdCall)] //импорт C++ dll библиотеки
+        public static extern int AddCPP(int val1, int val2);
 
-        [DllImport("E:\\SystemProgramming\\DLL_Cpp\\x64\\Debug\\DLL_Cpp.dll", CallingConvention = CallingConvention.StdCall)] //импорт C++ dll библиотеки
-        public static extern int ReadTextFile( [MarshalAs(UnmanagedType.LPWStr)] string filePath );
+        [DllImport("..\\..\\..\\..\\..\\DLL_Cpp\\x64\\Debug\\DLL_Cpp.dll", CallingConvention = CallingConvention.StdCall)] //импорт C++ dll библиотеки
+        public static extern void ReadTextFileCPP([MarshalAs(UnmanagedType.LPWStr)] string filePath, [MarshalAs(UnmanagedType.BStr)] out string Text, out int Count);
+#if false //lazarus
+        [DllImport("..\\..\\..\\..\\..\\lazarus\\DLL_Delphi\\DLL_Delphi.dll", CallingConvention = CallingConvention.StdCall)] //импорт lazarus dll библиотеки
+        public static extern string GetFileContent_Delphi([MarshalAs(UnmanagedType.LPWStr)] string filePath);
 
-        [DllImport("E:\\SystemProgramming\\DLL_Cpp\\x64\\Debug\\DLL_Cpp.dll", CallingConvention = CallingConvention.StdCall)] //импорт C++ dll библиотеки
-        public static extern IntPtr GetFileContent([MarshalAs(UnmanagedType.LPWStr)] string filePath);
+        [DllImport("..\\..\\..\\..\\..\\lazarus\\DLL_Delphi\\DLL_Delphi.dll", CallingConvention = CallingConvention.StdCall)] //импорт lazarus dll библиотеки
+        public static extern int Add2(int val1, int val2);
+#else //RAD
+        [DllImport("..\\..\\..\\..\\..\\RAD_DelphiDLL\\Win64\\Debug\\DLL_Delphi.dll", CallingConvention = CallingConvention.StdCall)] //импорт lazarus dll библиотеки
+        public static extern void ReadTextFile_Delphi([MarshalAs(UnmanagedType.LPWStr)] string filePath, [MarshalAs(UnmanagedType.BStr)] out string Text, out int Count);
 
-        [DllImport("E:\\SystemProgramming\\lazarus\\DLL_Delphi\\DLL_Delphi.dll", CallingConvention = CallingConvention.StdCall)] //импорт lazarus dll библиотеки
+        [DllImport("..\\..\\..\\..\\..\\RAD_DelphiDLL\\Win64\\Debug\\DLL_Delphi.dll", CallingConvention = CallingConvention.StdCall)] //импорт lazarus dll библиотеки
         public static extern int Add2(int val1, int val2);
 
-        [DllImport("E:\\SystemProgramming\\lazarus\\DLL_Delphi\\DLL_Delphi.dll", CallingConvention = CallingConvention.StdCall)] //импорт lazarus dll библиотеки
-        public static extern string GetFileContent_Delphi([MarshalAs(UnmanagedType.LPWStr)] string filePath);
-#else
-        [DllImport("G:\\Системное Программирование\\v0.21\\DLL_Cpp\\x64\\Debug\\DLL_Cpp.dll", CallingConvention = CallingConvention.StdCall)] //импорт C++ dll библиотеки
-        public static extern int Add1(int val1, int val2);
-
-        [DllImport("G:\\Системное Программирование\\v0.21\\DLL_Cpp\\x64\\Debug\\DLL_Cpp.dll", CallingConvention = CallingConvention.StdCall)] //импорт C++ dll библиотеки
-        public static extern void GetFileContentNew([MarshalAs(UnmanagedType.LPWStr)] string filePath, [MarshalAs(UnmanagedType.BStr)] out string Text, out int Count);
-
-        [DllImport("G:\\Системное Программирование\\v0.21\\lazarus\\DLL_Delphi\\DLL_Delphi.dll", CallingConvention = CallingConvention.StdCall)] //импорт lazarus dll библиотеки
-        public static extern int Add2(int val1, int val2);
-
-        [DllImport("G:\\Системное Программирование\\v0.21\\lazarus\\DLL_Delphi\\DLL_Delphi.dll", CallingConvention = CallingConvention.StdCall)] //импорт lazarus dll библиотеки
-        public static extern string GetFileContent_Delphi([MarshalAs(UnmanagedType.LPWStr)] string filePath);
+        //static class NativeMethods
+        //{
+        //    [DllImport("kernel32.dll")]
+        //    public static extern IntPtr LoadLibrary(string dllToLoad);
+        //    [DllImport("kernel32.dll")]
+        //    public static extern IntPtr GetProcAddress(IntPtr hModule, string
+        //    procedureName);
+        //    [DllImport("kernel32.dll")]
+        //    public static extern bool FreeLibrary(IntPtr hModule);
+        //
+        //[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        //private delegate int MultiplyByTen(int numberToMultiply);
 #endif
-
-
         private string GetFileName()
         {
             return textBox_FilePath.Text;
         } 
-
+        
         private string GetFileDir()
         {
             var filePath = string.Empty;
@@ -81,7 +82,7 @@ namespace AppForDll
 
             int a = Int32.Parse(textBox_CPP1.Text);
             int b = Int32.Parse(textBox_CPP2.Text);
-            MessageBox.Show(Add1(a, b).ToString(), "Результат C++");
+            MessageBox.Show(AddCPP(a, b).ToString(), "Результат C++");
 
         }
 
@@ -101,17 +102,24 @@ namespace AppForDll
         {
             string Text = "";
             int Count = 0;
-            GetFileContentNew(GetFileName(), out Text, out Count);
+            ReadTextFileCPP(GetFileName(), out Text, out Count);
             MessageBox.Show("Кол-во искомых строк = " + Count.ToString() 
                 + Environment.NewLine +
                 "Содержимое:" 
                 + Environment.NewLine +
-                Text);
+                Text, "Результат C++");
         }
 
         private void button_fileDelphi_Click(object sender, EventArgs e)
         {
-            GetFileContent_Delphi("G:\\Системное Программирование\\v0.21\\Files\\test.tsv");
+            string Text = "";
+            int Count = 0;
+            ReadTextFile_Delphi(GetFileName(), out Text, out Count);
+            MessageBox.Show("Кол-во искомых строк = " + Count.ToString()
+                + Environment.NewLine +
+                "Содержимое:"
+                + Environment.NewLine +
+                Text, "Результат Delphi");
         }
     }
 }

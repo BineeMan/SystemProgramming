@@ -1,0 +1,58 @@
+﻿program ConsoleProject;
+
+{$APPTYPE CONSOLE}
+
+{$R *.res}
+
+uses
+ Classes, SysUtils;
+
+var filePath: PWideChar;
+
+//PWideChar - LPCWSTR
+//WideString - BSTR
+
+function ReadTextFile_Delphi(const FileName: PWideChar; out Text: WideString; out Count: Integer): HResult; stdcall;
+  var tstr: TStringList;
+  i, j: Integer;
+  var tstr2: TStringList;
+  var val: Double;
+  var str: string;
+           begin
+            try
+                tstr := TStringList.Create;
+                tstr.create;
+                tstr.LoadFromFile(FileName);
+
+                tstr2 := TStringList.Create;
+                tstr2.Delimiter := #9;
+
+
+                for i := 0 to tstr.Count-1 do begin
+                  tstr2.DelimitedText := tstr.Strings[i];
+                    for j := 0 to tstr2.Count-1 do begin
+
+                  end;
+                end;
+
+                tstr2.DelimitedText := tstr.Strings[0];
+                //writeln(tstr2.Count);
+                //writeln( TryStrToFloat(tstr2[0], val) );
+
+                Text := tstr.Text;
+                tstr.Free;
+                Count := 123;
+                Result := 2;
+            except
+              on E: Exception do Result := -1
+            end;
+           end;
+
+var Count: Integer;
+var Text: WideString;
+
+begin
+  filePath := 'E:\SystemProgramming\Files\test.tsv';
+  ReadTextFile_Delphi(filePath, Text, Count);
+  Readln;
+end.

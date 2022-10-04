@@ -215,7 +215,7 @@ namespace AppForDll
             this.textBox_FilePath.Name = "textBox_FilePath";
             this.textBox_FilePath.Size = new System.Drawing.Size(293, 20);
             this.textBox_FilePath.TabIndex = 2;
-            this.textBox_FilePath.Text = "G:\\\\Системное Программирование\\\\v0.21\\\\Files\\\\test.tsv";
+            this.textBox_FilePath.Text = "E:\\SystemProgramming\\Files\\test.tsv";
             // 
             // label8
             // 
