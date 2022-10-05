@@ -34,9 +34,9 @@ namespace AppForDll
             this.textBox_CPP1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.button_CPP = new System.Windows.Forms.Button();
+            this.buttonAdd_CPP = new System.Windows.Forms.Button();
             this.textBox_CPP2 = new System.Windows.Forms.TextBox();
-            this.button_lazarus = new System.Windows.Forms.Button();
+            this.buttonAdd_Delphi = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -44,7 +44,7 @@ namespace AppForDll
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.button_fileDelphi = new System.Windows.Forms.Button();
+            this.button_FileDelphi = new System.Windows.Forms.Button();
             this.button_FileCpp = new System.Windows.Forms.Button();
             this.textBox_FilePath = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -81,15 +81,15 @@ namespace AppForDll
             this.label2.TabIndex = 2;
             this.label2.Text = "C++";
             // 
-            // button_CPP
+            // buttonAdd_CPP
             // 
-            this.button_CPP.Location = new System.Drawing.Point(179, 198);
-            this.button_CPP.Name = "button_CPP";
-            this.button_CPP.Size = new System.Drawing.Size(75, 23);
-            this.button_CPP.TabIndex = 3;
-            this.button_CPP.Text = "Запуск";
-            this.button_CPP.UseVisualStyleBackColor = true;
-            this.button_CPP.Click += new System.EventHandler(this.buttonCPP_Click);
+            this.buttonAdd_CPP.Location = new System.Drawing.Point(179, 198);
+            this.buttonAdd_CPP.Name = "buttonAdd_CPP";
+            this.buttonAdd_CPP.Size = new System.Drawing.Size(75, 23);
+            this.buttonAdd_CPP.TabIndex = 3;
+            this.buttonAdd_CPP.Text = "Запуск";
+            this.buttonAdd_CPP.UseVisualStyleBackColor = true;
+            this.buttonAdd_CPP.Click += new System.EventHandler(this.buttonCPP_Click);
             // 
             // textBox_CPP2
             // 
@@ -99,15 +99,15 @@ namespace AppForDll
             this.textBox_CPP2.TabIndex = 4;
             this.textBox_CPP2.Text = "0";
             // 
-            // button_lazarus
+            // buttonAdd_Delphi
             // 
-            this.button_lazarus.Location = new System.Drawing.Point(348, 198);
-            this.button_lazarus.Name = "button_lazarus";
-            this.button_lazarus.Size = new System.Drawing.Size(75, 23);
-            this.button_lazarus.TabIndex = 5;
-            this.button_lazarus.Text = "Запуск";
-            this.button_lazarus.UseVisualStyleBackColor = true;
-            this.button_lazarus.Click += new System.EventHandler(this.button_Lazarus_Click);
+            this.buttonAdd_Delphi.Location = new System.Drawing.Point(348, 198);
+            this.buttonAdd_Delphi.Name = "buttonAdd_Delphi";
+            this.buttonAdd_Delphi.Size = new System.Drawing.Size(75, 23);
+            this.buttonAdd_Delphi.TabIndex = 5;
+            this.buttonAdd_Delphi.Text = "Запуск";
+            this.buttonAdd_Delphi.UseVisualStyleBackColor = true;
+            this.buttonAdd_Delphi.Click += new System.EventHandler(this.button_Lazarus_Click);
             // 
             // label3
             // 
@@ -143,10 +143,10 @@ namespace AppForDll
             this.tabPage1.Controls.Add(this.label6);
             this.tabPage1.Controls.Add(this.textBox_CPP1);
             this.tabPage1.Controls.Add(this.textBox_CPP2);
-            this.tabPage1.Controls.Add(this.button_CPP);
+            this.tabPage1.Controls.Add(this.buttonAdd_CPP);
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.label3);
-            this.tabPage1.Controls.Add(this.button_lazarus);
+            this.tabPage1.Controls.Add(this.buttonAdd_Delphi);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
@@ -176,7 +176,7 @@ namespace AppForDll
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.button_fileDelphi);
+            this.tabPage2.Controls.Add(this.button_FileDelphi);
             this.tabPage2.Controls.Add(this.button_FileCpp);
             this.tabPage2.Controls.Add(this.textBox_FilePath);
             this.tabPage2.Controls.Add(this.label8);
@@ -189,15 +189,15 @@ namespace AppForDll
             this.tabPage2.Text = "Лаб2 Файл";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // button_fileDelphi
+            // button_FileDelphi
             // 
-            this.button_fileDelphi.Location = new System.Drawing.Point(352, 171);
-            this.button_fileDelphi.Name = "button_fileDelphi";
-            this.button_fileDelphi.Size = new System.Drawing.Size(89, 23);
-            this.button_fileDelphi.TabIndex = 4;
-            this.button_fileDelphi.Text = "Запуск Delphi";
-            this.button_fileDelphi.UseVisualStyleBackColor = true;
-            this.button_fileDelphi.Click += new System.EventHandler(this.button_fileDelphi_Click);
+            this.button_FileDelphi.Location = new System.Drawing.Point(352, 171);
+            this.button_FileDelphi.Name = "button_FileDelphi";
+            this.button_FileDelphi.Size = new System.Drawing.Size(89, 23);
+            this.button_FileDelphi.TabIndex = 4;
+            this.button_FileDelphi.Text = "Запуск Delphi";
+            this.button_FileDelphi.UseVisualStyleBackColor = true;
+            this.button_FileDelphi.Click += new System.EventHandler(this.button_fileDelphi_Click);
             // 
             // button_FileCpp
             // 
@@ -262,9 +262,9 @@ namespace AppForDll
         private System.Windows.Forms.TextBox textBox_CPP1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button_CPP;
+        private System.Windows.Forms.Button buttonAdd_CPP;
         private System.Windows.Forms.TextBox textBox_CPP2;
-        private System.Windows.Forms.Button button_lazarus;
+        private System.Windows.Forms.Button buttonAdd_Delphi;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TabControl tabControl1;
@@ -276,7 +276,7 @@ namespace AppForDll
         private System.Windows.Forms.Button button_ChooseFile;
         private System.Windows.Forms.TextBox textBox_FilePath;
         private System.Windows.Forms.Button button_FileCpp;
-        private System.Windows.Forms.Button button_fileDelphi;
+        private System.Windows.Forms.Button button_FileDelphi;
     }
 }
 

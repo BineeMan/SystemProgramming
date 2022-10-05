@@ -3,7 +3,7 @@ library DLL_Delphi;
 uses
  Classes, SysUtils, Character;
 
-function Add2(val1: integer; val2: integer): integer; stdcall;
+function AddDelphi(val1: integer; val2: integer): integer; stdcall;
 
 begin
 
@@ -31,7 +31,7 @@ begin
   Result := True;
 end;
 
-function ReadTextFile_Delphi(const FileName: PWideChar; out Text: WideString; out Count: Integer): HResult; stdcall;
+function ReadTextFileDelphi(const FileName: PWideChar; out Text: WideString; out Count: Integer): HResult; stdcall;
   var TextFile: TStringList;
   i, j: Integer;
   var Line: TStringList;
@@ -79,8 +79,8 @@ function ReadTextFile_Delphi(const FileName: PWideChar; out Text: WideString; ou
            end;
 
 exports
-ReadTextFile_Delphi,
-Add2;
+ReadTextFileDelphi,
+AddDelphi;
 
 
 begin
