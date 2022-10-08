@@ -9,8 +9,7 @@
 #include <sstream>
 #include <Windows.h>
 #include <comutil.h>
-#include <stdio.h>
-
+#include <WinUser.h>
 #pragma comment (lib, "comsuppw.lib" )
 
 #include <iostream>
@@ -106,43 +105,12 @@ HRESULT GetFileContentNew(LPCWSTR FileName, BSTR* Text, int& Count) {
     }
 }
 
-HRESULT test(int &a) {
-    int* b = &a;
-    *b = 22;
-    return 0;
-}
+//HRESULT GetGraphic(LPCWSTR FileName, int Width, int Height, HBITMAP* Picture) {}
+
+
+
+
 
 int main() {
-
-    //int a = 1;
-    //int *b = &a;
-    //*b = 2;
-    //std::cout << *b << std::endl;
-
-    //int a = 1;
-    //std::cout << a << std::endl;
-    //test(a);
-    //std::cout << a << std::endl;
-
-    //BSTR bstr = { SysAllocString(L"test") };
-    //_bstr_t test = bstr;
-    //std::cout << test << std::endl;
-
-    //BSTR* bstr2 = &bstr;
-    //*bstr2 = { SysAllocString(L"test2") };
-    //
-    //test = bstr;
-    //std::cout << test << std::endl;
-
     LPCWSTR FileName { L"G:\\Системное Программирование\\v0.21\\Files\\test.tsv" };
-
-    BSTR Text{ SysAllocString(L"test" )};
-    int Count = 0;
-    _bstr_t bstr = Text;
-    std::cout << Count << std::endl << bstr << std::endl << std::endl;
-
-    GetFileContentNew(FileName, &Text, Count);
-    bstr = Text;
-    std::cout << Count << std::endl << bstr;
-
 }

@@ -15,11 +15,11 @@
 
 #pragma comment (lib, "comsuppw.lib" )
 
-int __stdcall AddCPP(int val1, int val2) { // ф-у¤ сложени¤ двух чисел
+int __stdcall AddCPP(int val1, int val2) {  // This function adds two numbers
 	return val1 + val2;
 }
 
-bool __stdcall IsNumber(std::string str) {
+bool __stdcall IsNumber(std::string str) { // This function detects if given string is number
     for (char c : str)
     {
         if (!isdigit(c) && c != '.') {
@@ -27,9 +27,9 @@ bool __stdcall IsNumber(std::string str) {
         }
     }
     return true;
-}
+} 
 
-int __stdcall GetNumbersAmount(std::string str) {
+int __stdcall GetNumbersAmount(std::string str) { //This function returns the amount of numbers on one line, delimited by tabulation
     std::stringstream strstream(str);
     std::string segment;
     int i{ 0 };
@@ -40,10 +40,9 @@ int __stdcall GetNumbersAmount(std::string str) {
             return 0;
     }
     return i;
-}
+} 
 
-
-HRESULT __stdcall ReadTextFileCPP(LPCWSTR FileName, BSTR* Text, int& Count) {
+HRESULT __stdcall ReadTextFileCPP(LPCWSTR FileName, BSTR* Text, int& Count) {  // This function reads text file
     try
     {
         std::string line;
@@ -68,4 +67,30 @@ HRESULT __stdcall ReadTextFileCPP(LPCWSTR FileName, BSTR* Text, int& Count) {
     {
         return -1;
     }
+}
+
+HRESULT GetBmp(HBITMAP* MyBmb) {
+
+    BYTE bBytes[] =
+    {
+      0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
+      0xff, 0x00, 0x00, 0xff, 0xff, 0x00, 0x00, 0xff,
+      0xff, 0x00, 0x00, 0xff, 0xff, 0x00, 0x00, 0xff,
+      0x00, 0xff, 0xff, 0x00, 0x00, 0xff, 0xff, 0x00,
+      0x00, 0xff, 0xff, 0x00, 0x00, 0xff, 0xff, 0x00,
+      0x00, 0xff, 0xff, 0x00, 0x00, 0xff, 0xff, 0x00,
+      0xff, 0x00, 0x00, 0xff, 0xff, 0x00, 0x00, 0xff,
+      0xff, 0x00, 0x00, 0xff, 0xff, 0x00, 0x00, 0xff,
+      0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff
+    };
+
+    BITMAP bmp =
+    {
+      0, 64, 9, 8, 1, 1, NULL
+    };
+
+    bmp.bmBits = (LPSTR)bBytes;
+    HBITMAP TempBmp = CreateBitmapIndirect(&bmp);
+
+    *MyBmb = TempBmp;
 }

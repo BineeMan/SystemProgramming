@@ -34,9 +34,9 @@ namespace AppForDll
             this.textBox_CPP1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.buttonAdd_CPP = new System.Windows.Forms.Button();
+            this.button_AddCpp = new System.Windows.Forms.Button();
             this.textBox_CPP2 = new System.Windows.Forms.TextBox();
-            this.buttonAdd_Delphi = new System.Windows.Forms.Button();
+            this.button_AddDelphi = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -81,15 +81,15 @@ namespace AppForDll
             this.label2.TabIndex = 2;
             this.label2.Text = "C++";
             // 
-            // buttonAdd_CPP
+            // button_AddCpp
             // 
-            this.buttonAdd_CPP.Location = new System.Drawing.Point(179, 198);
-            this.buttonAdd_CPP.Name = "buttonAdd_CPP";
-            this.buttonAdd_CPP.Size = new System.Drawing.Size(75, 23);
-            this.buttonAdd_CPP.TabIndex = 3;
-            this.buttonAdd_CPP.Text = "Запуск";
-            this.buttonAdd_CPP.UseVisualStyleBackColor = true;
-            this.buttonAdd_CPP.Click += new System.EventHandler(this.buttonCPP_Click);
+            this.button_AddCpp.Location = new System.Drawing.Point(179, 198);
+            this.button_AddCpp.Name = "button_AddCpp";
+            this.button_AddCpp.Size = new System.Drawing.Size(75, 23);
+            this.button_AddCpp.TabIndex = 3;
+            this.button_AddCpp.Text = "Запуск";
+            this.button_AddCpp.UseVisualStyleBackColor = true;
+            this.button_AddCpp.Click += new System.EventHandler(this.buttonCPP_Click);
             // 
             // textBox_CPP2
             // 
@@ -99,15 +99,15 @@ namespace AppForDll
             this.textBox_CPP2.TabIndex = 4;
             this.textBox_CPP2.Text = "0";
             // 
-            // buttonAdd_Delphi
+            // button_AddDelphi
             // 
-            this.buttonAdd_Delphi.Location = new System.Drawing.Point(348, 198);
-            this.buttonAdd_Delphi.Name = "buttonAdd_Delphi";
-            this.buttonAdd_Delphi.Size = new System.Drawing.Size(75, 23);
-            this.buttonAdd_Delphi.TabIndex = 5;
-            this.buttonAdd_Delphi.Text = "Запуск";
-            this.buttonAdd_Delphi.UseVisualStyleBackColor = true;
-            this.buttonAdd_Delphi.Click += new System.EventHandler(this.button_Lazarus_Click);
+            this.button_AddDelphi.Location = new System.Drawing.Point(348, 198);
+            this.button_AddDelphi.Name = "button_AddDelphi";
+            this.button_AddDelphi.Size = new System.Drawing.Size(75, 23);
+            this.button_AddDelphi.TabIndex = 5;
+            this.button_AddDelphi.Text = "Запуск";
+            this.button_AddDelphi.UseVisualStyleBackColor = true;
+            this.button_AddDelphi.Click += new System.EventHandler(this.button_Lazarus_Click);
             // 
             // label3
             // 
@@ -143,10 +143,10 @@ namespace AppForDll
             this.tabPage1.Controls.Add(this.label6);
             this.tabPage1.Controls.Add(this.textBox_CPP1);
             this.tabPage1.Controls.Add(this.textBox_CPP2);
-            this.tabPage1.Controls.Add(this.buttonAdd_CPP);
+            this.tabPage1.Controls.Add(this.button_AddCpp);
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.label3);
-            this.tabPage1.Controls.Add(this.buttonAdd_Delphi);
+            this.tabPage1.Controls.Add(this.button_AddDelphi);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
@@ -262,9 +262,9 @@ namespace AppForDll
         private System.Windows.Forms.TextBox textBox_CPP1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button buttonAdd_CPP;
+        private System.Windows.Forms.Button button_AddCpp;
         private System.Windows.Forms.TextBox textBox_CPP2;
-        private System.Windows.Forms.Button buttonAdd_Delphi;
+        private System.Windows.Forms.Button button_AddDelphi;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TabControl tabControl1;

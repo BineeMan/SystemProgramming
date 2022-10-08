@@ -23,35 +23,17 @@ namespace AppForDll
             InitializeComponent();
         }
 
-        //[DllImport("..\\..\\..\\..\\..\\DLL_Cpp\\x64\\Debug\\DLL_Cpp.dll", CallingConvention = CallingConvention.StdCall)] //импорт C++ dll библиотеки
-        //public static extern int AddCPP(int val1, int val2);
-
-        //[DllImport("..\\..\\..\\..\\..\\DLL_Cpp\\x64\\Debug\\DLL_Cpp.dll", CallingConvention = CallingConvention.StdCall)] //импорт C++ dll библиотеки
-        //public static extern void ReadTextFileCPP([MarshalAs(UnmanagedType.LPWStr)] string filePath, [MarshalAs(UnmanagedType.BStr)] out string Text, out int Count);
-#if false //lazarus
-        [DllImport("..\\..\\..\\..\\..\\lazarus\\DLL_Delphi\\DLL_Delphi.dll", CallingConvention = CallingConvention.StdCall)] //импорт lazarus dll библиотеки
-        public static extern string GetFileContent_Delphi([MarshalAs(UnmanagedType.LPWStr)] string filePath);
-
-        [DllImport("..\\..\\..\\..\\..\\lazarus\\DLL_Delphi\\DLL_Delphi.dll", CallingConvention = CallingConvention.StdCall)] //импорт lazarus dll библиотеки
-        public static extern int Add2(int val1, int val2);
-#else //RAD
-        //[DllImport("..\\..\\..\\..\\..\\RAD_DelphiDLL\\Win64\\Debug\\DLL_Delphi.dll", CallingConvention = CallingConvention.StdCall)] //импорт lazarus dll библиотеки
-        //public static extern void ReadTextFile_Delphi([MarshalAs(UnmanagedType.LPWStr)] string filePath, [MarshalAs(UnmanagedType.BStr)] out string Text, out int Count);
-
-        //[DllImport("..\\..\\..\\..\\..\\RAD_DelphiDLL\\Win64\\Debug\\DLL_Delphi.dll", CallingConvention = CallingConvention.StdCall)] //импорт lazarus dll библиотеки
-        //public static extern int Add2(int val1, int val2);
-#endif
-
-        [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+        [UnmanagedFunctionPointer(CallingConvention.StdCall)] //Add function delegate from unmanaged Dll Cpp
         private delegate int AddCPP(int val1, int val2);
 
-        [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+        [UnmanagedFunctionPointer(CallingConvention.StdCall)] //Add function delegate from unmanaged Dll Delphi
         private delegate int AddDelphi(int val1, int val2);
 
+        [UnmanagedFunctionPointer(CallingConvention.StdCall)] //read text file delegate from unmanaged Dll Cpp
         private delegate void ReadTextFileCPP([MarshalAs(UnmanagedType.LPWStr)] string filePath, 
             [MarshalAs(UnmanagedType.BStr)] out string Text, out int Count);
 
-        [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+        [UnmanagedFunctionPointer(CallingConvention.StdCall)] //read text file delegate from unmanaged Dll Delphi
         private delegate void ReadTextFileDelphi([MarshalAs(UnmanagedType.LPWStr)] string filePath,
             [MarshalAs(UnmanagedType.BStr)] out string Text, out int Count);
 
@@ -62,12 +44,11 @@ namespace AppForDll
         private const string DllCppPath = 
             "..\\..\\..\\..\\..\\DLL_Cpp\\x64\\Debug\\DLL_Cpp.dll";
 
-
         private string GetFileName()
         {
             return textBox_FilePath.Text;
-        } 
-        
+        }  //returns file path from textBox_FilePath
+
         private string GetFileDir()
         {
             var filePath = string.Empty;
@@ -85,9 +66,9 @@ namespace AppForDll
                 }
             }
             return filePath;
-        }
+        } //Calls open file dialog and returns file path 
 
-        private void buttonCPP_Click(object sender, EventArgs e) //функция сложение двух чисел с помощью dll C++ библиотеки
+        private void buttonCPP_Click(object sender, EventArgs e)
         {
             IntPtr pDll = NativeMethods.LoadLibrary(DllCppPath);
             IntPtr pAddressOfFunctionToCall = NativeMethods.GetProcAddress(pDll, "AddCPP");
@@ -101,9 +82,9 @@ namespace AppForDll
             MessageBox.Show(addCPP(a, b).ToString(), "Результат C++");
 
             NativeMethods.FreeLibrary(pDll);
-        }
+        } //button handler which calls add function from unmanaged dll C++
 
-        private void button_Lazarus_Click(object sender, EventArgs e) //функция сложение двух чисел с помощью lazarus dll библиотеки
+        private void button_Lazarus_Click(object sender, EventArgs e)
         {
             IntPtr pDll = NativeMethods.LoadLibrary(DllDelphiPath);
             IntPtr pAddressOfFunctionToCall = NativeMethods.GetProcAddress(pDll, "AddDelphi");
@@ -117,12 +98,12 @@ namespace AppForDll
             MessageBox.Show(addDelphi(a, b).ToString(), "Результат Delphi");
 
             NativeMethods.FreeLibrary(pDll);
-        }
+        }  //button handler which calls add function from unmanaged dll Delphi
 
         private void button_ChooseFile_Click(object sender, EventArgs e)
         {
             textBox_FilePath.Text = GetFileDir();
-        }
+        } // button handler that calls GetFileDir()
 
         private void button_FileCpp_Click(object sender, EventArgs e)
         {
@@ -143,7 +124,7 @@ namespace AppForDll
                 Text, "Результат C++");
 
            NativeMethods.FreeLibrary(pDll);
-        }
+        } //button handler which calls ReadTextFile function from unmanaged dll C++
 
         private void button_fileDelphi_Click(object sender, EventArgs e)
         {
@@ -164,6 +145,6 @@ namespace AppForDll
                 Text, "Результат Delphi");
 
             NativeMethods.FreeLibrary(pDll);
-        }
+        } //button handler which calls ReadTextFile function from unmanaged dll Delphi
     }
 }
