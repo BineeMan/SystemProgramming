@@ -68,7 +68,7 @@ HRESULT __stdcall ReadTextFileCPP(LPCWSTR FileName, BSTR* Text, int& Count) {  /
         return -1;
     }
 }
-#if 1
+#if 0
 HRESULT __stdcall GetBmp(HBITMAP* MyBmb, int Width, int Height, int WidthBytes) {
     try
     {
@@ -99,25 +99,31 @@ HRESULT __stdcall GetBmp(HBITMAP* MyBmb, int Width, int Height, int WidthBytes) 
 }
 #endif 
 
-#if 0
-HRESULT __stdcall GetBmp(HBITMAP* MyBmb, int Width, int Height, int WidthBytes) {
+#if 1
+HRESULT __stdcall GetBmp(HBITMAP* MyBmb, int Width, int Height) {
     try
     {
-        DWORD type;
-        HPEN hpen;
-        HBRUSH hbrush;
-        HPALETTE hpal;
-        HFONT hfont;
-        HBITMAP hbmp;
-        HRGN hrgn;
-        HDC hdc;
-        HCOLORSPACE hcs;
-        HGDIOBJ hobj;
-        LOGBRUSH lb;
-        LOGCOLORSPACEA lcs;
+        BYTE Bytes[] =
+        {
+            0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
+            0xff, 0x00, 0x00, 0xff, 0xff, 0x00, 0x00, 0xff,
+            0xff, 0x00, 0x00, 0xff, 0xff, 0x00, 0x00, 0xff,
+            0x00, 0xff, 0xff, 0x00, 0x00, 0xff, 0xff, 0x00,
+            0x00, 0xff, 0xff, 0x00, 0x00, 0xff, 0xff, 0x00,
+            0x00, 0xff, 0xff, 0x00, 0x00, 0xff, 0xff, 0x00,
+            0xff, 0x00, 0x00, 0xff, 0xff, 0x00, 0x00, 0xff,
+            0xff, 0x00, 0x00, 0xff, 0xff, 0x00, 0x00, 0xff,
+            0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff
+        };
 
-        hdc = CreateCompatibleDC(0);
-        assert(hdc != 0);
+        //int size = Width * Height;
+        //BYTE* Bytes = new BYTE[size];
+        //for (int i = 0; i < size; i++) {
+        //    Bytes[i] = 0x00;
+       // }
+
+        HBITMAP TempHbmp = CreateBitmap(Width, Height, 1, 1, &Bytes);
+        *MyBmb = TempHbmp;
 
     }
     catch (...)
