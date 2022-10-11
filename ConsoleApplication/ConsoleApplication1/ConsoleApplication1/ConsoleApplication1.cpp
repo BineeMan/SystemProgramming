@@ -12,8 +12,6 @@
 #include <WinUser.h>
 #pragma comment (lib, "comsuppw.lib" )
 
-#include <iostream>
-
 int __stdcall Add1(int val1, int val2) { // ф-у¤ сложени¤ двух чисел
     return val1 + val2;
 }
@@ -112,5 +110,6 @@ HRESULT GetFileContentNew(LPCWSTR FileName, BSTR* Text, int& Count) {
 
 
 int main() {
-    LPCWSTR FileName { L"G:\\Системное Программирование\\v0.21\\Files\\test.tsv" };
+
+    std::cout << (((3 * 9) + 3) & ~3) << std::endl;
 }

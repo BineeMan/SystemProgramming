@@ -49,10 +49,20 @@ namespace AppForDll
             this.textBox_FilePath = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.button_ChooseFile = new System.Windows.Forms.Button();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.Ширина = new System.Windows.Forms.Label();
+            this.textBox_Height = new System.Windows.Forms.TextBox();
+            this.textBox_Width = new System.Windows.Forms.TextBox();
+            this.button_GetBmp = new System.Windows.Forms.Button();
+            this.textBox_ByteWith = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBox_CPP1
@@ -131,6 +141,7 @@ namespace AppForDll
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(31, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -236,6 +247,94 @@ namespace AppForDll
             this.button_ChooseFile.UseVisualStyleBackColor = true;
             this.button_ChooseFile.Click += new System.EventHandler(this.button_ChooseFile_Click);
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.label10);
+            this.tabPage3.Controls.Add(this.textBox_ByteWith);
+            this.tabPage3.Controls.Add(this.label9);
+            this.tabPage3.Controls.Add(this.label5);
+            this.tabPage3.Controls.Add(this.Ширина);
+            this.tabPage3.Controls.Add(this.textBox_Height);
+            this.tabPage3.Controls.Add(this.textBox_Width);
+            this.tabPage3.Controls.Add(this.button_GetBmp);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(668, 329);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Лаб3 Hbitmap";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(255, 32);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(131, 13);
+            this.label9.TabIndex = 15;
+            this.label9.Text = "Генерирование графика";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(341, 118);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(45, 13);
+            this.label5.TabIndex = 14;
+            this.label5.Text = "Высота";
+            // 
+            // Ширина
+            // 
+            this.Ширина.AutoSize = true;
+            this.Ширина.Location = new System.Drawing.Point(255, 118);
+            this.Ширина.Name = "Ширина";
+            this.Ширина.Size = new System.Drawing.Size(46, 13);
+            this.Ширина.TabIndex = 13;
+            this.Ширина.Text = "Ширина";
+            // 
+            // textBox_Height
+            // 
+            this.textBox_Height.Location = new System.Drawing.Point(340, 95);
+            this.textBox_Height.Name = "textBox_Height";
+            this.textBox_Height.Size = new System.Drawing.Size(46, 20);
+            this.textBox_Height.TabIndex = 12;
+            this.textBox_Height.Text = "9";
+            // 
+            // textBox_Width
+            // 
+            this.textBox_Width.Location = new System.Drawing.Point(258, 95);
+            this.textBox_Width.Name = "textBox_Width";
+            this.textBox_Width.Size = new System.Drawing.Size(46, 20);
+            this.textBox_Width.TabIndex = 11;
+            this.textBox_Width.Text = "64";
+            // 
+            // button_GetBmp
+            // 
+            this.button_GetBmp.Location = new System.Drawing.Point(280, 183);
+            this.button_GetBmp.Name = "button_GetBmp";
+            this.button_GetBmp.Size = new System.Drawing.Size(75, 23);
+            this.button_GetBmp.TabIndex = 10;
+            this.button_GetBmp.Text = "GetBmp";
+            this.button_GetBmp.UseVisualStyleBackColor = true;
+            this.button_GetBmp.Click += new System.EventHandler(this.button_GetBmp_Click);
+            // 
+            // textBox_ByteWith
+            // 
+            this.textBox_ByteWith.Location = new System.Drawing.Point(446, 95);
+            this.textBox_ByteWith.Name = "textBox_ByteWith";
+            this.textBox_ByteWith.Size = new System.Drawing.Size(46, 20);
+            this.textBox_ByteWith.TabIndex = 16;
+            this.textBox_ByteWith.Text = "8";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(360, 143);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(113, 13);
+            this.label10.TabIndex = 17;
+            this.label10.Text = "0, 64, 9, 8, 1, 1, NULL";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -251,6 +350,8 @@ namespace AppForDll
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -277,6 +378,15 @@ namespace AppForDll
         private System.Windows.Forms.TextBox textBox_FilePath;
         private System.Windows.Forms.Button button_FileCpp;
         private System.Windows.Forms.Button button_FileDelphi;
+        private System.Windows.Forms.Button button_GetBmp;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label Ширина;
+        private System.Windows.Forms.TextBox textBox_Height;
+        private System.Windows.Forms.TextBox textBox_Width;
+        private System.Windows.Forms.TextBox textBox_ByteWith;
+        private System.Windows.Forms.Label label10;
     }
 }
 

@@ -21,6 +21,7 @@ namespace AppForDll
         public Form1()
         {
             InitializeComponent();
+            tabControl1.SelectedIndex = 2;
         }
 
         [UnmanagedFunctionPointer(CallingConvention.StdCall)] //Add function delegate from unmanaged Dll Cpp
@@ -36,6 +37,9 @@ namespace AppForDll
         [UnmanagedFunctionPointer(CallingConvention.StdCall)] //read text file delegate from unmanaged Dll Delphi
         private delegate void ReadTextFileDelphi([MarshalAs(UnmanagedType.LPWStr)] string filePath,
             [MarshalAs(UnmanagedType.BStr)] out string Text, out int Count);
+
+        [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+        private delegate void GetBmp(out IntPtr MyBmb, int Width, int Height);
 
         private const string DllDelphiPath = 
             "..\\..\\..\\..\\..\\RAD_DelphiDLL\\Win64\\Debug\\DLL_Delphi.dll"; //RAD
@@ -146,5 +150,26 @@ namespace AppForDll
 
             NativeMethods.FreeLibrary(pDll);
         } //button handler which calls ReadTextFile function from unmanaged dll Delphi
+
+        private void button_GetBmp_Click(object sender, EventArgs e)
+        {
+            IntPtr pDll = NativeMethods.LoadLibrary(DllCppPath);
+            IntPtr pAddressOfFunctionToCall = NativeMethods.GetProcAddress(pDll, "GetBmp");
+            if (pAddressOfFunctionToCall == IntPtr.Zero) { MessageBox.Show("error"); return; }
+            GetBmp getBmp = (GetBmp)Marshal.GetDelegateForFunctionPointer(
+                pAddressOfFunctionToCall,
+                typeof(GetBmp));
+
+            IntPtr MyBmp = IntPtr.Zero;
+            int Width = Int32.Parse(textBox_Width.Text);
+            int Height = Int32.Parse(textBox_Height.Text);
+            getBmp(out MyBmp, Width, Height);
+
+            Bitmap bm = new Bitmap(Width, Height);
+            bm = Image.FromHbitmap(MyBmp);
+            bm.Save("E:\\SystemProgramming\\Files\\test.bmp");
+
+            NativeMethods.FreeLibrary(pDll);
+        }
     }
 }
