@@ -50,13 +50,15 @@ namespace AppForDll
             this.label8 = new System.Windows.Forms.Label();
             this.button_ChooseFile = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.textBox_ByteWith = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.Ширина = new System.Windows.Forms.Label();
             this.textBox_Height = new System.Windows.Forms.TextBox();
             this.textBox_Width = new System.Windows.Forms.TextBox();
-            this.button_GetBmp = new System.Windows.Forms.Button();
-            this.textBox_ByteWith = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.button_GetGraphicCPP = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -187,6 +189,14 @@ namespace AppForDll
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.label10);
+            this.tabPage2.Controls.Add(this.button_GetGraphicCPP);
+            this.tabPage2.Controls.Add(this.label12);
+            this.tabPage2.Controls.Add(this.label5);
+            this.tabPage2.Controls.Add(this.Ширина);
+            this.tabPage2.Controls.Add(this.textBox_Height);
+            this.tabPage2.Controls.Add(this.textBox_Width);
+            this.tabPage2.Controls.Add(this.label11);
             this.tabPage2.Controls.Add(this.button_FileDelphi);
             this.tabPage2.Controls.Add(this.button_FileCpp);
             this.tabPage2.Controls.Add(this.textBox_FilePath);
@@ -197,14 +207,14 @@ namespace AppForDll
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(668, 329);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Лаб2 Файл";
+            this.tabPage2.Text = "Лаб2-3 ФайлГрафик";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // button_FileDelphi
             // 
-            this.button_FileDelphi.Location = new System.Drawing.Point(352, 171);
+            this.button_FileDelphi.Location = new System.Drawing.Point(118, 227);
             this.button_FileDelphi.Name = "button_FileDelphi";
-            this.button_FileDelphi.Size = new System.Drawing.Size(89, 23);
+            this.button_FileDelphi.Size = new System.Drawing.Size(89, 38);
             this.button_FileDelphi.TabIndex = 4;
             this.button_FileDelphi.Text = "Запуск Delphi";
             this.button_FileDelphi.UseVisualStyleBackColor = true;
@@ -212,9 +222,9 @@ namespace AppForDll
             // 
             // button_FileCpp
             // 
-            this.button_FileCpp.Location = new System.Drawing.Point(218, 171);
+            this.button_FileCpp.Location = new System.Drawing.Point(26, 227);
             this.button_FileCpp.Name = "button_FileCpp";
-            this.button_FileCpp.Size = new System.Drawing.Size(75, 23);
+            this.button_FileCpp.Size = new System.Drawing.Size(75, 38);
             this.button_FileCpp.TabIndex = 3;
             this.button_FileCpp.Text = "Запуск C++";
             this.button_FileCpp.UseVisualStyleBackColor = true;
@@ -222,7 +232,7 @@ namespace AppForDll
             // 
             // textBox_FilePath
             // 
-            this.textBox_FilePath.Location = new System.Drawing.Point(188, 108);
+            this.textBox_FilePath.Location = new System.Drawing.Point(210, 49);
             this.textBox_FilePath.Name = "textBox_FilePath";
             this.textBox_FilePath.Size = new System.Drawing.Size(293, 20);
             this.textBox_FilePath.TabIndex = 2;
@@ -231,7 +241,7 @@ namespace AppForDll
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(265, 28);
+            this.label8.Location = new System.Drawing.Point(46, 131);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(134, 13);
             this.label8.TabIndex = 1;
@@ -239,7 +249,7 @@ namespace AppForDll
             // 
             // button_ChooseFile
             // 
-            this.button_ChooseFile.Location = new System.Drawing.Point(268, 69);
+            this.button_ChooseFile.Location = new System.Drawing.Point(285, 85);
             this.button_ChooseFile.Name = "button_ChooseFile";
             this.button_ChooseFile.Size = new System.Drawing.Size(118, 23);
             this.button_ChooseFile.TabIndex = 0;
@@ -249,14 +259,8 @@ namespace AppForDll
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.label10);
             this.tabPage3.Controls.Add(this.textBox_ByteWith);
             this.tabPage3.Controls.Add(this.label9);
-            this.tabPage3.Controls.Add(this.label5);
-            this.tabPage3.Controls.Add(this.Ширина);
-            this.tabPage3.Controls.Add(this.textBox_Height);
-            this.tabPage3.Controls.Add(this.textBox_Width);
-            this.tabPage3.Controls.Add(this.button_GetBmp);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
@@ -264,6 +268,14 @@ namespace AppForDll
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Лаб3 Hbitmap";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // textBox_ByteWith
+            // 
+            this.textBox_ByteWith.Location = new System.Drawing.Point(446, 95);
+            this.textBox_ByteWith.Name = "textBox_ByteWith";
+            this.textBox_ByteWith.Size = new System.Drawing.Size(46, 20);
+            this.textBox_ByteWith.TabIndex = 16;
+            this.textBox_ByteWith.Text = "8";
             // 
             // label9
             // 
@@ -274,66 +286,77 @@ namespace AppForDll
             this.label9.TabIndex = 15;
             this.label9.Text = "Генерирование графика";
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(438, 131);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(131, 13);
+            this.label11.TabIndex = 20;
+            this.label11.Text = "Генерирование графика";
+            // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(341, 118);
+            this.label5.Location = new System.Drawing.Point(524, 191);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(45, 13);
-            this.label5.TabIndex = 14;
+            this.label5.TabIndex = 24;
             this.label5.Text = "Высота";
             // 
             // Ширина
             // 
             this.Ширина.AutoSize = true;
-            this.Ширина.Location = new System.Drawing.Point(255, 118);
+            this.Ширина.Location = new System.Drawing.Point(438, 191);
             this.Ширина.Name = "Ширина";
             this.Ширина.Size = new System.Drawing.Size(46, 13);
-            this.Ширина.TabIndex = 13;
+            this.Ширина.TabIndex = 23;
             this.Ширина.Text = "Ширина";
             // 
             // textBox_Height
             // 
-            this.textBox_Height.Location = new System.Drawing.Point(340, 95);
+            this.textBox_Height.Location = new System.Drawing.Point(523, 168);
             this.textBox_Height.Name = "textBox_Height";
             this.textBox_Height.Size = new System.Drawing.Size(46, 20);
-            this.textBox_Height.TabIndex = 12;
+            this.textBox_Height.TabIndex = 22;
             this.textBox_Height.Text = "9";
             // 
             // textBox_Width
             // 
-            this.textBox_Width.Location = new System.Drawing.Point(258, 95);
+            this.textBox_Width.Location = new System.Drawing.Point(441, 168);
             this.textBox_Width.Name = "textBox_Width";
             this.textBox_Width.Size = new System.Drawing.Size(46, 20);
-            this.textBox_Width.TabIndex = 11;
+            this.textBox_Width.TabIndex = 21;
             this.textBox_Width.Text = "64";
             // 
-            // button_GetBmp
+            // label12
             // 
-            this.button_GetBmp.Location = new System.Drawing.Point(280, 183);
-            this.button_GetBmp.Name = "button_GetBmp";
-            this.button_GetBmp.Size = new System.Drawing.Size(75, 23);
-            this.button_GetBmp.TabIndex = 10;
-            this.button_GetBmp.Text = "GetBmp";
-            this.button_GetBmp.UseVisualStyleBackColor = true;
-            this.button_GetBmp.Click += new System.EventHandler(this.button_GetBmp_Click);
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(231, 13);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(232, 13);
+            this.label12.TabIndex = 25;
+            this.label12.Text = "Работа с .tsv файлами и постройка графика\r\n";
             // 
-            // textBox_ByteWith
+            // button_GetGraphicCPP
             // 
-            this.textBox_ByteWith.Location = new System.Drawing.Point(446, 95);
-            this.textBox_ByteWith.Name = "textBox_ByteWith";
-            this.textBox_ByteWith.Size = new System.Drawing.Size(46, 20);
-            this.textBox_ByteWith.TabIndex = 16;
-            this.textBox_ByteWith.Text = "8";
+            this.button_GetGraphicCPP.Location = new System.Drawing.Point(406, 227);
+            this.button_GetGraphicCPP.Name = "button_GetGraphicCPP";
+            this.button_GetGraphicCPP.Size = new System.Drawing.Size(106, 38);
+            this.button_GetGraphicCPP.TabIndex = 26;
+            this.button_GetGraphicCPP.Text = "Создать график\r\nC++\r\n";
+            this.button_GetGraphicCPP.UseVisualStyleBackColor = true;
+            this.button_GetGraphicCPP.Click += new System.EventHandler(this.button_GetGraphicCPP_Click);
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(360, 143);
+            this.label10.Location = new System.Drawing.Point(50, 172);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(113, 13);
-            this.label10.TabIndex = 17;
-            this.label10.Text = "0, 64, 9, 8, 1, 1, NULL";
+            this.label10.Size = new System.Drawing.Size(118, 26);
+            this.label10.TabIndex = 27;
+            this.label10.Text = "Выводит содержимое\r\nуказанного файла";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // Form1
             // 
@@ -378,14 +401,16 @@ namespace AppForDll
         private System.Windows.Forms.TextBox textBox_FilePath;
         private System.Windows.Forms.Button button_FileCpp;
         private System.Windows.Forms.Button button_FileDelphi;
-        private System.Windows.Forms.Button button_GetBmp;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox textBox_ByteWith;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label Ширина;
         private System.Windows.Forms.TextBox textBox_Height;
         private System.Windows.Forms.TextBox textBox_Width;
-        private System.Windows.Forms.TextBox textBox_ByteWith;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Button button_GetGraphicCPP;
         private System.Windows.Forms.Label label10;
     }
 }

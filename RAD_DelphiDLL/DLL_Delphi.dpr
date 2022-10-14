@@ -33,6 +33,7 @@ end;
 
 function ReadTextFileDelphi(const FileName: PWideChar; out Text: WideString; out Count: Integer): HResult; stdcall;
   var TextFile: TStringList;
+  var content: TStringList;
   i, j: Integer;
   var Line: TStringList;
   var val: Double;
@@ -44,39 +45,40 @@ function ReadTextFileDelphi(const FileName: PWideChar; out Text: WideString; out
                 TextFile.create;
                 TextFile.LoadFromFile(FileName);
 
+                content := TStringList.Create;
+                content.create;
+
                 Line := TStringList.Create;
                 Line.Delimiter := #9;
-
 
                 Count := 0;
                 for i := 0 to TextFile.Count-1 do begin
                   Line.DelimitedText := TextFile.Strings[i];
                   NumsAmount := 0;
-                  //writeln(Line.Count-1);
                     for j := 0 to Line.Count-1 do begin
-                      //writeln('Строка = ', i ,' Номер симола = ', j ,' Символ = ', Line[j]);
                       if ( isNumber(Line[j]) ) then begin
                         NumsAmount := NumsAmount + 1;
                       end
                       else begin
                         NumsAmount := 0;
-                        writeln('Строка = ', i ,' Номер симола = ', j ,' Символ = ', Line[j]);
                         Break;
                       end;
                   end;
                   if (NumsAmount >= 2) then begin
                     Count := Count + 1;
+                    content.Append(TextFile.Strings[i]);
                   end;
-
                 end;
 
-                Text := TextFile.Text;
+                Text := content.Text;
                 TextFile.Free;
+                content.Free;
                 Result := 1;
             except
               on E: Exception do Result := -1
             end;
            end;
+
 
 exports
 ReadTextFileDelphi,

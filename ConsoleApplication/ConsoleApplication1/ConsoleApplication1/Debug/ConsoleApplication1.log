@@ -1,2 +1,41 @@
 ﻿  ConsoleApplication1.cpp
+F:\PROGRAMMS\Visual Studio\VC\Tools\MSVC\14.29.30133\include\xstring(2575,23): warning C4244: аргумент: преобразование "wchar_t" в "const _Elem", возможна потеря данных
+          with
+          [
+              _Elem=char
+          ]
+F:\PROGRAMMS\Visual Studio\VC\Tools\MSVC\14.29.30133\include\xstring(2586): message : выполняется компиляция ссылки на экземпляр шаблон функции "void std::basic_string<char,std::char_traits<char>,std::allocator<char>>::_Construct<wchar_t*>(_Iter,const _Iter,std::input_iterator_tag)"
+          with
+          [
+              _Iter=wchar_t *
+          ]
+F:\PROGRAMMS\Visual Studio\VC\Tools\MSVC\14.29.30133\include\xstring(2586): message : выполняется компиляция ссылки на экземпляр шаблон функции "void std::basic_string<char,std::char_traits<char>,std::allocator<char>>::_Construct<wchar_t*>(_Iter,const _Iter,std::input_iterator_tag)"
+          with
+          [
+              _Iter=wchar_t *
+          ]
+F:\PROGRAMMS\Visual Studio\VC\Tools\MSVC\14.29.30133\include\xstring(2566): message : выполняется компиляция ссылки на экземпляр шаблон функции "void std::basic_string<char,std::char_traits<char>,std::allocator<char>>::_Construct<wchar_t*>(const _Iter,const _Iter,std::forward_iterator_tag)"
+          with
+          [
+              _Iter=wchar_t *
+          ]
+F:\PROGRAMMS\Visual Studio\VC\Tools\MSVC\14.29.30133\include\xstring(2566): message : выполняется компиляция ссылки на экземпляр шаблон функции "void std::basic_string<char,std::char_traits<char>,std::allocator<char>>::_Construct<wchar_t*>(const _Iter,const _Iter,std::forward_iterator_tag)"
+          with
+          [
+              _Iter=wchar_t *
+          ]
+E:\SystemProgramming\ConsoleApplication\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.cpp(99): message : выполняется компиляция ссылки на экземпляр шаблон функции "std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string<std::_String_iterator<std::_String_val<std::_Simple_types<_Elem>>>,0>(_Iter,_Iter,const _Alloc &)"
+          with
+          [
+              _Elem=wchar_t,
+              _Iter=std::_String_iterator<std::_String_val<std::_Simple_types<wchar_t>>>,
+              _Alloc=std::allocator<char>
+          ]
+E:\SystemProgramming\ConsoleApplication\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.cpp(99): message : выполняется компиляция ссылки на экземпляр шаблон функции "std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string<std::_String_iterator<std::_String_val<std::_Simple_types<_Elem>>>,0>(_Iter,_Iter,const _Alloc &)"
+          with
+          [
+              _Elem=wchar_t,
+              _Iter=std::_String_iterator<std::_String_val<std::_Simple_types<wchar_t>>>,
+              _Alloc=std::allocator<char>
+          ]
   ConsoleApplication1.vcxproj -> E:\SystemProgramming\ConsoleApplication\ConsoleApplication1\Debug\ConsoleApplication1.exe

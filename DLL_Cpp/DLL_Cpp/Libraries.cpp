@@ -13,6 +13,7 @@
 #include <comutil.h>
 #include <stdio.h>
 #include "wingdi.h"
+#include <vector>
 #pragma comment (lib, "comsuppw.lib" )
 
 int __stdcall AddCPP(int val1, int val2) {  // This function adds two numbers
@@ -51,9 +52,10 @@ HRESULT __stdcall ReadTextFileCPP(LPCWSTR FileName, BSTR* Text, int& Count) {  /
         int Count3{ 0 };
         if (in.is_open()) {
             while (getline(in, line)) {
-                content.append(line);
-                if (GetNumbersAmount(line) >= 2)
+                if (GetNumbersAmount(line) >= 2) {
+                    content.append(line + "\n");
                     Count3++;
+                }
             }
         }
         int* Count2 = &Count;
@@ -68,68 +70,76 @@ HRESULT __stdcall ReadTextFileCPP(LPCWSTR FileName, BSTR* Text, int& Count) {  /
         return -1;
     }
 }
+
 #if 0
-HRESULT __stdcall GetBmp(HBITMAP* MyBmb, int Width, int Height, int WidthBytes) {
+HRESULT __stdcall GetGraphicCPP(LPCWSTR FileName, int Width, int Height, HBITMAP* MyBmb) {
     try
     {
-        BYTE bBytes[] =
-        {
-            0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
-            0xff, 0x00, 0x00, 0xff, 0xff, 0x00, 0x00, 0xff,
-            0xff, 0x00, 0x00, 0xff, 0xff, 0x00, 0x00, 0xff,
-            0x00, 0xff, 0xff, 0x00, 0x00, 0xff, 0xff, 0x00,
-            0x00, 0xff, 0xff, 0x00, 0x00, 0xff, 0xff, 0x00,
-            0x00, 0xff, 0xff, 0x00, 0x00, 0xff, 0xff, 0x00,
-            0xff, 0x00, 0x00, 0xff, 0xff, 0x00, 0x00, 0xff,
-            0xff, 0x00, 0x00, 0xff, 0xff, 0x00, 0x00, 0xff,
-            0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff
-        };
-        BITMAP bmp =
-        {
-            0, Width, Height, WidthBytes, 1, 1, NULL
-        };
-        bmp.bmBits = (LPSTR)bBytes;
-        HBITMAP TempHbmp = CreateBitmapIndirect(&bmp);
-        *MyBmb = TempHbmp;
+        unsigned short int pixelScale{ 100 }; //solving fractional numbers 
+        //Preparation for drawing
+        HDC winDC{ GetDC(NULL) };
+        HDC hdc{ CreateCompatibleDC(winDC) };
+        /*Функция CreateCompatibleDC создает контекст
+        устройства памяти (DC), совместимый с указанным
+        устройством.*/
+        HBITMAP bitmap{ CreateCompatibleBitmap(hdc, Width, Height) };
+        /*Функция CreateCompatibleBitmap создает растровое
+        изображение, совместимое с устройством, связанным
+        с указанным контекстом устройства.*/
+        SelectObject(hdc, bitmap);
+        /*Функция SelectObject выбирает объект в указанном
+        контексте устройства (DC). Новый объект заменяет
+        предыдущий объект того же типа.*/
+        HPEN pen{ CreatePen(PS_SOLID, 0, RGB(255, 255, 255)) };
+        SelectObject(hdc, pen);
+        BSTR Text; //table
+        int Count{ 0 };
+        ReadTextFileCPP(FileName, &Text, Count); //getting a table from .tsv file
+        std::wstring ws(Text, SysStringLen(Text)); //getting wstring from BSTR
+        std::string str(ws.begin(), ws.end()); //getting string from wstring
+        std::stringstream strstream1(str);
+        std::string segmentLine;
+        int k{ 0 };
+        int lineAmountPrev{ -1 };
+        int* arrPrev = new int[3];
+
+        int* arr = new int[3];
+        for (int i{ 0 }; i < 4; i++) { arrPrev[i] = 0; arr[i] = 0; }
+        while (getline(strstream1, segmentLine, '\n')) { //reads line one by one
+            std::stringstream strstream2(segmentLine);
+            std::string segmentNumber;
+            getline(strstream2, segmentNumber, '\t'); //get first number in line
+            int lineNumberAmount{ GetNumbersAmount(segmentLine) };
+            if (lineAmountPrev == -1) {
+                //int* arrPrev = new int[lineNumberAmount];
+                for (int i{ 0 }; i < lineNumberAmount; i++) { arrPrev[i] = 0; }
+                lineAmountPrev = lineNumberAmount;
+            } 
+            else if (lineAmountPrev < lineNumberAmount)  {
+                //int* arrPrev = new int[lineNumberAmount];
+                for (int i{ 0 }; i < lineNumberAmount; i++) { arrPrev[i] = arr[i]; }
+                lineAmountPrev = lineNumberAmount;
+            } 
+            else if (lineAmountPrev >= lineNumberAmount) {
+                for (int i{ 0 }; i < lineNumberAmount; i++) { arrPrev[i] = arr[i]; }
+                lineAmountPrev = lineNumberAmount;
+            }
+            //int* arr = new int[lineNumberAmount];
+            arr[0] = static_cast<int>(std::stod(segmentNumber) * pixelScale);
+            int i{ 1 };
+            while ( getline(strstream2, segmentNumber, '\t') ) { //reads remaining numbers from line one by one, use them as y values
+                arr[i] = static_cast<int>(std::stod(segmentNumber) * pixelScale);
+                MoveToEx(hdc, arrPrev[0], abs(arrPrev[i] - Height), NULL);
+                LineTo(hdc, arr[0], abs(arr[i] - Height));
+                i++;
+            }
+        }
+        *MyBmb = bitmap;
+        return 0;
     }
     catch (...)
     {
         return -1;
     }
 }
-#endif 
-
-#if 1
-HRESULT __stdcall GetBmp(HBITMAP* MyBmb, int Width, int Height) {
-    try
-    {
-        BYTE Bytes[] =
-        {
-            0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
-            0xff, 0x00, 0x00, 0xff, 0xff, 0x00, 0x00, 0xff,
-            0xff, 0x00, 0x00, 0xff, 0xff, 0x00, 0x00, 0xff,
-            0x00, 0xff, 0xff, 0x00, 0x00, 0xff, 0xff, 0x00,
-            0x00, 0xff, 0xff, 0x00, 0x00, 0xff, 0xff, 0x00,
-            0x00, 0xff, 0xff, 0x00, 0x00, 0xff, 0xff, 0x00,
-            0xff, 0x00, 0x00, 0xff, 0xff, 0x00, 0x00, 0xff,
-            0xff, 0x00, 0x00, 0xff, 0xff, 0x00, 0x00, 0xff,
-            0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff
-        };
-
-        //int size = Width * Height;
-        //BYTE* Bytes = new BYTE[size];
-        //for (int i = 0; i < size; i++) {
-        //    Bytes[i] = 0x00;
-       // }
-
-        HBITMAP TempHbmp = CreateBitmap(Width, Height, 1, 1, &Bytes);
-        *MyBmb = TempHbmp;
-
-    }
-    catch (...)
-    {
-        return -1;
-    }
-}
-
-#endif 
+#endif

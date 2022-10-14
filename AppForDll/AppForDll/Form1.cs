@@ -21,7 +21,7 @@ namespace AppForDll
         public Form1()
         {
             InitializeComponent();
-            tabControl1.SelectedIndex = 2;
+            tabControl1.SelectedIndex = 1;
         }
 
         [UnmanagedFunctionPointer(CallingConvention.StdCall)] //Add function delegate from unmanaged Dll Cpp
@@ -39,7 +39,9 @@ namespace AppForDll
             [MarshalAs(UnmanagedType.BStr)] out string Text, out int Count);
 
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
-        private delegate void GetBmp(out IntPtr MyBmb, int Width, int Height);
+        private delegate void GetGraphicCPP([MarshalAs(UnmanagedType.LPWStr)] string filePath,
+            int Width, int Height, out IntPtr MyBmb);
+
 
         private const string DllDelphiPath = 
             "..\\..\\..\\..\\..\\RAD_DelphiDLL\\Win64\\Debug\\DLL_Delphi.dll"; //RAD
@@ -151,19 +153,19 @@ namespace AppForDll
             NativeMethods.FreeLibrary(pDll);
         } //button handler which calls ReadTextFile function from unmanaged dll Delphi
 
-        private void button_GetBmp_Click(object sender, EventArgs e)
+        private void button_GetGraphicCPP_Click(object sender, EventArgs e)
         {
             IntPtr pDll = NativeMethods.LoadLibrary(DllCppPath);
-            IntPtr pAddressOfFunctionToCall = NativeMethods.GetProcAddress(pDll, "GetBmp");
+            IntPtr pAddressOfFunctionToCall = NativeMethods.GetProcAddress(pDll, "GetGraphicCPP");
             if (pAddressOfFunctionToCall == IntPtr.Zero) { MessageBox.Show("error"); return; }
-            GetBmp getBmp = (GetBmp)Marshal.GetDelegateForFunctionPointer(
+            GetGraphicCPP getGraphicCPP = (GetGraphicCPP)Marshal.GetDelegateForFunctionPointer(
                 pAddressOfFunctionToCall,
-                typeof(GetBmp));
+                typeof(GetGraphicCPP));
 
             IntPtr MyBmp = IntPtr.Zero;
             int Width = Int32.Parse(textBox_Width.Text);
             int Height = Int32.Parse(textBox_Height.Text);
-            getBmp(out MyBmp, Width, Height);
+            getGraphicCPP(GetFileName(), Width, Height, out MyBmp);
 
             Bitmap bm = new Bitmap(Width, Height);
             bm = Image.FromHbitmap(MyBmp);

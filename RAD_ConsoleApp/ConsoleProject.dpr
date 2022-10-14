@@ -28,7 +28,7 @@ begin
   Result := True;
 end;
 
-function ReadTextFile_Delphi(const FileName: PWideChar; out Text: WideString; out Count: Integer): HResult; stdcall;
+function ReadTextFileDelphi(const FileName: PWideChar; out Text: WideString; out Count: Integer): HResult; stdcall;
   var TextFile: TStringList;
   i, j: Integer;
   var Line: TStringList;
@@ -84,8 +84,8 @@ var Count: Integer;
 var Text: WideString;
 
 begin
-  filePath := 'E:\SystemProgramming\Files\test.tsv';
-  ReadTextFile_Delphi(filePath, Text, Count);
+  filePath := 'c';
+  ReadTextFileDelphi(filePath, Text, Count);
   //writeln(IsNumber('12.0'));
 
   Readln;
