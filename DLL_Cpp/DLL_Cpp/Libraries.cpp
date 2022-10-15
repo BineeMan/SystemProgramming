@@ -43,6 +43,15 @@ int __stdcall GetNumbersAmount(std::string str) { //This function returns the am
     return i;
 } 
 
+int GetValuesAmount(std::string str) {
+    std::stringstream strstream(str);
+    std::string segment;
+    int i{ 0 };
+    while (getline(strstream, segment, '\t'))
+        i++;
+    return i;
+}
+
 HRESULT __stdcall ReadTextFileCPP(LPCWSTR FileName, BSTR* Text, int& Count) {  // This function reads text file
     try
     {
@@ -71,7 +80,42 @@ HRESULT __stdcall ReadTextFileCPP(LPCWSTR FileName, BSTR* Text, int& Count) {  /
     }
 }
 
-#if 0
+int** GetConvertedArrayFromFile(LPCWSTR FileName)
+{
+    BSTR Text; //table
+    std::string segmentLine;
+    std::string content{ "" };
+    std::ifstream in(FileName);
+    int i{ 0 };
+    if (in.is_open()) {
+        getline(in, segmentLine);
+        int rowSize{ GetValuesAmount(segmentLine) };
+        int colSize{ 0 };
+        ReadTextFileCPP(FileName, &Text, colSize);
+
+        double** arrFile = new double* [colSize];
+        
+
+        while (getline(in, segmentLine)) {
+            if (GetNumbersAmount(segmentLine) >= 2) {
+                std::stringstream strstream(segmentLine);
+                std::string segmentNumber;
+                int j{ 0 };
+                while (getline(strstream, segmentNumber, '\t')) {
+                    arrFile[i][j] = new double[std::stod(segmentNumber)];
+                    j++;
+                        
+                }
+                i++;
+            }
+        }
+    }
+
+    return 0;
+}
+
+
+#if 1
 HRESULT __stdcall GetGraphicCPP(LPCWSTR FileName, int Width, int Height, HBITMAP* MyBmb) {
     try
     {
@@ -114,12 +158,12 @@ HRESULT __stdcall GetGraphicCPP(LPCWSTR FileName, int Width, int Height, HBITMAP
                 //int* arrPrev = new int[lineNumberAmount];
                 for (int i{ 0 }; i < lineNumberAmount; i++) { arrPrev[i] = 0; }
                 lineAmountPrev = lineNumberAmount;
-            } 
-            else if (lineAmountPrev < lineNumberAmount)  {
+            }
+            else if (lineAmountPrev < lineNumberAmount) {
                 //int* arrPrev = new int[lineNumberAmount];
                 for (int i{ 0 }; i < lineNumberAmount; i++) { arrPrev[i] = arr[i]; }
                 lineAmountPrev = lineNumberAmount;
-            } 
+            }
             else if (lineAmountPrev >= lineNumberAmount) {
                 for (int i{ 0 }; i < lineNumberAmount; i++) { arrPrev[i] = arr[i]; }
                 lineAmountPrev = lineNumberAmount;
@@ -127,7 +171,7 @@ HRESULT __stdcall GetGraphicCPP(LPCWSTR FileName, int Width, int Height, HBITMAP
             //int* arr = new int[lineNumberAmount];
             arr[0] = static_cast<int>(std::stod(segmentNumber) * pixelScale);
             int i{ 1 };
-            while ( getline(strstream2, segmentNumber, '\t') ) { //reads remaining numbers from line one by one, use them as y values
+            while (getline(strstream2, segmentNumber, '\t')) { //reads remaining numbers from line one by one, use them as y values
                 arr[i] = static_cast<int>(std::stod(segmentNumber) * pixelScale);
                 MoveToEx(hdc, arrPrev[0], abs(arrPrev[i] - Height), NULL);
                 LineTo(hdc, arr[0], abs(arr[i] - Height));
