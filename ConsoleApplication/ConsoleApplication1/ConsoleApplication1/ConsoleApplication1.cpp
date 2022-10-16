@@ -10,13 +10,16 @@
 #include <Windows.h>
 #include <comutil.h>
 #include <WinUser.h>
+#include "wingdi.h"
+#include <vector>
+#include <array>
 #pragma comment (lib, "comsuppw.lib" )
 
 int __stdcall Add1(int val1, int val2) { // ф-у¤ сложени¤ двух чисел
     return val1 + val2;
 }
 
-bool __stdcall is_number(std::string str) {
+bool __stdcall IsNumber(std::string str) {
     for (char c : str)
     {
         if (!isdigit(c) && c != '.') {
@@ -31,11 +34,20 @@ int __stdcall GetNumbersAmount(std::string str) {
     std::string segment;
     int i{ 0 };
     while (getline(strstream, segment, '\t')) {
-        if (is_number(segment))
+        if (IsNumber(segment))
             i++;
         else
             return 0;
     }
+    return i;
+}
+
+int GetValuesAmount(std::string str) {
+    std::stringstream strstream(str);
+    std::string segment;
+    int i{ 0 };
+    while (getline(strstream, segment, '\t'))
+        i++;
     return i;
 }
 
@@ -66,8 +78,46 @@ HRESULT __stdcall ReadTextFileCPP(LPCWSTR FileName, BSTR* Text, int& Count) {  /
         return -1;
     }
 }
-#include "wingdi.h"
-#include <vector>
+
+
+double** GetConvertedArrayFromFile(LPCWSTR FileName, int& Row, int& Col) {
+    std::ifstream in(FileName);
+    if (!in.is_open()) { return 0; }
+    std::string segmentLine;
+    std::string content{ "" };
+
+    getline(in, segmentLine);
+    Row = GetValuesAmount(segmentLine);
+    int Count{ 0 };
+    BSTR Text; //table
+    ReadTextFileCPP(FileName, &Text, Count);
+    Col = Count;
+    std::cout << Row << " " << Col << std::endl;
+
+    double** arrFile = new double* [Row];
+    for (int i = 0; i < Row; i++)
+        arrFile[i] = new double[Col];
+
+    for (int i = 0; i < Row; i++) {
+        for (int j = 0; j < Col; j++) {
+            arrFile[i][j] = -1;
+        }
+    }
+    int i{ 0 };
+    while (getline(in, segmentLine)) {
+        if (GetNumbersAmount(segmentLine) >= 2) {
+            std::stringstream strstream(segmentLine);
+            std::string segmentNumber;
+            int j{ 0 };
+            while (getline(strstream, segmentNumber, '\t')) {
+                arrFile[i][j] = std::stod(segmentNumber);
+                j++;
+            }
+            i++;
+        }
+    }
+    return arrFile;
+}
 
 
 //HRESULT GetGraphic(LPCWSTR FileName, int Width, int Height, HBITMAP* Picture) {}
@@ -76,65 +126,47 @@ int main() {
     int Width{ 500 }, Height{ 500 };
     LPCWSTR FileName{ L"E:\\SystemProgramming\\Files\\test.tsv" };
     unsigned short int pixelScale{ 100 }; //solving fractional numbers 
-    //Preparation for drawing
+
     HDC winDC{ GetDC(NULL) };
     HDC hdc{ CreateCompatibleDC(winDC) };
-    /*Функция CreateCompatibleDC создает контекст
-    устройства памяти (DC), совместимый с указанным
-    устройством.*/
     HBITMAP bitmap{ CreateCompatibleBitmap(hdc, Width, Height) };
-    /*Функция CreateCompatibleBitmap создает растровое
-    изображение, совместимое с устройством, связанным
-    с указанным контекстом устройства.*/
     SelectObject(hdc, bitmap);
-    /*Функция SelectObject выбирает объект в указанном
-    контексте устройства (DC). Новый объект заменяет
-    предыдущий объект того же типа.*/
+
     HPEN pen{ CreatePen(PS_SOLID, 0, RGB(255, 255, 255)) };
     SelectObject(hdc, pen);
-    BSTR Text; //table
-    int Count{ 0 };
-    ReadTextFileCPP(FileName, &Text, Count); //getting a table from .tsv file
-    std::wstring ws(Text, SysStringLen(Text)); //getting wstring from BSTR
-    std::string str(ws.begin(), ws.end()); //getting string from wstring
-    std::stringstream strstream1(str);
-    std::string segmentLine;
-    int k{ 0 };
-    int lineAmountPrev{ -1 };
-    int* arrPrev = new int[4];
 
-    int* arr = new int[4];
-    for (int i{ 0 }; i < 4; i++) { arrPrev[i] = 0; arr[i] = 0; }
-    while (getline(strstream1, segmentLine, '\n')) { //reads line one by one
-        std::stringstream strstream2(segmentLine);
-        std::string segmentNumber;
-        getline(strstream2, segmentNumber, '\t'); //get first number in line
-        int lineNumberAmount{ GetNumbersAmount(segmentLine) };
-        if (lineAmountPrev == -1) {
-            //int* arrPrev = new int[lineNumberAmount];
-            for (int i{ 0 }; i < lineNumberAmount; i++) { arrPrev[i] = 0;  std::cout << "-1 " << arr[i] << std::endl; }
-            lineAmountPrev = lineNumberAmount;
+    int Row{ 0 }, Col{ 0 };
+    double** arrTable;
+    arrTable = GetConvertedArrayFromFile(FileName, Row, Col);
+
+    for (int i = 0; i < Row; i++) {
+        for (int j = 0; j < Col; j++) {
+            std::cout << arrTable[i][j] * pixelScale << " | ";
         }
-        else if (lineAmountPrev < lineNumberAmount) {
-            //int* arrPrev = new int[lineNumberAmount];
-            for (int i{ 0 }; i < lineNumberAmount; i++) { arrPrev[i] = arr[i]; std::cout << "< " << arr[i] << std::endl; }
-            lineAmountPrev = lineNumberAmount;
-        }
-        else if (lineAmountPrev >= lineNumberAmount) {
-            for (int i{ 0 }; i < lineNumberAmount; i++) { arrPrev[i] = arr[i]; std::cout << ">= " << arr[i] << std::endl; }
-            lineAmountPrev = lineNumberAmount;
-        }
-        //delete[] arr;
-        //int* arr = new int[lineNumberAmount];
-        arr[0] = static_cast<int>(std::stod(segmentNumber) * pixelScale);
-        int i{ 1 };
-        while (getline(strstream2, segmentNumber, '\t')) { //reads remaining numbers from line one by one, use them as y values
-            arr[i] = static_cast<int>(std::stod(segmentNumber) * pixelScale);
-            std::cout << "X_prev: " << arrPrev[0] << "   Y_prev" << i << ": " << arrPrev[i] << std::endl;
-            std::cout << "X_curr: " << arr[0] << "   Y_curr" << i << ": " << arr[i] << std::endl;
-            MoveToEx(hdc, arrPrev[0], abs(arrPrev[i] - Height), NULL);
-            LineTo(hdc, arr[0], abs(arr[i] - Height));
-            i++;
+        std::cout << std::endl;
+    }
+    std::cout << std::endl;
+
+    for (int i = 1; i < Row; i++) {
+        int x{ static_cast<int>(arrTable[i][0] * pixelScale) };
+
+        for (int j = 1; j < Col; j++) {
+            if (arrTable[i][j] == -1) { break; }
+            int lastValidIndex{ i };
+            for (lastValidIndex = i - 1; lastValidIndex >= 0; --lastValidIndex) {
+                if (arrTable[lastValidIndex][j] != (-1)) {
+                    break;
+                }
+            }
+            int xPrev{ static_cast<int>(arrTable[lastValidIndex][0] * pixelScale) };
+
+            int yPrev{ static_cast<int>(arrTable[lastValidIndex][j] * pixelScale) };
+            int y{ static_cast<int>(arrTable[i][j] * pixelScale) };
+            std::cout << "xPrev = " << xPrev << "   yPrev = " << yPrev << std::endl;
+            std::cout << "x = " << x << "   y = " << y << "   lastValidIndex=" << lastValidIndex << std::endl;
+
+            MoveToEx(hdc, xPrev, abs(Height - yPrev), NULL);
+            LineTo(hdc, x, abs(Height - y));
         }
         std::cout << std::endl;
     }

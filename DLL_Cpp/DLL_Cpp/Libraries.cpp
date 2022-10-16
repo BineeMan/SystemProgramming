@@ -80,102 +80,69 @@ HRESULT __stdcall ReadTextFileCPP(LPCWSTR FileName, BSTR* Text, int& Count) {  /
     }
 }
 
-int** GetConvertedArrayFromFile(LPCWSTR FileName)
-{
-    BSTR Text; //table
+double** GetConvertedArrayFromFile(LPCWSTR FileName, int& Row, int& Col) {
+    std::ifstream in(FileName);
+    if (!in.is_open()) { return 0; }
     std::string segmentLine;
     std::string content{ "" };
-    std::ifstream in(FileName);
-    int i{ 0 };
-    if (in.is_open()) {
-        getline(in, segmentLine);
-        int rowSize{ GetValuesAmount(segmentLine) };
-        int colSize{ 0 };
-        ReadTextFileCPP(FileName, &Text, colSize);
+    getline(in, segmentLine);
+    Row = GetValuesAmount(segmentLine);
+    int Count{ 0 };
+    BSTR Text; //table
+    ReadTextFileCPP(FileName, &Text, Count);
+    Col = Count;
 
-        double** arrFile = new double* [colSize];
-        
-
-        while (getline(in, segmentLine)) {
-            if (GetNumbersAmount(segmentLine) >= 2) {
-                std::stringstream strstream(segmentLine);
-                std::string segmentNumber;
-                int j{ 0 };
-                while (getline(strstream, segmentNumber, '\t')) {
-                    arrFile[i][j] = new double[std::stod(segmentNumber)];
-                    j++;
-                        
-                }
-                i++;
-            }
+    double** arrFile = new double* [Row];
+    for (int i = 0; i < Row; i++)
+        arrFile[i] = new double[Col];
+    for (int i = 0; i < Row; i++) {
+        for (int j = 0; j < Col; j++) {
+            arrFile[i][j] = -1;
         }
     }
-
-    return 0;
+    int i{ 0 };
+    while (getline(in, segmentLine)) {
+        if (GetNumbersAmount(segmentLine) >= 2) {
+            std::stringstream strstream(segmentLine);
+            std::string segmentNumber;
+            int j{ 0 };
+            while (getline(strstream, segmentNumber, '\t')) {
+                arrFile[i][j] = std::stod(segmentNumber);
+                j++;
+            }
+            i++;
+        }
+    }
+    return arrFile;
 }
-
-
-#if 1
 HRESULT __stdcall GetGraphicCPP(LPCWSTR FileName, int Width, int Height, HBITMAP* MyBmb) {
     try
     {
         unsigned short int pixelScale{ 100 }; //solving fractional numbers 
-        //Preparation for drawing
         HDC winDC{ GetDC(NULL) };
         HDC hdc{ CreateCompatibleDC(winDC) };
-        /*Функция CreateCompatibleDC создает контекст
-        устройства памяти (DC), совместимый с указанным
-        устройством.*/
         HBITMAP bitmap{ CreateCompatibleBitmap(hdc, Width, Height) };
-        /*Функция CreateCompatibleBitmap создает растровое
-        изображение, совместимое с устройством, связанным
-        с указанным контекстом устройства.*/
         SelectObject(hdc, bitmap);
-        /*Функция SelectObject выбирает объект в указанном
-        контексте устройства (DC). Новый объект заменяет
-        предыдущий объект того же типа.*/
         HPEN pen{ CreatePen(PS_SOLID, 0, RGB(255, 255, 255)) };
         SelectObject(hdc, pen);
-        BSTR Text; //table
-        int Count{ 0 };
-        ReadTextFileCPP(FileName, &Text, Count); //getting a table from .tsv file
-        std::wstring ws(Text, SysStringLen(Text)); //getting wstring from BSTR
-        std::string str(ws.begin(), ws.end()); //getting string from wstring
-        std::stringstream strstream1(str);
-        std::string segmentLine;
-        int k{ 0 };
-        int lineAmountPrev{ -1 };
-        int* arrPrev = new int[3];
-
-        int* arr = new int[3];
-        for (int i{ 0 }; i < 4; i++) { arrPrev[i] = 0; arr[i] = 0; }
-        while (getline(strstream1, segmentLine, '\n')) { //reads line one by one
-            std::stringstream strstream2(segmentLine);
-            std::string segmentNumber;
-            getline(strstream2, segmentNumber, '\t'); //get first number in line
-            int lineNumberAmount{ GetNumbersAmount(segmentLine) };
-            if (lineAmountPrev == -1) {
-                //int* arrPrev = new int[lineNumberAmount];
-                for (int i{ 0 }; i < lineNumberAmount; i++) { arrPrev[i] = 0; }
-                lineAmountPrev = lineNumberAmount;
-            }
-            else if (lineAmountPrev < lineNumberAmount) {
-                //int* arrPrev = new int[lineNumberAmount];
-                for (int i{ 0 }; i < lineNumberAmount; i++) { arrPrev[i] = arr[i]; }
-                lineAmountPrev = lineNumberAmount;
-            }
-            else if (lineAmountPrev >= lineNumberAmount) {
-                for (int i{ 0 }; i < lineNumberAmount; i++) { arrPrev[i] = arr[i]; }
-                lineAmountPrev = lineNumberAmount;
-            }
-            //int* arr = new int[lineNumberAmount];
-            arr[0] = static_cast<int>(std::stod(segmentNumber) * pixelScale);
-            int i{ 1 };
-            while (getline(strstream2, segmentNumber, '\t')) { //reads remaining numbers from line one by one, use them as y values
-                arr[i] = static_cast<int>(std::stod(segmentNumber) * pixelScale);
-                MoveToEx(hdc, arrPrev[0], abs(arrPrev[i] - Height), NULL);
-                LineTo(hdc, arr[0], abs(arr[i] - Height));
-                i++;
+        int Row{ 0 }, Col{ 0 };
+        double** arrTable;
+        arrTable = GetConvertedArrayFromFile(FileName, Row, Col);
+        for (int i = 1; i < Row; i++) {         
+            int x{ static_cast<int>(arrTable[i][0] * pixelScale) };
+            for (int j = 1; j < Col; j++) {
+                if (arrTable[i][j] == -1) { break; }
+                int lastValidIndex{ i };
+                for (lastValidIndex = i - 1; lastValidIndex >= 0; --lastValidIndex) {
+                    if (arrTable[lastValidIndex][j] != (-1)) {
+                        break;
+                    }
+                }
+                int xPrev{ static_cast<int>(arrTable[lastValidIndex][0] * pixelScale) };
+                int yPrev{ static_cast<int>(arrTable[lastValidIndex][j] * pixelScale) };
+                int y{ static_cast<int>(arrTable[i][j] * pixelScale) };
+                MoveToEx(hdc, xPrev, Height - yPrev, NULL);
+                LineTo(hdc, x, Height - y);
             }
         }
         *MyBmb = bitmap;
@@ -186,4 +153,3 @@ HRESULT __stdcall GetGraphicCPP(LPCWSTR FileName, int Width, int Height, HBITMAP
         return -1;
     }
 }
-#endif

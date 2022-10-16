@@ -44,6 +44,14 @@ namespace AppForDll
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label10 = new System.Windows.Forms.Label();
+            this.button_GetGraphicCPP = new System.Windows.Forms.Button();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.Ширина = new System.Windows.Forms.Label();
+            this.textBox_Height = new System.Windows.Forms.TextBox();
+            this.textBox_Width = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.button_FileDelphi = new System.Windows.Forms.Button();
             this.button_FileCpp = new System.Windows.Forms.Button();
             this.textBox_FilePath = new System.Windows.Forms.TextBox();
@@ -52,14 +60,6 @@ namespace AppForDll
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.textBox_ByteWith = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.Ширина = new System.Windows.Forms.Label();
-            this.textBox_Height = new System.Windows.Forms.TextBox();
-            this.textBox_Width = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.button_GetGraphicCPP = new System.Windows.Forms.Button();
-            this.label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -210,6 +210,78 @@ namespace AppForDll
             this.tabPage2.Text = "Лаб2-3 ФайлГрафик";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(50, 172);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(118, 26);
+            this.label10.TabIndex = 27;
+            this.label10.Text = "Выводит содержимое\r\nуказанного файла";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // button_GetGraphicCPP
+            // 
+            this.button_GetGraphicCPP.Location = new System.Drawing.Point(406, 227);
+            this.button_GetGraphicCPP.Name = "button_GetGraphicCPP";
+            this.button_GetGraphicCPP.Size = new System.Drawing.Size(106, 38);
+            this.button_GetGraphicCPP.TabIndex = 26;
+            this.button_GetGraphicCPP.Text = "Создать график\r\nC++\r\n";
+            this.button_GetGraphicCPP.UseVisualStyleBackColor = true;
+            this.button_GetGraphicCPP.Click += new System.EventHandler(this.button_GetGraphicCPP_Click);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(231, 13);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(232, 13);
+            this.label12.TabIndex = 25;
+            this.label12.Text = "Работа с .tsv файлами и постройка графика\r\n";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(524, 191);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(45, 13);
+            this.label5.TabIndex = 24;
+            this.label5.Text = "Высота";
+            // 
+            // Ширина
+            // 
+            this.Ширина.AutoSize = true;
+            this.Ширина.Location = new System.Drawing.Point(438, 191);
+            this.Ширина.Name = "Ширина";
+            this.Ширина.Size = new System.Drawing.Size(46, 13);
+            this.Ширина.TabIndex = 23;
+            this.Ширина.Text = "Ширина";
+            // 
+            // textBox_Height
+            // 
+            this.textBox_Height.Location = new System.Drawing.Point(523, 168);
+            this.textBox_Height.Name = "textBox_Height";
+            this.textBox_Height.Size = new System.Drawing.Size(46, 20);
+            this.textBox_Height.TabIndex = 22;
+            this.textBox_Height.Text = "500";
+            // 
+            // textBox_Width
+            // 
+            this.textBox_Width.Location = new System.Drawing.Point(441, 168);
+            this.textBox_Width.Name = "textBox_Width";
+            this.textBox_Width.Size = new System.Drawing.Size(46, 20);
+            this.textBox_Width.TabIndex = 21;
+            this.textBox_Width.Text = "500";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(438, 131);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(131, 13);
+            this.label11.TabIndex = 20;
+            this.label11.Text = "Генерирование графика";
+            // 
             // button_FileDelphi
             // 
             this.button_FileDelphi.Location = new System.Drawing.Point(118, 227);
@@ -285,78 +357,6 @@ namespace AppForDll
             this.label9.Size = new System.Drawing.Size(131, 13);
             this.label9.TabIndex = 15;
             this.label9.Text = "Генерирование графика";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(438, 131);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(131, 13);
-            this.label11.TabIndex = 20;
-            this.label11.Text = "Генерирование графика";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(524, 191);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(45, 13);
-            this.label5.TabIndex = 24;
-            this.label5.Text = "Высота";
-            // 
-            // Ширина
-            // 
-            this.Ширина.AutoSize = true;
-            this.Ширина.Location = new System.Drawing.Point(438, 191);
-            this.Ширина.Name = "Ширина";
-            this.Ширина.Size = new System.Drawing.Size(46, 13);
-            this.Ширина.TabIndex = 23;
-            this.Ширина.Text = "Ширина";
-            // 
-            // textBox_Height
-            // 
-            this.textBox_Height.Location = new System.Drawing.Point(523, 168);
-            this.textBox_Height.Name = "textBox_Height";
-            this.textBox_Height.Size = new System.Drawing.Size(46, 20);
-            this.textBox_Height.TabIndex = 22;
-            this.textBox_Height.Text = "9";
-            // 
-            // textBox_Width
-            // 
-            this.textBox_Width.Location = new System.Drawing.Point(441, 168);
-            this.textBox_Width.Name = "textBox_Width";
-            this.textBox_Width.Size = new System.Drawing.Size(46, 20);
-            this.textBox_Width.TabIndex = 21;
-            this.textBox_Width.Text = "64";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(231, 13);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(232, 13);
-            this.label12.TabIndex = 25;
-            this.label12.Text = "Работа с .tsv файлами и постройка графика\r\n";
-            // 
-            // button_GetGraphicCPP
-            // 
-            this.button_GetGraphicCPP.Location = new System.Drawing.Point(406, 227);
-            this.button_GetGraphicCPP.Name = "button_GetGraphicCPP";
-            this.button_GetGraphicCPP.Size = new System.Drawing.Size(106, 38);
-            this.button_GetGraphicCPP.TabIndex = 26;
-            this.button_GetGraphicCPP.Text = "Создать график\r\nC++\r\n";
-            this.button_GetGraphicCPP.UseVisualStyleBackColor = true;
-            this.button_GetGraphicCPP.Click += new System.EventHandler(this.button_GetGraphicCPP_Click);
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(50, 172);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(118, 26);
-            this.label10.TabIndex = 27;
-            this.label10.Text = "Выводит содержимое\r\nуказанного файла";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // Form1
             // 

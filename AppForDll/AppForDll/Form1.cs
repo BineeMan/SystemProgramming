@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Text;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -23,6 +24,7 @@ namespace AppForDll
             InitializeComponent();
             tabControl1.SelectedIndex = 1;
         }
+
 
         [UnmanagedFunctionPointer(CallingConvention.StdCall)] //Add function delegate from unmanaged Dll Cpp
         private delegate int AddCPP(int val1, int val2);
@@ -169,9 +171,11 @@ namespace AppForDll
 
             Bitmap bm = new Bitmap(Width, Height);
             bm = Image.FromHbitmap(MyBmp);
-            bm.Save("E:\\SystemProgramming\\Files\\test.bmp");
+            bm.Save(GetFileName() + "\\..\\graphic.bmp");
 
             NativeMethods.FreeLibrary(pDll);
         }
+
+
     }
 }
