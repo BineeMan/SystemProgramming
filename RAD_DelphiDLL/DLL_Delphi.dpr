@@ -1,7 +1,7 @@
 library DLL_Delphi;
 
 uses
- Classes, SysUtils, Character;
+ Classes, Character, ComObj, ActiveX, Variants, Windows, Messages, SysUtils;
 
 function AddDelphi(val1: integer; val2: integer): integer; stdcall;
 
@@ -79,11 +79,66 @@ function ReadTextFileDelphi(const FileName: PWideChar; out Text: WideString; out
             end;
            end;
 
+function ConvertTableToExcel(FileName: PWideChar) : HResult; stdcall;
+var
+  i, i2, j2: integer;
+  MyExcel: OleVariant;
+  Text: WideString;
+  textStr: string;
+  num: string;
+  Count: Integer;
+  FormatBr: TFormatSettings;
+begin
+  try
+    begin
+          FormatBr:= TFormatSettings.Create;
+          FormatBr.DecimalSeparator := '.';
+          System.SysUtils.FormatSettings := FormatBr;
+
+          CoInitialize(Nil);
+          MyExcel:=CreateOleObject('Excel.Application');
+          MyExcel.Workbooks.Add;
+          ReadTextFileDelphi(FileName, Text, Count);
+          textStr :=  Text;
+          textStr := StringReplace(textStr, #$D#$A, #10, [rfReplaceAll]);
+          i2 := 0;
+          j2 := 0;
+          num := '';
+          for i := 1 to Length(textStr) do begin
+            if textStr[i] = #10 then begin
+              MyExcel.Cells[i2 + 1, j2 + 1] := num;
+
+              MyExcel.Cells[i2 + 1, 7].Formula:='=SUM(A'+FloatToStr(i2+1)+':E'+FloatToStr(i2+1)+')';
+              MyExcel.Cells[i2 + 1, 8].Formula:='=AVERAGE(A'+FloatToStr(i2+1)+':E'+FloatToStr(i2+1)+')';
+              i2 := i2 + 1;
+              num := '';
+              j2 := 0;
+            end
+            else begin
+              if textStr[i] = #9 then begin
+                MyExcel.Cells[i2 + 1, j2 + 1] := num;
+                num := '';
+                j2 := j2 + 1;
+              end
+              else begin
+                num := num + textStr[i];
+              end;
+            end;
+          end;
+
+          MyExcel.Application.EnableEvents:=false;
+          MyExcel.Visible:=true;
+          Result:=1;
+    end
+  except
+    on E: Exception do Result := -1
+  end;
+end;
 
 exports
 ReadTextFileDelphi,
-AddDelphi;
-
+AddDelphi,
+ConvertTableToExcel;
 
 begin
 end.
