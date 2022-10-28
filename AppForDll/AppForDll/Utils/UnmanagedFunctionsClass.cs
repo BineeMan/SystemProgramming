@@ -8,6 +8,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static AppForDll.Utils.DllPaths;
+using static AppForDll.Utils.ThreadWatcher;
+using System.Xml.Linq;
 
 namespace AppForDll.Utils
 {
@@ -34,6 +36,10 @@ namespace AppForDll.Utils
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
         private delegate void ConvertTableToExcel([MarshalAs(UnmanagedType.LPWStr)] string filePath);
 
+        [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+        private delegate void PointsFromTsvToXml([MarshalAs(UnmanagedType.LPWStr)] string filePath,
+            [MarshalAs(UnmanagedType.BStr)] out string Xml);
+
         public static void ExecuteUnmanagedAddCPP(int val1, int val2)
         {
             new Thread(() =>
@@ -44,8 +50,10 @@ namespace AppForDll.Utils
                 AddCPP addCPP = (AddCPP)Marshal.GetDelegateForFunctionPointer(
                     pAddressOfFunctionToCall,
                     typeof(AddCPP));
-                MessageBox.Show(addCPP(val1, val2).ToString(), "Результат C++");
+                Thread.Sleep(3000);
+                int result = addCPP(val1, val2);
                 NativeMethods.FreeLibrary(pDll);
+                MessageBox.Show(result.ToString(), "Результат C++");
             })
             {
                 IsBackground = true,
@@ -170,6 +178,32 @@ namespace AppForDll.Utils
 
                 convertTableToExcel(FileName);
                 MessageBox.Show("Успешно");
+                NativeMethods.FreeLibrary(pDll);
+            })
+            {
+                IsBackground = true,
+                Priority = ThreadPriority.Normal,
+            }.Start();
+        }
+
+        public static void ExecuteUnmanagedPointsFromTsvToXml(string FileName, string Xml)
+        {
+            new Thread(() =>
+            {
+                IntPtr pDll = NativeMethods.LoadLibrary(DllPath);
+                IntPtr pAddressOfFunctionToCall = NativeMethods.GetProcAddress(pDll, "PointsFromTsvToXml");
+                if (pAddressOfFunctionToCall == IntPtr.Zero)
+                {
+                    MessageBox.Show("Ошибка");
+                    return;
+                }
+                PointsFromTsvToXml pointsFromTsvToXml = (PointsFromTsvToXml)Marshal.GetDelegateForFunctionPointer(
+                    pAddressOfFunctionToCall,
+                typeof(PointsFromTsvToXml));
+
+                pointsFromTsvToXml(FileName, out Xml);
+                XDocument doc = XDocument.Parse(Xml);
+                MessageBox.Show(doc.ToString(), "Результат C++");
                 NativeMethods.FreeLibrary(pDll);
             })
             {

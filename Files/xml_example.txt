@@ -1,0 +1,31 @@
+
+<points>
+  <comment index="1">x    y1    y2    y3    y4 </comment>
+  
+<point>
+    <x>0</x> 
+	<y index="1">1    
+	<y index="2">1.1</y>  
+	<y index="3">0.3</y> 
+	<y index="4">4</y>
+</point>
+
+<point>
+    <x>0.5</x> 
+	<y index="1">1</y>
+</point>
+
+<point>
+    <x>0.75</x>
+	<y index="1">0.9  
+	<y index="2">2</y>
+	<y index="3">4</y>
+</point>
+
+<point>
+    <x>1</x>
+	<y index="1">1.2    
+	<y index="2">1.7</y>
+</point>
+
+</points>

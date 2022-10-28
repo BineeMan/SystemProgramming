@@ -23,3 +23,5 @@ extern "C" __declspec(dllexport) int __stdcall AddCPP(int val1, int val2);
 extern "C" __declspec(dllexport) HRESULT __stdcall ReadTextFileCPP(LPCWSTR FileName, BSTR * Text, int& Count);
 
 extern "C" __declspec(dllexport) HRESULT GetGraphicCPP(LPCWSTR FileName, int Width, int Height, HBITMAP * MyBmb);
+
+extern "C" __declspec(dllexport) HRESULT PointsFromTsvToXml(LPCWSTR FileName, BSTR * Xml);

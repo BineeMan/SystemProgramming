@@ -120,55 +120,57 @@ double** GetConvertedArrayFromFile(LPCWSTR FileName, int& Row, int& Col) {
 }
 
 
-//HRESULT GetGraphic(LPCWSTR FileName, int Width, int Height, HBITMAP* Picture) {}
+HRESULT PointsFromTsvToXml(LPCWSTR FileName, BSTR* Xml) {
+    try
+    {
+        std::string line;
+        std::string lineXml;
+        std::string content{ "" };
+        std::ifstream in(FileName);
+        int commentIndex{ 1 };
+        content.append("<points>\n");
+    
+        if (!in.is_open()) { return -1; }
+        getline(in, line);
+        content.append("<comment index = '"+ std::to_string(commentIndex) + "'>" + line + "</comment>\n");
+
+        while (getline(in, line)) {
+            if (GetNumbersAmount(line) >= 2) {
+                content.append("<point>\n");
+                std::stringstream strstream(line);
+                std::string segmentNumber;
+                getline(strstream, segmentNumber, '\t');
+                content.append("\t<x>" + segmentNumber + "</x>\n");
+                int i{ 1 };
+                while (getline(strstream, segmentNumber, '\t')) {
+                    content.append("\t<y index='" + std::to_string(i) + "'>" + segmentNumber + "</y>\n");
+                    i++;
+                }
+                content.append("</point>\n");
+            }
+            content.append("\n");
+        }
+        
+        content.append("</points>\n");
+        in.close();
+
+        std::wstring constent_ws{ content.begin(), content.end() };
+        *Xml = SysAllocString(&constent_ws[0]);
+        return 0;
+    }
+    catch (...)
+    {
+        return -1;
+    }
+}
 
 int main() {
-    int Width{ 500 }, Height{ 500 };
+    
     LPCWSTR FileName{ L"E:\\SystemProgramming\\Files\\test.tsv" };
-    unsigned short int pixelScale{ 100 }; //solving fractional numbers 
+    BSTR test;
+    PointsFromTsvToXml(FileName, &test);
 
-    HDC winDC{ GetDC(NULL) };
-    HDC hdc{ CreateCompatibleDC(winDC) };
-    HBITMAP bitmap{ CreateCompatibleBitmap(hdc, Width, Height) };
-    SelectObject(hdc, bitmap);
-
-    HPEN pen{ CreatePen(PS_SOLID, 0, RGB(255, 255, 255)) };
-    SelectObject(hdc, pen);
-
-    int Row{ 0 }, Col{ 0 };
-    double** arrTable;
-    arrTable = GetConvertedArrayFromFile(FileName, Row, Col);
-
-    for (int i = 0; i < Row; i++) {
-        for (int j = 0; j < Col; j++) {
-            std::cout << arrTable[i][j] * pixelScale << " | ";
-        }
-        std::cout << std::endl;
-    }
-    std::cout << std::endl;
-
-    for (int i = 1; i < Row; i++) {
-        int x{ static_cast<int>(arrTable[i][0] * pixelScale) };
-
-        for (int j = 1; j < Col; j++) {
-            if (arrTable[i][j] == -1) { break; }
-            int lastValidIndex{ i };
-            for (lastValidIndex = i - 1; lastValidIndex >= 0; --lastValidIndex) {
-                if (arrTable[lastValidIndex][j] != (-1)) {
-                    break;
-                }
-            }
-            int xPrev{ static_cast<int>(arrTable[lastValidIndex][0] * pixelScale) };
-
-            int yPrev{ static_cast<int>(arrTable[lastValidIndex][j] * pixelScale) };
-            int y{ static_cast<int>(arrTable[i][j] * pixelScale) };
-            std::cout << "xPrev = " << xPrev << "   yPrev = " << yPrev << std::endl;
-            std::cout << "x = " << x << "   y = " << y << "   lastValidIndex=" << lastValidIndex << std::endl;
-
-            MoveToEx(hdc, xPrev, abs(Height - yPrev), NULL);
-            LineTo(hdc, x, abs(Height - y));
-        }
-        std::cout << std::endl;
-    }
-
+    //std::string test{ "test" };
+    //test.append("<comment index = '" + test + "'>" + "test");
+    //std::cout << test;
 }

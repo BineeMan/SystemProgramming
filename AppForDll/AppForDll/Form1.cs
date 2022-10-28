@@ -20,6 +20,10 @@ using static System.Net.WebRequestMethods;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 using Image = System.Drawing.Image;
 using static AppForDll.Utils.UnmanagedFunctionsClass;
+using static AppForDll.Utils.ThreadWatcher;
+using Timer = System.Windows.Forms.Timer;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
+
 namespace AppForDll
 {
     public partial class Form1 : Form
@@ -27,7 +31,7 @@ namespace AppForDll
         public Form1()
         {
             InitializeComponent();
-            tabControl1.SelectedIndex = 1;
+            tabControl1.SelectedIndex = 0;
         }
 
         private string GetFileName()
@@ -54,11 +58,32 @@ namespace AppForDll
             return filePath;
         } //Calls open file dialog and returns file path 
 
+        public void BeginTimer(int time, Button button, Thread thread)
+        {
+            button.Enabled = true;
+            thread = new Thread(() =>
+            {
+                Thread.Sleep(time);
+                BeginInvoke((MethodInvoker)(() =>
+                {
+                    button.Enabled = false;
+                }));
+            });
+            thread.Start();
+        }
+
+        public void StopTimer(Button button)
+        {
+            //
+        }
+
         private void buttonCPP_Click(object sender, EventArgs e)
         {
+            Thread thread = null;
+            BeginTimer(2000, button_AddCpp, thread);
             int val1 = Int32.Parse(textBox_CPP1.Text);
             int val2 = Int32.Parse(textBox_CPP2.Text);
-            ExecuteUnmanagedAddCPP(val1, val2);
+            
 
         } //button handler which calls add function from unmanaged dll C++
       
@@ -99,6 +124,25 @@ namespace AppForDll
         private void button_GenerateExcelDelphi_Click(object sender, EventArgs e)
         {
             ExecuteUnmanagedGenerateExcelDelphi(GetFileName());
+        }
+
+        private void testFun()
+        {
+            //ThreadWatcher threadWatcher = new ThreadWatcher(test, )
+            MessageBox.Show("test fun");
+        }
+
+        private void test_Click(object sender, EventArgs e)
+        {
+            //Thread thread = new Thread(testFun);
+            //thread.Start();
+            //ThreadWatcher threadWatcher = new ThreadWatcher(test, )
+        }
+
+        private void button_Xml_Click(object sender, EventArgs e)
+        {
+            string Xml = "";
+            ExecuteUnmanagedPointsFromTsvToXml(GetFileName(), Xml);
         }
     }
 

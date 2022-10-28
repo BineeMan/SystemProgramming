@@ -128,7 +128,7 @@ HRESULT __stdcall GetGraphicCPP(LPCWSTR FileName, int Width, int Height, HBITMAP
         int Row{ 0 }, Col{ 0 };
         double** arrTable;
         arrTable = GetConvertedArrayFromFile(FileName, Row, Col);
-        for (int i = 1; i < Row; i++) {         
+        for (int i = 1; i < Row; i++) {
             int x{ static_cast<int>(arrTable[i][0] * pixelScale) };
             for (int j = 1; j < Col; j++) {
                 if (arrTable[i][j] == -1) { break; }
@@ -146,6 +146,50 @@ HRESULT __stdcall GetGraphicCPP(LPCWSTR FileName, int Width, int Height, HBITMAP
             }
         }
         *MyBmb = bitmap;
+        return 0;
+    }
+    catch (...)
+    {
+        return -1;
+    }
+}
+
+HRESULT __stdcall PointsFromTsvToXml(LPCWSTR FileName, BSTR * Xml) {
+    try
+    {
+        std::string line;
+        std::string lineXml;
+        std::string content{ "" };
+        std::ifstream in(FileName);
+        int commentIndex{ 1 };
+        content.append("<points>\n");
+
+        if (!in.is_open()) { return -1; }
+        getline(in, line);
+        content.append("<comment index = '" + std::to_string(commentIndex) + "'>" + line + "</comment>\n");
+
+        while (getline(in, line)) {
+            if (GetNumbersAmount(line) >= 2) {
+                content.append("<point>\n");
+                std::stringstream strstream(line);
+                std::string segmentNumber;
+                getline(strstream, segmentNumber, '\t');
+                content.append("\t<x>" + segmentNumber + "</x>\n");
+                int i{ 1 };
+                while (getline(strstream, segmentNumber, '\t')) {
+                    content.append("\t<y index='" + std::to_string(i) + "'>" + segmentNumber + "</y>\n");
+                    i++;
+                }
+                content.append("</point>\n");
+            }
+            content.append("\n");
+        }
+
+        content.append("</points>\n");
+        in.close();
+
+        std::wstring constent_ws{ content.begin(), content.end() };
+        *Xml = SysAllocString(&constent_ws[0]);
         return 0;
     }
     catch (...)

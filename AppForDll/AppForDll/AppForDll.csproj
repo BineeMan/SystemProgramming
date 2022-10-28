@@ -97,6 +97,7 @@
     <Compile Include="Utils\DllPaths.cs" />
     <Compile Include="Utils\DllWorker.cs" />
     <Compile Include="Utils\NativeMethods.cs" />
+    <Compile Include="Utils\ThreadWatcher.cs" />
     <Compile Include="Utils\UnmanagedFunctionsClass.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

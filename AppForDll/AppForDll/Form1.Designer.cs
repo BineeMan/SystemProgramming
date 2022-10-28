@@ -44,6 +44,10 @@ namespace AppForDll
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.button_Xml = new System.Windows.Forms.Button();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.button_GenerateExcelDelphi = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.button_GetGraphicCPP = new System.Windows.Forms.Button();
             this.textBox_Width = new System.Windows.Forms.TextBox();
@@ -58,15 +62,15 @@ namespace AppForDll
             this.textBox_FilePath = new System.Windows.Forms.TextBox();
             this.button_ChooseFile = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.button_GenerateExcelDelphi = new System.Windows.Forms.Button();
+            this.test = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBox_CPP1
@@ -135,7 +139,7 @@ namespace AppForDll
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(872, 469);
+            this.label4.Location = new System.Drawing.Point(863, 502);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(115, 13);
             this.label4.TabIndex = 7;
@@ -149,7 +153,7 @@ namespace AppForDll
             this.tabControl1.Location = new System.Drawing.Point(31, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(889, 427);
+            this.tabControl1.Size = new System.Drawing.Size(885, 487);
             this.tabControl1.TabIndex = 9;
             // 
             // tabPage1
@@ -166,7 +170,7 @@ namespace AppForDll
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(881, 401);
+            this.tabPage1.Size = new System.Drawing.Size(877, 461);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Лаб1 Сложение";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -191,6 +195,7 @@ namespace AppForDll
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.groupBox4);
             this.tabPage2.Controls.Add(this.groupBox3);
             this.tabPage2.Controls.Add(this.groupBox2);
             this.tabPage2.Controls.Add(this.groupBox1);
@@ -200,10 +205,50 @@ namespace AppForDll
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(881, 401);
+            this.tabPage2.Size = new System.Drawing.Size(877, 461);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Лаб2,3,4 ФайлГрафик";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.button_Xml);
+            this.groupBox4.Location = new System.Drawing.Point(292, 305);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(253, 127);
+            this.groupBox4.TabIndex = 31;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Генерирование XML файла";
+            // 
+            // button_Xml
+            // 
+            this.button_Xml.Location = new System.Drawing.Point(68, 50);
+            this.button_Xml.Name = "button_Xml";
+            this.button_Xml.Size = new System.Drawing.Size(113, 49);
+            this.button_Xml.TabIndex = 0;
+            this.button_Xml.Text = "Сгенерировать XML файл";
+            this.button_Xml.UseVisualStyleBackColor = true;
+            this.button_Xml.Click += new System.EventHandler(this.button_Xml_Click);
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.button_GenerateExcelDelphi);
+            this.groupBox3.Location = new System.Drawing.Point(608, 145);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(230, 138);
+            this.groupBox3.TabIndex = 30;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Генерирование Excel таблицы";
+            // 
+            // button_GenerateExcelDelphi
+            // 
+            this.button_GenerateExcelDelphi.Location = new System.Drawing.Point(58, 50);
+            this.button_GenerateExcelDelphi.Name = "button_GenerateExcelDelphi";
+            this.button_GenerateExcelDelphi.Size = new System.Drawing.Size(114, 46);
+            this.button_GenerateExcelDelphi.TabIndex = 0;
+            this.button_GenerateExcelDelphi.Text = "Сгенерировать Excel Таблицу";
+            this.button_GenerateExcelDelphi.UseVisualStyleBackColor = true;
+            this.button_GenerateExcelDelphi.Click += new System.EventHandler(this.button_GenerateExcelDelphi_Click);
             // 
             // groupBox2
             // 
@@ -214,14 +259,14 @@ namespace AppForDll
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Location = new System.Drawing.Point(290, 145);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(255, 170);
+            this.groupBox2.Size = new System.Drawing.Size(255, 138);
             this.groupBox2.TabIndex = 29;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Генерирование графика";
             // 
             // button_GetGraphicCPP
             // 
-            this.button_GetGraphicCPP.Location = new System.Drawing.Point(72, 93);
+            this.button_GetGraphicCPP.Location = new System.Drawing.Point(77, 77);
             this.button_GetGraphicCPP.Name = "button_GetGraphicCPP";
             this.button_GetGraphicCPP.Size = new System.Drawing.Size(106, 38);
             this.button_GetGraphicCPP.TabIndex = 26;
@@ -231,7 +276,7 @@ namespace AppForDll
             // 
             // textBox_Width
             // 
-            this.textBox_Width.Location = new System.Drawing.Point(65, 43);
+            this.textBox_Width.Location = new System.Drawing.Point(72, 27);
             this.textBox_Width.Name = "textBox_Width";
             this.textBox_Width.Size = new System.Drawing.Size(46, 20);
             this.textBox_Width.TabIndex = 21;
@@ -239,7 +284,7 @@ namespace AppForDll
             // 
             // textBox_Height
             // 
-            this.textBox_Height.Location = new System.Drawing.Point(147, 43);
+            this.textBox_Height.Location = new System.Drawing.Point(154, 27);
             this.textBox_Height.Name = "textBox_Height";
             this.textBox_Height.Size = new System.Drawing.Size(46, 20);
             this.textBox_Height.TabIndex = 22;
@@ -248,7 +293,7 @@ namespace AppForDll
             // Ширина
             // 
             this.Ширина.AutoSize = true;
-            this.Ширина.Location = new System.Drawing.Point(62, 66);
+            this.Ширина.Location = new System.Drawing.Point(67, 50);
             this.Ширина.Name = "Ширина";
             this.Ширина.Size = new System.Drawing.Size(46, 13);
             this.Ширина.TabIndex = 23;
@@ -257,7 +302,7 @@ namespace AppForDll
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(148, 66);
+            this.label5.Location = new System.Drawing.Point(155, 50);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(45, 13);
             this.label5.TabIndex = 24;
@@ -270,14 +315,14 @@ namespace AppForDll
             this.groupBox1.Controls.Add(this.button_FileCpp);
             this.groupBox1.Location = new System.Drawing.Point(20, 145);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(232, 170);
+            this.groupBox1.Size = new System.Drawing.Size(232, 138);
             this.groupBox1.TabIndex = 28;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Чтение данных из файла";
             // 
             // button_FileDelphi
             // 
-            this.button_FileDelphi.Location = new System.Drawing.Point(113, 93);
+            this.button_FileDelphi.Location = new System.Drawing.Point(118, 77);
             this.button_FileDelphi.Name = "button_FileDelphi";
             this.button_FileDelphi.Size = new System.Drawing.Size(89, 38);
             this.button_FileDelphi.TabIndex = 4;
@@ -288,7 +333,7 @@ namespace AppForDll
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(53, 46);
+            this.label10.Location = new System.Drawing.Point(54, 27);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(118, 26);
             this.label10.TabIndex = 27;
@@ -297,7 +342,7 @@ namespace AppForDll
             // 
             // button_FileCpp
             // 
-            this.button_FileCpp.Location = new System.Drawing.Point(21, 93);
+            this.button_FileCpp.Location = new System.Drawing.Point(26, 77);
             this.button_FileCpp.Name = "button_FileCpp";
             this.button_FileCpp.Size = new System.Drawing.Size(75, 38);
             this.button_FileCpp.TabIndex = 3;
@@ -337,36 +382,27 @@ namespace AppForDll
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(881, 401);
+            this.tabPage3.Size = new System.Drawing.Size(877, 461);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Лаб3 Hbitmap";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // groupBox3
+            // test
             // 
-            this.groupBox3.Controls.Add(this.button_GenerateExcelDelphi);
-            this.groupBox3.Location = new System.Drawing.Point(608, 145);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(230, 170);
-            this.groupBox3.TabIndex = 30;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Генерирование Excel таблицы";
-            // 
-            // button_GenerateExcelDelphi
-            // 
-            this.button_GenerateExcelDelphi.Location = new System.Drawing.Point(54, 66);
-            this.button_GenerateExcelDelphi.Name = "button_GenerateExcelDelphi";
-            this.button_GenerateExcelDelphi.Size = new System.Drawing.Size(114, 46);
-            this.button_GenerateExcelDelphi.TabIndex = 0;
-            this.button_GenerateExcelDelphi.Text = "Сгенерировать Excel Таблицу";
-            this.button_GenerateExcelDelphi.UseVisualStyleBackColor = true;
-            this.button_GenerateExcelDelphi.Click += new System.EventHandler(this.button_GenerateExcelDelphi_Click);
+            this.test.Location = new System.Drawing.Point(922, 155);
+            this.test.Name = "test";
+            this.test.Size = new System.Drawing.Size(75, 23);
+            this.test.TabIndex = 10;
+            this.test.Text = "test";
+            this.test.UseVisualStyleBackColor = true;
+            this.test.Click += new System.EventHandler(this.test_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(999, 491);
+            this.ClientSize = new System.Drawing.Size(990, 524);
+            this.Controls.Add(this.test);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.label4);
             this.Name = "Form1";
@@ -377,11 +413,12 @@ namespace AppForDll
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -419,6 +456,9 @@ namespace AppForDll
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button button_GenerateExcelDelphi;
+        private System.Windows.Forms.Button test;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Button button_Xml;
     }
 }
 
