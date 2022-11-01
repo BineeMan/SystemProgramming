@@ -42,23 +42,16 @@ namespace AppForDll.Utils
 
         public static void ExecuteUnmanagedAddCPP(int val1, int val2)
         {
-            new Thread(() =>
-            {
-                IntPtr pDll = NativeMethods.LoadLibrary(DllPath);
-                IntPtr pAddressOfFunctionToCall = NativeMethods.GetProcAddress(pDll, "AddCPP");
-                if (pAddressOfFunctionToCall == IntPtr.Zero) { return; }
-                AddCPP addCPP = (AddCPP)Marshal.GetDelegateForFunctionPointer(
-                    pAddressOfFunctionToCall,
-                    typeof(AddCPP));
-                Thread.Sleep(3000);
-                int result = addCPP(val1, val2);
-                NativeMethods.FreeLibrary(pDll);
-                MessageBox.Show(result.ToString(), "Результат C++");
-            })
-            {
-                IsBackground = true,
-                Priority = ThreadPriority.Normal,
-            }.Start();
+            IntPtr pDll = NativeMethods.LoadLibrary(DllPath);
+            IntPtr pAddressOfFunctionToCall = NativeMethods.GetProcAddress(pDll, "AddCPP");
+            if (pAddressOfFunctionToCall == IntPtr.Zero) { return; }
+            AddCPP addCPP = (AddCPP)Marshal.GetDelegateForFunctionPointer(
+                pAddressOfFunctionToCall,
+                typeof(AddCPP));
+            Thread.Sleep(3000);
+            int result = addCPP(val1, val2);
+            NativeMethods.FreeLibrary(pDll);
+            MessageBox.Show(result.ToString(), "Результат C++");
         }
 
         public static void ExecuteUnmanagedAddDelphi(int val1, int val2)
