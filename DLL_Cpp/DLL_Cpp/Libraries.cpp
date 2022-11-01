@@ -197,5 +197,3 @@ HRESULT __stdcall PointsFromTsvToXml(LPCWSTR FileName, BSTR * Xml) {
         return -1;
     }
 }
-
-//test
