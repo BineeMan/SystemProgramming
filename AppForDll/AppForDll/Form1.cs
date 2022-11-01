@@ -58,38 +58,32 @@ namespace AppForDll
             return filePath;
         } //Calls open file dialog and returns file path 
 
-        private void buttonCPP_Click(object sender, EventArgs e)
+        public void BeginTimer(int time, Button button, Thread thread)
         {
-            bool isFunctionWork = false;
-            Button button = button_AddCpp;
-            int val1 = Int32.Parse(textBox_CPP1.Text);
-            int val2 = Int32.Parse(textBox_CPP2.Text);
-
-            new Thread(() =>
+            button.Enabled = true;
+            thread = new Thread(() =>
             {
-                isFunctionWork = true;
-
-                new Thread(() =>
-                {
-                    Thread.Sleep(1000);
-                    BeginInvoke((MethodInvoker)(() =>
-                    {
-                        if (isFunctionWork)
-                        {
-                            button.Enabled = false;
-                        }
-                    }));
-                }).Start();
-                
-                ExecuteUnmanagedAddCPP(val1, val2);
-                isFunctionWork = false;
-                button.Enabled = true;
-
+                Thread.Sleep(time);
                 BeginInvoke((MethodInvoker)(() =>
                 {
-                    button.Enabled = true;
+                    button.Enabled = false;
                 }));
-            }).Start();
+            });
+            thread.Start();
+        }
+
+        public void StopTimer(Button button)
+        {
+            //
+        }
+
+        private void buttonCPP_Click(object sender, EventArgs e)
+        {
+            Thread thread = null;
+            BeginTimer(2000, button_AddCpp, thread);
+            int val1 = Int32.Parse(textBox_CPP1.Text);
+            int val2 = Int32.Parse(textBox_CPP2.Text);
+            
 
         } //button handler which calls add function from unmanaged dll C++
       
