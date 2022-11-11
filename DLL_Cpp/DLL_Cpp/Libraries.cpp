@@ -14,7 +14,21 @@
 #include <stdio.h>
 #include "wingdi.h"
 #include <vector>
+
 #pragma comment (lib, "comsuppw.lib" )
+
+HWND AppHwnd;
+
+void __stdcall SetHwnd(HWND hwnd) {
+    AppHwnd = hwnd;
+    PostMessage(AppHwnd, WM_USER, 55, 55);
+}
+
+HWND __stdcall GetHwnd() {
+    return AppHwnd;
+}
+
+
 
 int __stdcall AddCPP(int val1, int val2) {  // This function adds two numbers
 	return val1 + val2;
@@ -59,6 +73,7 @@ HRESULT __stdcall ReadTextFileCPP(LPCWSTR FileName, BSTR* Text, int& Count) {  /
         std::string content{ "" };
         std::ifstream in(FileName);
         int Count3{ 0 };
+        //PostMessage(AppHwnd, 50, 0, 0);
         if (in.is_open()) {
             while (getline(in, line)) {
                 if (GetNumbersAmount(line) >= 2) {

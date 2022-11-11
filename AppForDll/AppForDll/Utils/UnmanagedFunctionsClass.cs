@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using static AppForDll.Utils.DllPaths;
 using static AppForDll.Utils.ThreadWatcher;
 using System.Xml.Linq;
+using System.Runtime.InteropServices.ComTypes;
+using System.Runtime.CompilerServices;
 
 namespace AppForDll.Utils
 {
@@ -39,6 +41,13 @@ namespace AppForDll.Utils
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
         private delegate void PointsFromTsvToXml([MarshalAs(UnmanagedType.LPWStr)] string filePath,
             [MarshalAs(UnmanagedType.BStr)] out string Xml);
+
+        [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+        private delegate void SetHwnd(IntPtr hWnd);
+
+        [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+        private delegate IntPtr GetHwnd();
+
 
         public static void ExecuteUnmanagedAddCPP(int val1, int val2)
         {
@@ -79,6 +88,11 @@ namespace AppForDll.Utils
             new Thread(() =>
             {
                 IntPtr pDll = NativeMethods.LoadLibrary(DllPath);
+
+                ExecuteUnmanagedSetHwnd(Form1.FormHwnd, pDll);
+
+                MessageBox.Show(ExecuteUnmanagedGetHwnd(pDll).ToString());
+
                 IntPtr pAddressOfFunctionToCall = NativeMethods.GetProcAddress(pDll, "ReadTextFileCPP");
                 if (pAddressOfFunctionToCall == IntPtr.Zero) { return; }
                 ReadTextFileCPP readTextFileCPP = (ReadTextFileCPP)Marshal.GetDelegateForFunctionPointer(
@@ -204,5 +218,42 @@ namespace AppForDll.Utils
                 Priority = ThreadPriority.Normal,
             }.Start();
         }
+
+        public static void ExecuteUnmanagedSetHwnd(IntPtr hWnd, IntPtr pDll)
+        {
+            IntPtr pAddressOfFunctionToCall = NativeMethods.GetProcAddress(pDll, "SetHwnd");
+            if (pAddressOfFunctionToCall == IntPtr.Zero)
+            {
+                MessageBox.Show("Ошибка");
+                return;
+            }
+            SetHwnd setHwnd = (SetHwnd)Marshal.GetDelegateForFunctionPointer(
+                pAddressOfFunctionToCall,
+            typeof(SetHwnd));
+
+            setHwnd(hWnd);
+        
+        }
+
+        public static IntPtr ExecuteUnmanagedGetHwnd(IntPtr pDll)
+        {
+            IntPtr pAddressOfFunctionToCall = NativeMethods.GetProcAddress(pDll, "GetHwnd");
+            if (pAddressOfFunctionToCall == IntPtr.Zero)
+            {
+                MessageBox.Show("Ошибка");
+                return IntPtr.Zero;
+            }
+
+            GetHwnd getHwnd = (GetHwnd)Marshal.GetDelegateForFunctionPointer(
+                pAddressOfFunctionToCall,
+                typeof(GetHwnd));
+
+            IntPtr result = IntPtr.Zero;
+            result = getHwnd();
+            //NativeMethods.FreeLibrary(pDll);
+
+            return result;
+        }
+
     }
 }

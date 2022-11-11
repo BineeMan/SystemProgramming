@@ -1,28 +1,7 @@
-﻿using AppForDll.Utils;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Drawing.Text;
-using System.IO;
-using System.Linq;
-using System.Net.NetworkInformation;
-using System.Runtime.InteropServices;
-using System.Runtime.InteropServices.ComTypes;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Text;
+﻿using System;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Net.Mime.MediaTypeNames;
-using static System.Net.WebRequestMethods;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
-using Image = System.Drawing.Image;
 using static AppForDll.Utils.UnmanagedFunctionsClass;
-using static AppForDll.Utils.ThreadWatcher;
-using Timer = System.Windows.Forms.Timer;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace AppForDll
 {
@@ -32,7 +11,11 @@ namespace AppForDll
         {
             InitializeComponent();
             tabControl1.SelectedIndex = 0;
+            FormHwnd = this.Handle;
+            MessageBox.Show(FormHwnd.ToString());
         }
+
+        public static IntPtr FormHwnd;
 
         private string GetFileName()
         {
@@ -60,35 +43,34 @@ namespace AppForDll
 
         private void buttonCPP_Click(object sender, EventArgs e)
         {
-            bool isFunctionWork = false;
-            Button button = button_AddCpp;
             int val1 = Int32.Parse(textBox_CPP1.Text);
             int val2 = Int32.Parse(textBox_CPP2.Text);
 
+            bool isFunctionWorking = false;
+            Button button = button_AddCpp;
             new Thread(() =>
             {
-                isFunctionWork = true;
+                isFunctionWorking = true;
 
                 new Thread(() =>
                 {
                     Thread.Sleep(1000);
-                    BeginInvoke((MethodInvoker)(() =>
+                    if (isFunctionWorking)
                     {
-                        if (isFunctionWork)
+                        BeginInvoke((MethodInvoker)(() =>
                         {
                             button.Enabled = false;
-                        }
-                    }));
+                        }));
+                    }
                 }).Start();
-                
-                ExecuteUnmanagedAddCPP(val1, val2);
-                isFunctionWork = false;
-                button.Enabled = true;
 
+                ExecuteUnmanagedAddCPP(val1, val2);
+                isFunctionWorking = false;
                 BeginInvoke((MethodInvoker)(() =>
                 {
                     button.Enabled = true;
                 }));
+
             }).Start();
 
         } //button handler which calls add function from unmanaged dll C++
@@ -97,7 +79,32 @@ namespace AppForDll
         {
             int a = Int32.Parse(textBox_CPP1.Text);
             int b = Int32.Parse(textBox_CPP2.Text);
-            ExecuteUnmanagedAddDelphi(a, b);
+            bool isFunctionWorking = false;
+            Button button = button_AddCpp;
+            new Thread(() =>
+            {
+                isFunctionWorking = true;
+                new Thread(() =>
+                {
+                    Thread.Sleep(1000);
+                    if (isFunctionWorking)
+                    {
+                        BeginInvoke((MethodInvoker)(() =>
+                        {
+                            button.Enabled = false;
+                        }));
+                    }
+                }).Start();
+
+                ExecuteUnmanagedAddDelphi(a, b);
+                isFunctionWorking = false;
+                BeginInvoke((MethodInvoker)(() =>
+                {
+                    button.Enabled = true;
+                }));
+
+            }).Start();
+            
 
         }  //button handler which calls add function from unmanaged dll Delphi
 
@@ -138,17 +145,23 @@ namespace AppForDll
             MessageBox.Show("test fun");
         }
 
-        private void test_Click(object sender, EventArgs e)
-        {
-            //Thread thread = new Thread(testFun);
-            //thread.Start();
-            //ThreadWatcher threadWatcher = new ThreadWatcher(test, )
-        }
-
         private void button_Xml_Click(object sender, EventArgs e)
         {
             string Xml = "";
             ExecuteUnmanagedPointsFromTsvToXml(GetFileName(), Xml);
+        }
+
+        private void GetHwnd_Click(object sender, EventArgs e)
+        {
+           MessageBox.Show(FormHwnd.ToString());
+        }
+
+        private void SetHwnd_Click(object sender, EventArgs e)
+        {
+            IntPtr hWnd = this.Handle;
+            //ExecuteUnmanagedSetHwnd(hWnd,);
+            MessageBox.Show(hWnd.ToString());
+            
         }
     }
 

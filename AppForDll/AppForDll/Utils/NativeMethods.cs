@@ -18,5 +18,6 @@ namespace AppForDll.Utils
 
         [DllImport("kernel32.dll")]
         public static extern bool FreeLibrary(IntPtr hModule);
+
     }
 }

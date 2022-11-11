@@ -62,7 +62,9 @@ namespace AppForDll
             this.textBox_FilePath = new System.Windows.Forms.TextBox();
             this.button_ChooseFile = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.test = new System.Windows.Forms.Button();
+            this.SetHwnd = new System.Windows.Forms.Button();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.GetHwnd = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -158,6 +160,7 @@ namespace AppForDll
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.progressBar1);
             this.tabPage1.Controls.Add(this.label7);
             this.tabPage1.Controls.Add(this.label6);
             this.tabPage1.Controls.Add(this.textBox_CPP1);
@@ -387,22 +390,40 @@ namespace AppForDll
             this.tabPage3.Text = "Лаб3 Hbitmap";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // test
+            // SetHwnd
             // 
-            this.test.Location = new System.Drawing.Point(922, 155);
-            this.test.Name = "test";
-            this.test.Size = new System.Drawing.Size(75, 23);
-            this.test.TabIndex = 10;
-            this.test.Text = "test";
-            this.test.UseVisualStyleBackColor = true;
-            this.test.Click += new System.EventHandler(this.test_Click);
+            this.SetHwnd.Location = new System.Drawing.Point(918, 155);
+            this.SetHwnd.Name = "SetHwnd";
+            this.SetHwnd.Size = new System.Drawing.Size(75, 23);
+            this.SetHwnd.TabIndex = 10;
+            this.SetHwnd.Text = "SetHwnd";
+            this.SetHwnd.UseVisualStyleBackColor = true;
+            this.SetHwnd.Click += new System.EventHandler(this.SetHwnd_Click);
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(620, 203);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(134, 23);
+            this.progressBar1.TabIndex = 9;
+            // 
+            // GetHwnd
+            // 
+            this.GetHwnd.Location = new System.Drawing.Point(918, 195);
+            this.GetHwnd.Name = "GetHwnd";
+            this.GetHwnd.Size = new System.Drawing.Size(75, 23);
+            this.GetHwnd.TabIndex = 11;
+            this.GetHwnd.Text = "GetHwnd";
+            this.GetHwnd.UseVisualStyleBackColor = true;
+            this.GetHwnd.Click += new System.EventHandler(this.GetHwnd_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(990, 524);
-            this.Controls.Add(this.test);
+            this.Controls.Add(this.GetHwnd);
+            this.Controls.Add(this.SetHwnd);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.label4);
             this.Name = "Form1";
@@ -456,9 +477,11 @@ namespace AppForDll
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button button_GenerateExcelDelphi;
-        private System.Windows.Forms.Button test;
+        private System.Windows.Forms.Button SetHwnd;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button button_Xml;
+        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Button GetHwnd;
     }
 }
 
