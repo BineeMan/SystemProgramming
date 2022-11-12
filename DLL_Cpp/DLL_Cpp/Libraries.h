@@ -20,8 +20,6 @@
 
 extern "C" __declspec(dllexport) void __stdcall SetHwnd(HWND hwnd);
 
-extern "C" __declspec(dllexport) HWND __stdcall GetHwnd();
-
 extern "C" __declspec(dllexport) int __stdcall AddCPP(int val1, int val2);
 
 extern "C" __declspec(dllexport) HRESULT __stdcall ReadTextFileCPP(LPCWSTR FileName, BSTR * Text, int& Count);

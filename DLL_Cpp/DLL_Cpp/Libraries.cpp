@@ -21,14 +21,8 @@ HWND AppHwnd;
 
 void __stdcall SetHwnd(HWND hwnd) {
     AppHwnd = hwnd;
-    PostMessage(AppHwnd, WM_USER, 55, 55);
+    PostMessage(AppHwnd, WM_USER+1, 55, 0);
 }
-
-HWND __stdcall GetHwnd() {
-    return AppHwnd;
-}
-
-
 
 int __stdcall AddCPP(int val1, int val2) {  // This function adds two numbers
 	return val1 + val2;

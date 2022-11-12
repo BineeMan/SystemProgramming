@@ -65,53 +65,37 @@ namespace AppForDll.Utils
 
         public static void ExecuteUnmanagedAddDelphi(int val1, int val2)
         {
-            new Thread(() =>
-            {
-                IntPtr pDll = NativeMethods.LoadLibrary(DllDelphiPath);
-                IntPtr pAddressOfFunctionToCall = NativeMethods.GetProcAddress(pDll, "AddDelphi");
-                // if (pAddressOfFunctionToCall == IntPtr.Zero) { return; }
-                AddDelphi addDelphi = (AddDelphi)Marshal.GetDelegateForFunctionPointer(
-                    pAddressOfFunctionToCall,
-                    typeof(AddDelphi));
-                MessageBox.Show(addDelphi(val1, val2).ToString(), "Результат Delphi");
-                NativeMethods.FreeLibrary(pDll);
-
-            })
-            {
-                IsBackground = true,
-                Priority = ThreadPriority.Normal,
-            }.Start();
+            IntPtr pDll = NativeMethods.LoadLibrary(DllDelphiPath);
+            IntPtr pAddressOfFunctionToCall = NativeMethods.GetProcAddress(pDll, "AddDelphi");
+             if (pAddressOfFunctionToCall == IntPtr.Zero) { return; }
+            AddDelphi addDelphi = (AddDelphi)Marshal.GetDelegateForFunctionPointer(
+                pAddressOfFunctionToCall,
+                typeof(AddDelphi));
+            MessageBox.Show(addDelphi(val1, val2).ToString(), "Результат Delphi");
+            NativeMethods.FreeLibrary(pDll);
         }
 
         public static void ExecuteUnmanagedReadTextFileCpp(string fileName, string Text, int Count)
         {
-            new Thread(() =>
-            {
-                IntPtr pDll = NativeMethods.LoadLibrary(DllPath);
 
-                ExecuteUnmanagedSetHwnd(Form1.FormHwnd, pDll);
+            IntPtr pDll = NativeMethods.LoadLibrary(DllPath);
 
-                MessageBox.Show(ExecuteUnmanagedGetHwnd(pDll).ToString());
+            ExecuteUnmanagedSetHwnd(FormMain.FormHwnd, pDll);
 
-                IntPtr pAddressOfFunctionToCall = NativeMethods.GetProcAddress(pDll, "ReadTextFileCPP");
-                if (pAddressOfFunctionToCall == IntPtr.Zero) { return; }
-                ReadTextFileCPP readTextFileCPP = (ReadTextFileCPP)Marshal.GetDelegateForFunctionPointer(
-                    pAddressOfFunctionToCall,
-                    typeof(ReadTextFileCPP));
+            IntPtr pAddressOfFunctionToCall = NativeMethods.GetProcAddress(pDll, "ReadTextFileCPP");
+            if (pAddressOfFunctionToCall == IntPtr.Zero) { return; }
+            ReadTextFileCPP readTextFileCPP = (ReadTextFileCPP)Marshal.GetDelegateForFunctionPointer(
+                pAddressOfFunctionToCall,
+                typeof(ReadTextFileCPP));
 
-                readTextFileCPP(fileName, out Text, out Count);
-                MessageBox.Show("Кол-во искомых строк = " + Count.ToString()
-                    + Environment.NewLine +
-                    "Содержимое:"
-                    + Environment.NewLine +
-                    Text, "Результат C++");
+            readTextFileCPP(fileName, out Text, out Count);
+            MessageBox.Show("Кол-во искомых строк = " + Count.ToString()
+                + Environment.NewLine +
+                "Содержимое:"
+                + Environment.NewLine +
+                Text, "Результат C++");
 
-                NativeMethods.FreeLibrary(pDll);
-            })
-            {
-                IsBackground = true,
-                Priority = ThreadPriority.Normal,
-            }.Start();
+            NativeMethods.FreeLibrary(pDll);
         }
 
         public static void ExecuteUnmanagedGetGraphicCpp(string fileName, int Width, int Height)

@@ -19,3 +19,13 @@ G:\Системное Программирование\v0.21\AppForDll\AppForDll
 G:\Системное Программирование\v0.21\AppForDll\AppForDll\obj\x64\Debug\AppForDll.pdb
 G:\Системное Программирование\v0.21\AppForDll\AppForDll\obj\x64\Debug\AppForDll.csproj.AssemblyReference.cache
 E:\SystemProgramming\AppForDll\AppForDll\obj\x64\Debug\AppForDll.csproj.SuggestedBindingRedirects.cache
+G:\Системное Программирование\SystemProgramming\SystemProgramming\AppForDll\AppForDll\bin\x64\Debug\AppForDll.exe.config
+G:\Системное Программирование\SystemProgramming\SystemProgramming\AppForDll\AppForDll\bin\x64\Debug\AppForDll.exe
+G:\Системное Программирование\SystemProgramming\SystemProgramming\AppForDll\AppForDll\bin\x64\Debug\AppForDll.pdb
+G:\Системное Программирование\SystemProgramming\SystemProgramming\AppForDll\AppForDll\obj\x64\Debug\AppForDll.Properties.Resources.resources
+G:\Системное Программирование\SystemProgramming\SystemProgramming\AppForDll\AppForDll\obj\x64\Debug\AppForDll.csproj.GenerateResource.cache
+G:\Системное Программирование\SystemProgramming\SystemProgramming\AppForDll\AppForDll\obj\x64\Debug\AppForDll.csproj.CoreCompileInputs.cache
+G:\Системное Программирование\SystemProgramming\SystemProgramming\AppForDll\AppForDll\obj\x64\Debug\AppForDll.exe
+G:\Системное Программирование\SystemProgramming\SystemProgramming\AppForDll\AppForDll\obj\x64\Debug\AppForDll.pdb
+G:\Системное Программирование\SystemProgramming\SystemProgramming\AppForDll\AppForDll\obj\x64\Debug\AppForDll.FormMain.resources
+G:\Системное Программирование\SystemProgramming\SystemProgramming\AppForDll\AppForDll\obj\x64\Debug\AppForDll.FormProgressBar.resources
