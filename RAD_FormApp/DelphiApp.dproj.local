@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.596,E:\SystemProgramming\RAD_FormApp\Unit1.pas=C:\Users\herob\OneDrive\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.876,C:\Users\herob\OneDrive\Documents\Embarcadero\Studio\Projects\DelphiApp.dproj=C:\Users\herob\OneDrive\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.880,=C:\Users\herob\OneDrive\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.596,E:\SystemProgramming\RAD_FormApp\Unit1.dfm=C:\Users\herob\OneDrive\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.752,E:\SystemProgramming\RAD_FormApp\DelphiApp.dproj=C:\Users\herob\OneDrive\Documents\Embarcadero\Studio\Projects\DelphiApp.dproj</Transaction>
+  </Transactions>
+	<BT_BuildType>AppStore</BT_BuildType>
+</BorlandProject>

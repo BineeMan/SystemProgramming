@@ -1,0 +1,77 @@
+unit Unit1;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls,
+  Math;
+type
+  TForm1 = class(TForm)
+    Button1: TButton;
+    TextBox_FilePath: TEdit;
+    Image1: TImage;
+    TextBox_Width: TEdit;
+    TextBox_Height: TEdit;
+    type PDrawCallback1 =
+      function ( const FileName: PWideChar;
+       Width: Integer; Height: Integer; out MyBmb: HBITMAP): HResult; stdcall;
+
+
+    procedure Button1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    DrawCallback: PDrawCallback1;
+    HInWindow: HWND;
+    //HOutWindow: HWND;
+    //lpReserved: LPVoid;
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+
+implementation
+
+{$R *.dfm}
+
+var
+  i: HWND;
+  filePath: String;
+
+procedure TForm1.Button1Click(Sender: TObject);
+var
+    Width: Integer;
+    Height: Integer;
+    filePath: String;
+    Bitmap: TBitmap;
+    MyHbitmap: HBITMAP;
+    DrawCallbackLocal: PDrawCallback1;
+    res: HResult;
+begin
+  //filePath := 'E:\SystemProgramming\Files\test.tsv';
+  //MyHbitmap := NIL;
+
+  filePath := TextBox_FilePath.Text;
+  Width := StrToInt(TextBox_Width.Text);
+  Height:= StrToInt(TextBox_Height.Text);
+
+  DrawCallbackLocal := DrawCallback;
+
+  res := DrawCallbackLocal(PWideChar(filePath), Width, Height, MyHbitmap);
+
+  //Image1.Create(Form1);
+  //Image1.Width := Bitmap.Width;
+  //Image1.Height := Bitmap.Height;
+
+  Image1.Picture.Bitmap.Handle := MyHbitmap;
+  //Image1.Picture.SaveToFile('E:\SystemProgramming\Files\test123.bmp');
+  //Image1.Refresh;
+  //MessageBox(Form1.Handle, PChar( 'ok' ), PChar('asd'), MB_OK);
+
+end;
+
+end.
+

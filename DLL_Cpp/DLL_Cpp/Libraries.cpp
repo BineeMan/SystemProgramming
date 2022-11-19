@@ -21,7 +21,6 @@ HWND AppHwnd;
 
 void __stdcall SetHwnd(HWND hwnd) {
     AppHwnd = hwnd;
-    PostMessage(AppHwnd, WM_USER+1, 55, 0);
 }
 
 int __stdcall AddCPP(int val1, int val2) {  // This function adds two numbers
@@ -63,11 +62,12 @@ int GetValuesAmount(std::string str) {
 HRESULT __stdcall ReadTextFileCPP(LPCWSTR FileName, BSTR* Text, int& Count) {  // This function reads text file
     try
     {
+        PostMessage(AppHwnd, WM_USER + 1, 50, 0);
+
         std::string line;
         std::string content{ "" };
         std::ifstream in(FileName);
         int Count3{ 0 };
-        //PostMessage(AppHwnd, 50, 0, 0);
         if (in.is_open()) {
             while (getline(in, line)) {
                 if (GetNumbersAmount(line) >= 2) {
@@ -81,6 +81,7 @@ HRESULT __stdcall ReadTextFileCPP(LPCWSTR FileName, BSTR* Text, int& Count) {  /
         in.close();
         std::wstring constent_ws{ content.begin(), content.end() };
         *Text = SysAllocString(&constent_ws[0]);
+        PostMessage(AppHwnd, WM_USER + 1, 100, 0);
         return 0;
     }
     catch (...)
@@ -127,6 +128,8 @@ double** GetConvertedArrayFromFile(LPCWSTR FileName, int& Row, int& Col) {
 HRESULT __stdcall GetGraphicCPP(LPCWSTR FileName, int Width, int Height, HBITMAP* MyBmb) {
     try
     {
+        PostMessage(AppHwnd, WM_USER + 1, 30, 0);
+
         unsigned short int pixelScale{ 100 }; //solving fractional numbers 
         HDC winDC{ GetDC(NULL) };
         HDC hdc{ CreateCompatibleDC(winDC) };
@@ -137,6 +140,8 @@ HRESULT __stdcall GetGraphicCPP(LPCWSTR FileName, int Width, int Height, HBITMAP
         int Row{ 0 }, Col{ 0 };
         double** arrTable;
         arrTable = GetConvertedArrayFromFile(FileName, Row, Col);
+        PostMessage(AppHwnd, WM_USER + 1, 50, 0);
+
         for (int i = 1; i < Row; i++) {
             int x{ static_cast<int>(arrTable[i][0] * pixelScale) };
             for (int j = 1; j < Col; j++) {
@@ -155,6 +160,7 @@ HRESULT __stdcall GetGraphicCPP(LPCWSTR FileName, int Width, int Height, HBITMAP
             }
         }
         *MyBmb = bitmap;
+        PostMessage(AppHwnd, WM_USER + 1, 100, 0);
         return 0;
     }
     catch (...)

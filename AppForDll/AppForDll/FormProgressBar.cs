@@ -16,5 +16,11 @@ namespace AppForDll
         {
             InitializeComponent();
         }
+
+        public void SetProgressBarValue(int value)
+        {
+            progressBar.Value = value;
+        }
+
     }
 }

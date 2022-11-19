@@ -10,7 +10,7 @@ namespace AppForDll
         public FormMain()
         {
             InitializeComponent();
-            tabControl1.SelectedIndex = 1;
+            tabControl1.SelectedIndex = 2;
             FormHwnd = this.Handle;
             //MessageBox.Show(FormHwnd.ToString());
         }
@@ -23,10 +23,15 @@ namespace AppForDll
 
         private const int delayTime = 1000;
 
+        private FormProgressBar formProgressBar;
+
         protected override void WndProc(ref System.Windows.Forms.Message m)
         {
-            if (m.Msg == WM_USER + 1)
-                msg = m;
+           
+            if (m.Msg == WM_USER + 1) {
+                IntPtr ptr = m.WParam;
+                formProgressBar.SetProgressBarValue(ptr.ToInt32());
+            }
             base.WndProc(ref m);
         }
 
@@ -60,7 +65,7 @@ namespace AppForDll
             int val2 = Int32.Parse(textBox_CPP2.Text);
 
             bool isFunctionWorking = false;
-            Button button = butto;
+            Button button = button_AddCpp;
             new Thread(() =>
             {
                 isFunctionWorking = true;
@@ -150,11 +155,22 @@ namespace AppForDll
                     }
                 }).Start();
 
-                ExecuteUnmanagedReadTextFileCpp( fileName, Text, Count);
+                Invoke((Action)(() =>
+                {
+                    formProgressBar = new FormProgressBar();
+                    formProgressBar.StartPosition = FormStartPosition.Manual;
+                    formProgressBar.Left = 320;
+                    formProgressBar.Top = 320;
+                    formProgressBar.Show();
+                }));
+
+                ExecuteUnmanagedReadTextFileCpp( fileName, Text, Count );
                 isFunctionWorking = false;
+
                 BeginInvoke((MethodInvoker)(() =>
                 {
                     button.Enabled = true;
+                    formProgressBar.Close();
                 }));
 
             }).Start();
@@ -190,11 +206,21 @@ namespace AppForDll
                     }
                 }).Start();
 
+                Invoke((Action)(() =>
+                {
+                    formProgressBar = new FormProgressBar();
+                    formProgressBar.StartPosition = FormStartPosition.Manual;
+                    formProgressBar.Left = 320;
+                    formProgressBar.Top = 320;
+                    formProgressBar.Show();
+                }));
+
                 ExecuteUnmanagedGetGraphicCpp(fileName, Width, Height);
                 isFunctionWorking = false;
                 BeginInvoke((MethodInvoker)(() =>
                 {
                     button.Enabled = true;
+                    formProgressBar.Close();
                 }));
 
             }).Start();
@@ -228,6 +254,11 @@ namespace AppForDll
             //ExecuteUnmanagedSetHwnd(hWnd,);
             MessageBox.Show(hWnd.ToString());
             
+        }
+
+        private void button_DelphiAppGraphic_Click(object sender, EventArgs e)
+        {
+            ExecuteUnmanagedGetExternalWindow();
         }
     }
 

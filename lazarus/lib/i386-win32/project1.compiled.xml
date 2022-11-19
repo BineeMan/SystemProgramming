@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<CONFIG>
-  <Compiler Value="C:\Program Files (x86)\lazarus\fpc\3.2.2\bin\i386-win32\fpc.exe" Date="1420790967"/>
-  <Params Value=" -MObjFPC -Scghi -WR -O1 -g -gl -l -vewnhibq &quot;-FiG:\Системное Программирование\Lab1\lib\i386-win32&quot; &quot;-FuG:\Системное Программирование\Lab1\&quot; &quot;-FUG:\Системное Программирование\Lab1\lib\i386-win32\&quot; &quot;-FEG:\Системное Программирование\Lab1\&quot; &quot;-oG:\Системное Программирование\Lab1\project1.dll&quot; project1.lpr"/>
-</CONFIG>

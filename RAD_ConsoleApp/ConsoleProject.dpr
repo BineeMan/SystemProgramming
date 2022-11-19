@@ -5,7 +5,9 @@ program ConsoleProject;
 {$R *.res}
 
 uses
- Classes, Character, ComObj, ActiveX, Variants, Windows, Messages, SysUtils;
+ Classes, Character, ComObj, ActiveX, Variants, Windows, Messages, SysUtils,
+ Vcl.Forms, Unit1 in '..\RAD_FormApp\Unit1.pas';
+
 function AddDelphi(val1: integer; val2: integer): integer; stdcall;
 
 begin
@@ -31,6 +33,9 @@ begin
 
   Result := True;
 end;
+
+type TReadDsvFileFunction =
+  function(const FileName: PWideChar; out Text: WideString; out Count: Integer): HResult; stdcall;
 
 function ReadTextFileDelphi(const FileName: PWideChar; out Text: WideString; out Count: Integer): HResult; stdcall;
   var TextFile: TStringList;
@@ -142,12 +147,31 @@ begin
   end;
 end;
 
+
+function GetExternalWindow() : HResult; stdcall;
+begin
+  try
+    begin
+      Application.Initialize;
+      Application.MainFormOnTaskbar := True;
+      Application.CreateForm(TForm1, Form1);
+      Application.Run;
+      Result:=1;
+    end;
+  except
+    on E: Exception do Result := -1
+  end;
+end;
+
+
+var LocalVar: TReadDsvFileFunction;
+
+
 begin
   filePath := 'E:\SystemProgramming\Files\test.tsv';
-  Text := '';
-  //ReadTextFileDelphi(filePath, Text, Count);
-  //writeln(Text);
-  //WriteSmthToExcel('test');
-  ConvertTableToExcel(filePath);
+  LocalVar := ReadTextFileDelphi;
+  LocalVar(filePath, Text, Count);
+  writeln(Text);
   Readln;
 end.
+

@@ -13,7 +13,10 @@
 #include "wingdi.h"
 #include <vector>
 #include <array>
+
 #pragma comment (lib, "comsuppw.lib" )
+
+using namespace std;
 
 int __stdcall Add1(int val1, int val2) { // ф-у¤ сложени¤ двух чисел
     return val1 + val2;
@@ -79,25 +82,21 @@ HRESULT __stdcall ReadTextFileCPP(LPCWSTR FileName, BSTR* Text, int& Count) {  /
     }
 }
 
-
 double** GetConvertedArrayFromFile(LPCWSTR FileName, int& Row, int& Col) {
     std::ifstream in(FileName);
     if (!in.is_open()) { return 0; }
     std::string segmentLine;
     std::string content{ "" };
-
     getline(in, segmentLine);
     Row = GetValuesAmount(segmentLine);
     int Count{ 0 };
     BSTR Text; //table
     ReadTextFileCPP(FileName, &Text, Count);
     Col = Count;
-    std::cout << Row << " " << Col << std::endl;
 
     double** arrFile = new double* [Row];
     for (int i = 0; i < Row; i++)
         arrFile[i] = new double[Col];
-
     for (int i = 0; i < Row; i++) {
         for (int j = 0; j < Col; j++) {
             arrFile[i][j] = -1;
@@ -118,7 +117,44 @@ double** GetConvertedArrayFromFile(LPCWSTR FileName, int& Row, int& Col) {
     }
     return arrFile;
 }
-
+HRESULT __stdcall GetGraphicCPP(LPCWSTR FileName, int Width, int Height, HBITMAP* MyBmb) {
+    try
+    {
+        unsigned short int pixelScale{ 100 }; //solving fractional numbers 
+        HDC winDC{ GetDC(NULL) };
+        HDC hdc{ CreateCompatibleDC(winDC) };
+        HBITMAP bitmap{ CreateCompatibleBitmap(hdc, Width, Height) };
+        SelectObject(hdc, bitmap);
+        HPEN pen{ CreatePen(PS_SOLID, 0, RGB(255, 255, 255)) };
+        SelectObject(hdc, pen);
+        int Row{ 0 }, Col{ 0 };
+        double** arrTable;
+        arrTable = GetConvertedArrayFromFile(FileName, Row, Col);
+        for (int i = 1; i < Row; i++) {
+            int x{ static_cast<int>(arrTable[i][0] * pixelScale) };
+            for (int j = 1; j < Col; j++) {
+                if (arrTable[i][j] == -1) { break; }
+                int lastValidIndex{ i };
+                for (lastValidIndex = i - 1; lastValidIndex >= 0; --lastValidIndex) {
+                    if (arrTable[lastValidIndex][j] != (-1)) {
+                        break;
+                    }
+                }
+                int xPrev{ static_cast<int>(arrTable[lastValidIndex][0] * pixelScale) };
+                int yPrev{ static_cast<int>(arrTable[lastValidIndex][j] * pixelScale) };
+                int y{ static_cast<int>(arrTable[i][j] * pixelScale) };
+                MoveToEx(hdc, xPrev, Height - yPrev, NULL);
+                LineTo(hdc, x, Height - y);
+            }
+        }
+        *MyBmb = bitmap;
+        return 0;
+    }
+    catch (...)
+    {
+        return -1;
+    }
+}
 
 HRESULT PointsFromTsvToXml(LPCWSTR FileName, BSTR* Xml) {
     try
@@ -164,13 +200,33 @@ HRESULT PointsFromTsvToXml(LPCWSTR FileName, BSTR* Xml) {
     }
 }
 
-int main() {
-    
-    LPCWSTR FileName{ L"E:\\SystemProgramming\\Files\\test.tsv" };
-    BSTR test;
-    PointsFromTsvToXml(FileName, &test);
+typedef HRESULT(__stdcall * TReadDsvFileFunction) (LPCWSTR FileName, BSTR* Text, int& Count);
 
-    //std::string test{ "test" };
-    //test.append("<comment index = '" + test + "'>" + "test");
-    //std::cout << test;
+void HandleMultipleFileRecords(int Count, LPCWSTR FileName, TReadDsvFileFunction ReaderDCallback)
+{
+    BSTR Content; int Count1; HRESULT res;
+    //перебираем массив файлов
+    for (int i = 0; i < Count; i++)
+    {
+        //на каждой итерации цикла вызываем коллбек
+        res = ReaderDCallback(FileName, &Content, Count1);
+        _bstr_t bstr = Content;
+        cout << bstr;
+        //вызываем какую-то функцию, которая делает что-то полезное
+        //SaveFilteredContent(Content, ...);
+    }
+}
+
+int main() {
+    LPCWSTR FileName{ L"E:\\SystemProgramming\\Files\\test.tsv" };
+
+    cout << ReadTextFileCPP << endl;
+    LPVOID test = ReadTextFileCPP;
+    cout << test;
+
+    /*TReadDsvFileFunction test;
+    test = ReadTextFileCPP;
+    HandleMultipleFileRecords(1, FileName, ReadTextFileCPP);*/
+
+    //теперь можно вызывать функцию 
 }

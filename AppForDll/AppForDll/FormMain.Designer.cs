@@ -62,6 +62,8 @@ namespace AppForDll
             this.textBox_FilePath = new System.Windows.Forms.TextBox();
             this.button_ChooseFile = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.button_DelphiAppGraphic = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -70,6 +72,7 @@ namespace AppForDll
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBox_CPP1
@@ -378,13 +381,35 @@ namespace AppForDll
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.label8);
+            this.tabPage3.Controls.Add(this.button_DelphiAppGraphic);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage3.Size = new System.Drawing.Size(877, 461);
             this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Лаб3 Hbitmap";
+            this.tabPage3.Text = "Лаб_DelphiApp";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // button_DelphiAppGraphic
+            // 
+            this.button_DelphiAppGraphic.Location = new System.Drawing.Point(340, 185);
+            this.button_DelphiAppGraphic.Name = "button_DelphiAppGraphic";
+            this.button_DelphiAppGraphic.Size = new System.Drawing.Size(140, 58);
+            this.button_DelphiAppGraphic.TabIndex = 0;
+            this.button_DelphiAppGraphic.Text = "Открыть приложение Delphi";
+            this.button_DelphiAppGraphic.UseVisualStyleBackColor = true;
+            this.button_DelphiAppGraphic.Click += new System.EventHandler(this.button_DelphiAppGraphic_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft YaHei", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label8.Location = new System.Drawing.Point(304, 36);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(211, 26);
+            this.label8.TabIndex = 1;
+            this.label8.Text = "Приложение Delphi";
             // 
             // FormMain
             // 
@@ -407,6 +432,8 @@ namespace AppForDll
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -446,6 +473,8 @@ namespace AppForDll
         private System.Windows.Forms.Button button_GenerateExcelDelphi;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button button_Xml;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button button_DelphiAppGraphic;
     }
 }
 

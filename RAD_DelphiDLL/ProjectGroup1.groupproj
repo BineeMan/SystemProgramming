@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{CFDAA00B-B27E-4C6E-9DD3-7FE1832195F2}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="DLL_Delphi.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\RAD_ConsoleApp\ConsoleProject.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="DLL_Delphi">
+        <MSBuild Projects="DLL_Delphi.dproj"/>
+    </Target>
+    <Target Name="DLL_Delphi:Clean">
+        <MSBuild Projects="DLL_Delphi.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="DLL_Delphi:Make">
+        <MSBuild Projects="DLL_Delphi.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="ConsoleProject">
+        <MSBuild Projects="..\RAD_ConsoleApp\ConsoleProject.dproj"/>
+    </Target>
+    <Target Name="ConsoleProject:Clean">
+        <MSBuild Projects="..\RAD_ConsoleApp\ConsoleProject.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ConsoleProject:Make">
+        <MSBuild Projects="..\RAD_ConsoleApp\ConsoleProject.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="DLL_Delphi;ConsoleProject"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="DLL_Delphi:Clean;ConsoleProject:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="DLL_Delphi:Make;ConsoleProject:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

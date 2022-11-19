@@ -48,10 +48,13 @@ namespace AppForDll.Utils
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
         private delegate IntPtr GetHwnd();
 
+        [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+        private delegate void GetExternalWindow(IntPtr DrawCallback, IntPtr HInWindow,
+            IntPtr HOutWindow, [MarshalAs(UnmanagedType.BStr)] string StatusInfo, IntPtr lpReserved );
 
         public static void ExecuteUnmanagedAddCPP(int val1, int val2)
         {
-            IntPtr pDll = NativeMethods.LoadLibrary(DllPath);
+            IntPtr pDll = NativeMethods.LoadLibrary(DllCppPath);
             IntPtr pAddressOfFunctionToCall = NativeMethods.GetProcAddress(pDll, "AddCPP");
             if (pAddressOfFunctionToCall == IntPtr.Zero) { return; }
             AddCPP addCPP = (AddCPP)Marshal.GetDelegateForFunctionPointer(
@@ -78,7 +81,7 @@ namespace AppForDll.Utils
         public static void ExecuteUnmanagedReadTextFileCpp(string fileName, string Text, int Count)
         {
 
-            IntPtr pDll = NativeMethods.LoadLibrary(DllPath);
+            IntPtr pDll = NativeMethods.LoadLibrary(DllCppPath);
 
             ExecuteUnmanagedSetHwnd(FormMain.FormHwnd, pDll);
 
@@ -102,7 +105,7 @@ namespace AppForDll.Utils
         {
             new Thread(() =>
             {
-                IntPtr pDll = NativeMethods.LoadLibrary(DllPath);
+                IntPtr pDll = NativeMethods.LoadLibrary(DllCppPath);
                 IntPtr pAddressOfFunctionToCall = NativeMethods.GetProcAddress(pDll, "GetGraphicCPP");
                 if (pAddressOfFunctionToCall == IntPtr.Zero) { MessageBox.Show("error"); return; }
                 GetGraphicCPP getGraphicCPP = (GetGraphicCPP)Marshal.GetDelegateForFunctionPointer(
@@ -181,7 +184,7 @@ namespace AppForDll.Utils
         {
             new Thread(() =>
             {
-                IntPtr pDll = NativeMethods.LoadLibrary(DllPath);
+                IntPtr pDll = NativeMethods.LoadLibrary(DllCppPath);
                 IntPtr pAddressOfFunctionToCall = NativeMethods.GetProcAddress(pDll, "PointsFromTsvToXml");
                 if (pAddressOfFunctionToCall == IntPtr.Zero)
                 {
@@ -239,5 +242,36 @@ namespace AppForDll.Utils
             return result;
         }
 
+        public static void ExecuteUnmanagedGetExternalWindow()
+        {
+            IntPtr pDll1 = NativeMethods.LoadLibrary(DllDelphiPath);
+            IntPtr pDll2 = NativeMethods.LoadLibrary(DllCppPath);
+
+            IntPtr pAddressOfFunctionToCall = NativeMethods.GetProcAddress(pDll1, "GetExternalWindow");
+            if (pAddressOfFunctionToCall == IntPtr.Zero)
+            {
+                MessageBox.Show("Ошибка Delphi");
+                return;
+            }
+
+            IntPtr pCallBackFun = NativeMethods.GetProcAddress(pDll2, "GetGraphicCPP");
+            if (pCallBackFun == IntPtr.Zero)
+            {
+                MessageBox.Show("Ошибка CallBackFun");
+                return;
+            }
+
+            MessageBox.Show(pCallBackFun.ToString());
+
+            GetExternalWindow getExternalWindow = (GetExternalWindow)Marshal.GetDelegateForFunctionPointer(
+                pAddressOfFunctionToCall,
+                typeof(GetExternalWindow));
+
+            string statusInfo = "";
+            IntPtr reserved = IntPtr.Zero;
+            getExternalWindow(pCallBackFun, FormMain.FormHwnd, FormMain.FormHwnd, statusInfo, reserved);
+
+            //NativeMethods.FreeLibrary(pDll);
+        }
     }
 }

@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<CONFIG>
-  <Compiler Value="E:\PROGRAMMS\lazarus\fpc\3.2.2\bin\x86_64-win64\fpc.exe" Date="1420791944"/>
-  <Params Value=" -MObjFPC -Scghi -WR -O1 -g -gl -l -vewnhibq -FiE:\SystemProgramming\lazarus\DLL_Delphi\lib\x86_64-win64 -FuE:\SystemProgramming\lazarus\DLL_Delphi\ -FUE:\SystemProgramming\lazarus\DLL_Delphi\lib\x86_64-win64\ -FEE:\SystemProgramming\lazarus\DLL_Delphi\ -oE:\SystemProgramming\lazarus\DLL_Delphi\DLL_Delphi.dll DLL_Delphi.pas"/>
-</CONFIG>

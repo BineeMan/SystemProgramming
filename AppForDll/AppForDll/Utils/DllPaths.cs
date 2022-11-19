@@ -10,9 +10,9 @@ namespace AppForDll.Utils
     {
         public static readonly string DllDelphiPath =
             "..\\..\\..\\..\\..\\RAD_DelphiDLL\\Win64\\Debug\\DLL_Delphi.dll"; //RAD
-        //private const string DllDelphiPath =
+        //public const string DllDelphiPath =
         //  "..\\..\\..\\..\\..\\lazarus\\DLL_Delphi\\DLL_Delphi.dll"; //Lazarus
-        public static readonly string DllPath =
+        public static readonly string DllCppPath =
             "..\\..\\..\\..\\..\\DLL_Cpp\\x64\\Debug\\DLL_Cpp.dll";
     }
 }
