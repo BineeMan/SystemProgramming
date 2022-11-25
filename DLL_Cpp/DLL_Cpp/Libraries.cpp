@@ -92,7 +92,7 @@ HRESULT __stdcall ReadTextFileCPP(LPCWSTR FileName, BSTR* Text, int& Count) {  /
 
 double** GetConvertedArrayFromFile(LPCWSTR FileName, int& Row, int& Col) {
     std::ifstream in(FileName);
-    if (!in.is_open()) { return 0; }
+    if (!in.is_open()) { throw std::invalid_argument("File Does Not Exist"); }
     std::string segmentLine;
     std::string content{ "" };
     getline(in, segmentLine);
@@ -128,7 +128,8 @@ double** GetConvertedArrayFromFile(LPCWSTR FileName, int& Row, int& Col) {
 HRESULT __stdcall GetGraphicCPP(LPCWSTR FileName, int Width, int Height, HBITMAP* MyBmb) {
     try
     {
-        PostMessage(AppHwnd, WM_USER + 1, 30, 0);
+        //PostMessage(AppHwnd, WM_USER + 1, 30, 0);
+        PostMessage(AppHwnd, WM_USER + 1, Width, 0);
 
         unsigned short int pixelScale{ 100 }; //solving fractional numbers 
         HDC winDC{ GetDC(NULL) };
@@ -139,8 +140,10 @@ HRESULT __stdcall GetGraphicCPP(LPCWSTR FileName, int Width, int Height, HBITMAP
         SelectObject(hdc, pen);
         int Row{ 0 }, Col{ 0 };
         double** arrTable;
-        arrTable = GetConvertedArrayFromFile(FileName, Row, Col);
-        PostMessage(AppHwnd, WM_USER + 1, 50, 0);
+
+        arrTable = GetConvertedArrayFromFile(FileName, Row, Col);    
+
+        //PostMessage(AppHwnd, WM_USER + 1, 50, 0);
 
         for (int i = 1; i < Row; i++) {
             int x{ static_cast<int>(arrTable[i][0] * pixelScale) };
@@ -159,8 +162,11 @@ HRESULT __stdcall GetGraphicCPP(LPCWSTR FileName, int Width, int Height, HBITMAP
                 LineTo(hdc, x, Height - y);
             }
         }
+
+        PostMessage(AppHwnd, WM_USER + 1, reinterpret_cast<int>(bitmap), 0);
         *MyBmb = bitmap;
-        PostMessage(AppHwnd, WM_USER + 1, 100, 0);
+        PostMessage(AppHwnd, WM_USER + 1, reinterpret_cast<int>(*MyBmb), 0);
+        //PostMessage(AppHwnd, WM_USER + 1, 100, 0);
         return 0;
     }
     catch (...)
@@ -212,5 +218,3 @@ HRESULT __stdcall PointsFromTsvToXml(LPCWSTR FileName, BSTR * Xml) {
         return -1;
     }
 }
-
-//test

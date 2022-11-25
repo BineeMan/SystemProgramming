@@ -141,7 +141,6 @@ type PDrawCallback1 =
     function (  const FileName: PWideChar;
      Width: Integer; Height: Integer; out MyBmb: HBITMAP): HResult; stdcall;
 
-
 function GetExternalWindow( DrawCallback1: PDrawCallback1;
   HInWindow: HWND; HOutWindow: HWND;
     StatusInfo: WideString; lpReserved: Integer) : HResult; stdcall;
@@ -170,7 +169,8 @@ exports
   ReadTextFileDelphi,
   AddDelphi,
   ConvertTableToExcel,
-  GetExternalWindow;
+  GetExternalWindow,
+  GetExternalWindow2;
 begin
 
 end.

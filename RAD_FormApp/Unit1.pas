@@ -5,7 +5,12 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls,
-  Math;
+  Math, StrUtils, ActiveX;
+
+  type PDrawCallback1 =
+      function ( const FileName: PWideChar;
+       Width: Integer; Height: Integer; out MyBmb: HBITMAP): HResult; stdcall;
+
 type
   TForm1 = class(TForm)
     Button1: TButton;
@@ -13,9 +18,7 @@ type
     Image1: TImage;
     TextBox_Width: TEdit;
     TextBox_Height: TEdit;
-    type PDrawCallback1 =
-      function ( const FileName: PWideChar;
-       Width: Integer; Height: Integer; out MyBmb: HBITMAP): HResult; stdcall;
+
 
 
     procedure Button1Click(Sender: TObject);
@@ -28,6 +31,10 @@ type
     //lpReserved: LPVoid;
     { Public declarations }
   end;
+
+  function GetExternalWindow2( DrawCallback1: PDrawCallback1;
+  HInWindow: HWND; out HOutWindow: HWND;
+    out StatusInfo: WideString; lpReserved: Integer) : HResult; stdcall;
 
 var
   Form1: TForm1;
@@ -46,30 +53,63 @@ var
     Width: Integer;
     Height: Integer;
     filePath: String;
-    Bitmap: TBitmap;
     MyHbitmap: HBITMAP;
-    DrawCallbackLocal: PDrawCallback1;
     res: HResult;
-begin
-  //filePath := 'E:\SystemProgramming\Files\test.tsv';
-  //MyHbitmap := NIL;
+    bmp: Tbitmap;
 
-  filePath := TextBox_FilePath.Text;
+begin
+  filePath := 'E:\SystemProgramming\Files\test.tsv';
+  const test : PWideChar = 'E:\SystemProgramming\Files\test.tsv';
+
+  //filePath := TextBox_FilePath.Text;
   Width := StrToInt(TextBox_Width.Text);
   Height:= StrToInt(TextBox_Height.Text);
+  //MessageBox(Form1.Handle, PChar(filePath), PChar('NOT NULL'), MB_OK);
 
-  DrawCallbackLocal := DrawCallback;
+  res := DrawCallback(test, Width, Height, MyHbitmap);
 
-  res := DrawCallbackLocal(PWideChar(filePath), Width, Height, MyHbitmap);
+  if ( MyHbitmap = NULL ) then begin
+    MessageBox(Form1.Handle, PChar( 'NULL' ), PChar('asd'), MB_OK);
+  end
+  else begin
+    MessageBox(Form1.Handle, PChar(IntToStr(MyHbitmap) + ' '+ IntToStr(res)), PChar('NOT NULL'), MB_OK);
+    Image1.Picture.Bitmap.Handle := MyHbitmap;
 
-  //Image1.Create(Form1);
-  //Image1.Width := Bitmap.Width;
-  //Image1.Height := Bitmap.Height;
+    bmp := TBitmap.Create;
+    //bmp := CreateBitmapFromHBITMAP(MyHbitmap);
+    //bmp.Handle :=  MyHbitmap;
+    bmp.SaveToFile('E:\SystemProgramming\Files\xdd.bmp');
+    bmp.Free;
+    Image1.Refresh;
+  end;
 
-  Image1.Picture.Bitmap.Handle := MyHbitmap;
-  //Image1.Picture.SaveToFile('E:\SystemProgramming\Files\test123.bmp');
-  //Image1.Refresh;
-  //MessageBox(Form1.Handle, PChar( 'ok' ), PChar('asd'), MB_OK);
+end;
+
+
+function GetForm(Out FormHandle: HWND; DrawCallback1: PDrawCallback1;  pAppHwnd: HWND): HResult;
+begin
+  Form1 := TForm1.Create(nil);
+  Form1.Show;
+  FormHandle := Form1.Handle;
+
+  Form1.DrawCallback := DrawCallback1;
+
+end;
+
+
+function GetExternalWindow2( DrawCallback1: PDrawCallback1;
+  HInWindow: HWND; out HOutWindow: HWND;
+    out StatusInfo: WideString; lpReserved: Integer) : HResult; stdcall;
+begin
+  try
+    begin
+      GetForm(HOutWindow, DrawCallback1, HInWindow);
+
+      Result := 1;
+    end
+  except
+    on E: Exception do Result := -1
+  end;
 
 end;
 

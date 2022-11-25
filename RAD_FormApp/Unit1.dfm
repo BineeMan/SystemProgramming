@@ -1,10 +1,12 @@
 object Form1: TForm1
   Left = 0
   Top = 0
+  Align = alClient
+  BorderStyle = bsNone
   Caption = 'Form1'
-  ClientHeight = 358
-  ClientWidth = 686
-  Color = clBtnFace
+  ClientHeight = 397
+  ClientWidth = 702
+  Color = clSkyBlue
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11

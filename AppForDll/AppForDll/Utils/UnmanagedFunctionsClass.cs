@@ -12,6 +12,8 @@ using static AppForDll.Utils.ThreadWatcher;
 using System.Xml.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using System.Runtime.CompilerServices;
+using static AppForDll.Utils.NativeMethods;
+using System.Diagnostics;
 
 namespace AppForDll.Utils
 {
@@ -50,7 +52,7 @@ namespace AppForDll.Utils
 
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
         private delegate void GetExternalWindow(IntPtr DrawCallback, IntPtr HInWindow,
-            IntPtr HOutWindow, [MarshalAs(UnmanagedType.BStr)] string StatusInfo, IntPtr lpReserved );
+            out IntPtr HOutWindow, [MarshalAs(UnmanagedType.BStr)] out string StatusInfo, IntPtr lpReserved);
 
         public static void ExecuteUnmanagedAddCPP(int val1, int val2)
         {
@@ -70,7 +72,7 @@ namespace AppForDll.Utils
         {
             IntPtr pDll = NativeMethods.LoadLibrary(DllDelphiPath);
             IntPtr pAddressOfFunctionToCall = NativeMethods.GetProcAddress(pDll, "AddDelphi");
-             if (pAddressOfFunctionToCall == IntPtr.Zero) { return; }
+            if (pAddressOfFunctionToCall == IntPtr.Zero) { return; }
             AddDelphi addDelphi = (AddDelphi)Marshal.GetDelegateForFunctionPointer(
                 pAddressOfFunctionToCall,
                 typeof(AddDelphi));
@@ -111,6 +113,7 @@ namespace AppForDll.Utils
                 GetGraphicCPP getGraphicCPP = (GetGraphicCPP)Marshal.GetDelegateForFunctionPointer(
                     pAddressOfFunctionToCall,
                     typeof(GetGraphicCPP));
+                ExecuteUnmanagedSetHwnd(FormMain.FormHwnd, pDll);
 
                 IntPtr MyBmp = IntPtr.Zero;
 
@@ -118,8 +121,9 @@ namespace AppForDll.Utils
 
                 Bitmap bm = new Bitmap(Width, Height);
                 bm = Image.FromHbitmap(MyBmp);
+                MessageBox.Show(MyBmp.ToString());
                 bm.Save(fileName + "\\..\\graphic.bmp");
-
+                
                 NativeMethods.FreeLibrary(pDll);
             })
             {
@@ -219,7 +223,7 @@ namespace AppForDll.Utils
             typeof(SetHwnd));
 
             setHwnd(hWnd);
-        
+
         }
 
         public static IntPtr ExecuteUnmanagedGetHwnd(IntPtr pDll)
@@ -242,12 +246,12 @@ namespace AppForDll.Utils
             return result;
         }
 
-        public static void ExecuteUnmanagedGetExternalWindow()
+        public static void ExecuteUnmanagedGetExternalWindow(IntPtr ControlHandle)
         {
             IntPtr pDll1 = NativeMethods.LoadLibrary(DllDelphiPath);
             IntPtr pDll2 = NativeMethods.LoadLibrary(DllCppPath);
-
-            IntPtr pAddressOfFunctionToCall = NativeMethods.GetProcAddress(pDll1, "GetExternalWindow");
+          
+            IntPtr pAddressOfFunctionToCall = NativeMethods.GetProcAddress(pDll1, "GetExternalWindow2");
             if (pAddressOfFunctionToCall == IntPtr.Zero)
             {
                 MessageBox.Show("Ошибка Delphi");
@@ -261,7 +265,9 @@ namespace AppForDll.Utils
                 return;
             }
 
-            MessageBox.Show(pCallBackFun.ToString());
+            ExecuteUnmanagedSetHwnd(FormMain.FormHwnd, pDll2);
+
+            //MessageBox.Show(ExecuteUnmanagedGetHwnd(pDll2).ToString());
 
             GetExternalWindow getExternalWindow = (GetExternalWindow)Marshal.GetDelegateForFunctionPointer(
                 pAddressOfFunctionToCall,
@@ -269,9 +275,17 @@ namespace AppForDll.Utils
 
             string statusInfo = "";
             IntPtr reserved = IntPtr.Zero;
-            getExternalWindow(pCallBackFun, FormMain.FormHwnd, FormMain.FormHwnd, statusInfo, reserved);
+            IntPtr delphiForm = IntPtr.Zero;
+            string status = "";
+            //MessageBox.Show(delphiForm.ToString());
 
-            //NativeMethods.FreeLibrary(pDll);
+            getExternalWindow(pCallBackFun, FormMain.FormHwnd,
+                out delphiForm, out status, reserved);
+
+            //Thread.Sleep(1000);
+
+            NativeMethods.SetParent(delphiForm, ControlHandle);
+
         }
     }
 }

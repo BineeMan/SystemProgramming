@@ -25,12 +25,23 @@ namespace AppForDll
 
         private FormProgressBar formProgressBar;
 
+        //protected override void WndProc(ref System.Windows.Forms.Message m)
+        //{
+        //    if (m.Msg == WM_USER + 1) {
+        //        IntPtr ptr = m.WParam;
+        //        formProgressBar.SetProgressBarValue(ptr.ToInt32());
+        //    }
+        //    base.WndProc(ref m);
+        //}
+
         protected override void WndProc(ref System.Windows.Forms.Message m)
         {
-           
-            if (m.Msg == WM_USER + 1) {
-                IntPtr ptr = m.WParam;
-                formProgressBar.SetProgressBarValue(ptr.ToInt32());
+            if (m.Msg == WM_USER + 1)
+            {
+               // MessageBox.Show("asd");
+                IntPtr ptr1 = m.WParam;
+                IntPtr ptr2 = m.LParam;
+                textBox_Debug.Text = textBox_Debug.Text + ptr1.ToInt32().ToString() + " " + ptr2.ToInt32().ToString() + Environment.NewLine;
             }
             base.WndProc(ref m);
         }
@@ -253,13 +264,12 @@ namespace AppForDll
             IntPtr hWnd = this.Handle;
             //ExecuteUnmanagedSetHwnd(hWnd,);
             MessageBox.Show(hWnd.ToString());
-            
         }
 
         private void button_DelphiAppGraphic_Click(object sender, EventArgs e)
         {
-            ExecuteUnmanagedGetExternalWindow();
+            IntPtr ControlHandle = tabControl_Delphi.Handle;
+            ExecuteUnmanagedGetExternalWindow(ControlHandle);
         }
     }
-
 }
