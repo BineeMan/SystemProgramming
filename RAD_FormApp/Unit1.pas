@@ -160,7 +160,7 @@ begin
       @DrawCallback2 := Clbk;
 
       //DrawCallback2  := Clbk;
-      GetForm(InWindow, Clbk, OutWindow);
+      GetForm(OutWindow, Clbk, OutWindow);
     end;
 end;
 
