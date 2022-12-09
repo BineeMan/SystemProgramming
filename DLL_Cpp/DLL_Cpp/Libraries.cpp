@@ -125,11 +125,12 @@ double** GetConvertedArrayFromFile(LPCWSTR FileName, int& Row, int& Col) {
     }
     return arrFile;
 }
+
 HRESULT __stdcall GetGraphicCPP(LPCWSTR FileName, int Width, int Height, HBITMAP* MyBmb) {
     try
     {
         //PostMessage(AppHwnd, WM_USER + 1, 30, 0);
-        PostMessage(AppHwnd, WM_USER + 1, Width, 0);
+        //PostMessage(AppHwnd, WM_USER + 1, Width, 0);
 
         unsigned short int pixelScale{ 100 }; //solving fractional numbers 
         HDC winDC{ GetDC(NULL) };
@@ -144,7 +145,6 @@ HRESULT __stdcall GetGraphicCPP(LPCWSTR FileName, int Width, int Height, HBITMAP
         arrTable = GetConvertedArrayFromFile(FileName, Row, Col);    
 
         //PostMessage(AppHwnd, WM_USER + 1, 50, 0);
-
         for (int i = 1; i < Row; i++) {
             int x{ static_cast<int>(arrTable[i][0] * pixelScale) };
             for (int j = 1; j < Col; j++) {
@@ -163,9 +163,9 @@ HRESULT __stdcall GetGraphicCPP(LPCWSTR FileName, int Width, int Height, HBITMAP
             }
         }
 
-        PostMessage(AppHwnd, WM_USER + 1, reinterpret_cast<int>(bitmap), 0);
+        //PostMessage(AppHwnd, WM_USER + 1, reinterpret_cast<int>(bitmap), 0);
         *MyBmb = bitmap;
-        PostMessage(AppHwnd, WM_USER + 1, reinterpret_cast<int>(*MyBmb), 0);
+        //PostMessage(AppHwnd, WM_USER + 1, reinterpret_cast<int>(*MyBmb), 0);
         //PostMessage(AppHwnd, WM_USER + 1, 100, 0);
         return 0;
     }

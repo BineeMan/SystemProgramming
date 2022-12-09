@@ -63,12 +63,12 @@ namespace AppForDll
             this.textBox_FilePath = new System.Windows.Forms.TextBox();
             this.button_ChooseFile = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.textBox_Debug = new System.Windows.Forms.TextBox();
             this.tabControl_Delphi = new System.Windows.Forms.TabControl();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.label8 = new System.Windows.Forms.Label();
             this.button_DelphiAppGraphic = new System.Windows.Forms.Button();
-            this.textBox_Debug = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -407,6 +407,15 @@ namespace AppForDll
             this.tabPage3.Text = "Лаб_DelphiApp";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // textBox_Debug
+            // 
+            this.textBox_Debug.Location = new System.Drawing.Point(532, 6);
+            this.textBox_Debug.Multiline = true;
+            this.textBox_Debug.Name = "textBox_Debug";
+            this.textBox_Debug.Size = new System.Drawing.Size(283, 133);
+            this.textBox_Debug.TabIndex = 3;
+            this.textBox_Debug.Visible = false;
+            // 
             // tabControl_Delphi
             // 
             this.tabControl_Delphi.Controls.Add(this.tabPage4);
@@ -458,14 +467,6 @@ namespace AppForDll
             this.button_DelphiAppGraphic.Text = "Открыть приложение Delphi";
             this.button_DelphiAppGraphic.UseVisualStyleBackColor = true;
             this.button_DelphiAppGraphic.Click += new System.EventHandler(this.button_DelphiAppGraphic_Click);
-            // 
-            // textBox_Debug
-            // 
-            this.textBox_Debug.Location = new System.Drawing.Point(532, 6);
-            this.textBox_Debug.Multiline = true;
-            this.textBox_Debug.Name = "textBox_Debug";
-            this.textBox_Debug.Size = new System.Drawing.Size(283, 133);
-            this.textBox_Debug.TabIndex = 3;
             // 
             // FormMain
             // 

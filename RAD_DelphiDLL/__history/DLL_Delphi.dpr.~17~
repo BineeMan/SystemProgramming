@@ -136,19 +136,42 @@ begin
   end;
 end;
 
-function GetExternalWindow() : HResult; stdcall;
+
+type PDrawCallback1 =
+    function (  const FileName: PWideChar;
+     Width: Integer; Height: Integer; out MyBmb: HBITMAP): HResult; stdcall;
+
+function GetExternalWindow( DrawCallback1: PDrawCallback1;
+  HInWindow: HWND; HOutWindow: HWND;
+    StatusInfo: WideString; lpReserved: Integer) : HResult; stdcall;
 begin
-  Application.Initialize;
-  Application.MainFormOnTaskbar := True;
-  Application.CreateForm(TForm1, Form1);
-  Application.Run;
+  try
+    begin
+
+      Application.Initialize;
+      Application.MainFormOnTaskbar := True;
+      Application.CreateForm(TForm1, Form1);
+
+      Form1.DrawCallback := DrawCallback1;
+      Form1.HInWindow := HInWindow;
+
+      Application.Run;
+
+      Result:=1;
+    end
+  except
+    on E: Exception do Result := -1
+  end;
+
 end;
 
 exports
-ReadTextFileDelphi,
-AddDelphi,
-ConvertTableToExcel;
-
+  ReadTextFileDelphi,
+  AddDelphi,
+  ConvertTableToExcel,
+  GetExternalWindow,
+  GetExternalWindow2;
 begin
+
 end.
 

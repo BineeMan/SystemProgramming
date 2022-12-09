@@ -121,6 +121,7 @@ namespace AppForDll.Utils
 
                 Bitmap bm = new Bitmap(Width, Height);
                 bm = Image.FromHbitmap(MyBmp);
+
                 MessageBox.Show(MyBmp.ToString());
                 bm.Save(fileName + "\\..\\graphic.bmp");
                 
@@ -251,7 +252,7 @@ namespace AppForDll.Utils
             IntPtr pDll1 = NativeMethods.LoadLibrary(DllDelphiPath);
             IntPtr pDll2 = NativeMethods.LoadLibrary(DllCppPath);
           
-            IntPtr pAddressOfFunctionToCall = NativeMethods.GetProcAddress(pDll1, "GetExternalWindow2");
+            IntPtr pAddressOfFunctionToCall = NativeMethods.GetProcAddress(pDll1, "GetExternalWindow3");
             if (pAddressOfFunctionToCall == IntPtr.Zero)
             {
                 MessageBox.Show("Ошибка Delphi");
@@ -276,16 +277,16 @@ namespace AppForDll.Utils
             string statusInfo = "";
             IntPtr reserved = IntPtr.Zero;
             IntPtr delphiForm = IntPtr.Zero;
+
             string status = "";
             //MessageBox.Show(delphiForm.ToString());
 
             getExternalWindow(pCallBackFun, FormMain.FormHwnd,
                 out delphiForm, out status, reserved);
-
+            
             //Thread.Sleep(1000);
 
             NativeMethods.SetParent(delphiForm, ControlHandle);
-
         }
     }
 }

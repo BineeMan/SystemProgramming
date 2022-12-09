@@ -1,7 +1,8 @@
 library DLL_Delphi;
 
 uses
- Classes, Character, ComObj, ActiveX, Variants, Windows, Messages, SysUtils;
+ Classes, Character, ComObj, ActiveX, Variants, Windows, Messages, SysUtils,
+ Vcl.Forms, Unit1 in '..\RAD_FormApp\Unit1.pas';
 
 function AddDelphi(val1: integer; val2: integer): integer; stdcall;
 
@@ -135,11 +136,42 @@ begin
   end;
 end;
 
-exports
-ReadTextFileDelphi,
-AddDelphi,
-ConvertTableToExcel;
 
+type PDrawCallback1 =
+    function (  FileName: PWideChar;
+     Width: Integer; Height: Integer; out MyBmb: HBITMAP): HResult; stdcall;
+
+function GetExternalWindow( DrawCallback1: PDrawCallback1;
+  HInWindow: HWND; HOutWindow: HWND;
+    StatusInfo: WideString; lpReserved: Integer) : HResult; stdcall;
 begin
+  try
+    begin
+
+      Application.Initialize;
+      Application.MainFormOnTaskbar := True;
+      Application.CreateForm(TForm1, Form1);
+
+      Form1.DrawCallback := DrawCallback1;
+      Form1.HInWindow := HInWindow;
+
+      Application.Run;
+
+      Result:=1;
+    end
+  except
+    on E: Exception do Result := -1
+  end;
+
+end;
+
+exports
+  ReadTextFileDelphi,
+  AddDelphi,
+  ConvertTableToExcel,
+  GetExternalWindow,
+  GetExternalWindow2;
+begin
+
 end.
 

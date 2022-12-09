@@ -1,7 +1,10 @@
-﻿  Libraries.cpp
-E:\SystemProgramming\DLL_Cpp\DLL_Cpp\Libraries.cpp(166,71): warning C4311: reinterpret_cast: усечение указателя из "HBITMAP" в "int"
-E:\SystemProgramming\DLL_Cpp\DLL_Cpp\Libraries.cpp(166,71): warning C4302: reinterpret_cast: усечение из "HBITMAP" к "int"
-E:\SystemProgramming\DLL_Cpp\DLL_Cpp\Libraries.cpp(168,71): warning C4311: reinterpret_cast: усечение указателя из "HBITMAP" в "int"
-E:\SystemProgramming\DLL_Cpp\DLL_Cpp\Libraries.cpp(168,71): warning C4302: reinterpret_cast: усечение из "HBITMAP" к "int"
+﻿  pch.cpp
+  dllmain.cpp
+  Libraries.cpp
+E:\SystemProgramming\DLL_Cpp\DLL_Cpp\Libraries.cpp(165,71): warning C4311: reinterpret_cast: усечение указателя из "HBITMAP" в "int"
+E:\SystemProgramming\DLL_Cpp\DLL_Cpp\Libraries.cpp(165,71): warning C4302: reinterpret_cast: усечение из "HBITMAP" к "int"
+E:\SystemProgramming\DLL_Cpp\DLL_Cpp\Libraries.cpp(167,71): warning C4311: reinterpret_cast: усечение указателя из "HBITMAP" в "int"
+E:\SystemProgramming\DLL_Cpp\DLL_Cpp\Libraries.cpp(167,71): warning C4302: reinterpret_cast: усечение из "HBITMAP" к "int"
+  Создание кода...
      Создается библиотека E:\SystemProgramming\DLL_Cpp\x64\Debug\DLL_Cpp.lib и объект E:\SystemProgramming\DLL_Cpp\x64\Debug\DLL_Cpp.exp
   DLL_Cpp.vcxproj -> E:\SystemProgramming\DLL_Cpp\x64\Debug\DLL_Cpp.dll

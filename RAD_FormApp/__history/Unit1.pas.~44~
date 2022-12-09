@@ -3,13 +3,23 @@ unit Unit1;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls,
-  Math, StrUtils, ActiveX;
+  Math, StrUtils, ActiveX, Vcl.Graphics;
 
   type PDrawCallback1 =
-      function ( const FileName: PWideChar;
+      function ( FileName: PWideChar;
        Width: Integer; Height: Integer; out MyBmb: HBITMAP): HResult; stdcall;
+
+
+
+  type PDrawCallback2 =
+      function ( FileName: PWideChar;
+       Width: DWORD; Height: DWORD; out MyBmb: HBITMAP): HResult; stdcall;
+
+ // type PdipCreateBitmapFromHBITMAP:
+ //   function GdipCreateBitmapFromHBITMAP(
+ //     hbitmap1: HBITMAP; hpalette1: HPalette; out bitmap1: Tbitmap) : Integer;
 
 type
   TForm1 = class(TForm)
@@ -30,11 +40,13 @@ type
     //HOutWindow: HWND;
     //lpReserved: LPVoid;
     { Public declarations }
-  end;
+
+   end;
 
   function GetExternalWindow2( DrawCallback1: PDrawCallback1;
   HInWindow: HWND; out HOutWindow: HWND;
     out StatusInfo: WideString; lpReserved: Integer) : HResult; stdcall;
+
 
 var
   Form1: TForm1;
@@ -48,38 +60,62 @@ var
   i: HWND;
   filePath: String;
 
+function HBitmapToCanvas(Source: HBitmap; Dest: TImage): LongBool;
+var MemDC1, MemDC2: HDC;
+
+begin
+  MemDC1 := GetDC(0);
+  MemDC2 := CreateCompatibleDC(MemDC1);
+  SelectObject(MemDC2, Source);
+  Result := winapi.Windows.BitBlt(
+                           Dest.Canvas.Handle,
+                           0, 0,
+                           Dest.Width, Dest.Height,
+                           MemDC2,
+                           0,0,
+                           SRCCOPY
+                          );
+end;
+
+
 procedure TForm1.Button1Click(Sender: TObject);
 var
     Width: Integer;
     Height: Integer;
-    filePath: String;
     MyHbitmap: HBITMAP;
     res: HResult;
     bmp: Tbitmap;
+    HWinCodec: HMODULE;
+    filePath : PWideChar;
 
 begin
   filePath := 'E:\SystemProgramming\Files\test.tsv';
-  const test : PWideChar = 'E:\SystemProgramming\Files\test.tsv';
 
   //filePath := TextBox_FilePath.Text;
   Width := StrToInt(TextBox_Width.Text);
   Height:= StrToInt(TextBox_Height.Text);
-  //MessageBox(Form1.Handle, PChar(filePath), PChar('NOT NULL'), MB_OK);
 
-  res := DrawCallback(test, Width, Height, MyHbitmap);
+  res := DrawCallback(filePath, Width, Height, MyHbitmap);
 
   if ( MyHbitmap = NULL ) then begin
     MessageBox(Form1.Handle, PChar( 'NULL' ), PChar('asd'), MB_OK);
   end
   else begin
     MessageBox(Form1.Handle, PChar(IntToStr(MyHbitmap) + ' '+ IntToStr(res)), PChar('NOT NULL'), MB_OK);
-    Image1.Picture.Bitmap.Handle := MyHbitmap;
 
+    //Image1.Picture.Bitmap.Handle := MyHbitmap;
+
+    //HWinCodec := LoadLibrary('gdiplus.dll');
+    //PdipCreateBitmapFromHBITMAP := GetProcAddress(HWinCodec, 'GdipCreateBitmapFromHBITMAP ');
     bmp := TBitmap.Create;
-    bmp := CreateBitmapFromHBITMAP(MyHbitmap);
+    bmp.Handle := MyHbitmap;
+    //Image1.Canvas.Draw(Width, Height, bmp);
     bmp.SaveToFile('E:\SystemProgramming\Files\xdd.bmp');
-    bmp.Free;
-    Image1.Refresh;
+    //bmp.Free;
+
+    HBitmapToCanvas(MyHbitmap, Image1);
+
+    //Image1.Refresh;
   end;
 
 end;
@@ -98,10 +134,13 @@ end;
 
 function GetExternalWindow2( DrawCallback1: PDrawCallback1;
   HInWindow: HWND; out HOutWindow: HWND;
-    out StatusInfo: WideString; lpReserved: Integer) : HResult; stdcall;
+    out StatusInfo: WideString; lpReserved: Integer ) : HResult; stdcall;
+var
+  test: PWideChar;
 begin
   try
     begin
+      test := 'E:\SystemProgramming\Files\test.tsv';
       GetForm(HOutWindow, DrawCallback1, HInWindow);
 
       Result := 1;
@@ -110,6 +149,15 @@ begin
     on E: Exception do Result := -1
   end;
 
+end;
+
+function GetExternalWindow3(Clbk: PDrawCallback1; InWindow: HWND; out OutWindow: HWND): HRESULT;
+begin
+  With TForm1.CreateParented(InWindow) do
+    begin
+      OutWindow := Handle;
+      @DrawCallback := PDrawCallback1;
+    end;
 end;
 
 end.
