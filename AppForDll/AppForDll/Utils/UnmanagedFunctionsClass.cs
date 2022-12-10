@@ -193,7 +193,7 @@ namespace AppForDll.Utils
                 IntPtr pAddressOfFunctionToCall = NativeMethods.GetProcAddress(pDll, "PointsFromTsvToXml");
                 if (pAddressOfFunctionToCall == IntPtr.Zero)
                 {
-                    MessageBox.Show("Ошибка");
+                    MessageBox.Show("Ошибка3");
                     return;
                 }
                 PointsFromTsvToXml pointsFromTsvToXml = (PointsFromTsvToXml)Marshal.GetDelegateForFunctionPointer(
@@ -216,7 +216,7 @@ namespace AppForDll.Utils
             IntPtr pAddressOfFunctionToCall = NativeMethods.GetProcAddress(pDll, "SetHwnd");
             if (pAddressOfFunctionToCall == IntPtr.Zero)
             {
-                MessageBox.Show("Ошибка");
+                MessageBox.Show("Ошибка2");
                 return;
             }
             SetHwnd setHwnd = (SetHwnd)Marshal.GetDelegateForFunctionPointer(
@@ -232,7 +232,7 @@ namespace AppForDll.Utils
             IntPtr pAddressOfFunctionToCall = NativeMethods.GetProcAddress(pDll, "GetHwnd");
             if (pAddressOfFunctionToCall == IntPtr.Zero)
             {
-                MessageBox.Show("Ошибка");
+                MessageBox.Show("Ошибка1");
                 return IntPtr.Zero;
             }
 
@@ -259,14 +259,14 @@ namespace AppForDll.Utils
                 return;
             }
 
-            IntPtr pCallBackFun = NativeMethods.GetProcAddress(pDll2, "GetGraphicCPP");
+            IntPtr pCallBackFun = NativeMethods.GetProcAddress(pDll2, "_GetGraphicCPP@16");
             if (pCallBackFun == IntPtr.Zero)
             {
                 MessageBox.Show("Ошибка CallBackFun");
                 return;
             }
 
-            ExecuteUnmanagedSetHwnd(FormMain.FormHwnd, pDll2);
+           // ExecuteUnmanagedSetHwnd(FormMain.FormHwnd, pDll2);
 
             //MessageBox.Show(ExecuteUnmanagedGetHwnd(pDll2).ToString());
 
@@ -277,7 +277,7 @@ namespace AppForDll.Utils
             string statusInfo = "";
             IntPtr reserved = IntPtr.Zero;
             IntPtr delphiForm = IntPtr.Zero;
-
+            Debug.WriteLine(pCallBackFun.ToString());
             string status = "";
             //MessageBox.Show(delphiForm.ToString());
 

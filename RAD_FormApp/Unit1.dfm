@@ -4,8 +4,8 @@ object Form1: TForm1
   Align = alClient
   BorderStyle = bsNone
   Caption = 'Form1'
-  ClientHeight = 397
-  ClientWidth = 702
+  ClientHeight = 339
+  ClientWidth = 695
   Color = clSkyBlue
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -16,10 +16,10 @@ object Form1: TForm1
   PixelsPerInch = 96
   TextHeight = 13
   object Image1: TImage
-    Left = 72
-    Top = 112
-    Width = 521
-    Height = 201
+    Left = 32
+    Top = 92
+    Width = 561
+    Height = 165
     AutoSize = True
   end
   object Button1: TButton
@@ -56,5 +56,14 @@ object Form1: TForm1
     TabOrder = 3
     Text = '500'
     TextHint = #1042#1099#1089#1086#1090#1072
+  end
+  object Memo1: TMemo
+    Left = 824
+    Top = 92
+    Width = 649
+    Height = 81
+    Lines.Strings = (
+      'Memo1')
+    TabOrder = 4
   end
 end

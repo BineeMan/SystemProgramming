@@ -11,11 +11,10 @@ uses
       function ( FileName: PWideChar;
        Width: Integer; Height: Integer; out MyBmb: HBITMAP): HResult; stdcall;
 
-
-
-  type TDrawCallback2 =
+   type TDrawCallback2 =
       function ( FileName: PWideChar;
        Width: DWORD; Height: DWORD; out MyBmb: HBITMAP): HResult; stdcall;
+
   PDrawCallback2 = ^TDrawCallback2;
 
 
@@ -26,6 +25,7 @@ type
     Image1: TImage;
     TextBox_Width: TEdit;
     TextBox_Height: TEdit;
+    Memo1: TMemo;
 
 
 
@@ -36,8 +36,6 @@ type
     DrawCallback: PDrawCallback1;
     DrawCallback2: TDrawCallback2;
     HInWindow: HWND;
-    //HOutWindow: HWND;
-    //lpReserved: LPVoid;
     { Public declarations }
 
    end;
@@ -46,12 +44,11 @@ type
   HInWindow: HWND; out HOutWindow: HWND;
     out StatusInfo: WideString; lpReserved: Integer) : HResult; stdcall;
 
-  function GetExternalWindow3(Clbk: PDrawCallback2;
-   InWindow: HWND; out OutWindow: HWND): HRESULT;
+  function GetExternalWindow3(Clbk: Pointer; InWindow: HWND; out OutWindow: HWND;
+  out StatusInfo: WideString; lpReserved: Integer ): HRESULT; stdcall;
 
 var
   Form1: TForm1;
-
 
 implementation
 
@@ -60,6 +57,7 @@ implementation
 var
   i: HWND;
   filePath: String;
+  DrawCallback2: TDrawCallback2;
 
 function HBitmapToCanvas(Source: HBitmap; Dest: TImage): LongBool;
 var MemDC1, MemDC2: HDC;
@@ -96,38 +94,38 @@ begin
   Width := StrToInt(TextBox_Width.Text);
   Height:= StrToInt(TextBox_Height.Text);
 
+  Memo1.Lines.Add(IntToStr(integer(@DrawCallback2)));
   res := DrawCallback2(filePath, Width, Height, MyHbitmap);
 
   if ( MyHbitmap = NULL ) then begin
     MessageBox(Form1.Handle, PChar( 'NULL' ), PChar('asd'), MB_OK);
   end
   else begin
-    MessageBox(Form1.Handle, PChar(IntToStr(MyHbitmap) + ' '+ IntToStr(res)), PChar('NOT NULL'), MB_OK);
-
-    //Image1.Picture.Bitmap.Handle := MyHbitmap;
-
-    //HWinCodec := LoadLibrary('gdiplus.dll');
-    //PdipCreateBitmapFromHBITMAP := GetProcAddress(HWinCodec, 'GdipCreateBitmapFromHBITMAP ');
-    bmp := TBitmap.Create;
-    bmp.Handle := MyHbitmap;
+    //MessageBox(Form1.Handle, PChar(IntToStr(MyHbitmap) + ' '+ IntToStr(res)), PChar('NOT NULL'), MB_OK);
+    Image1.Picture.Bitmap.Handle := MyHbitmap;
+    //bmp := TBitmap.Create;
+    //bmp.Handle := MyHbitmap;
     //Image1.Canvas.Draw(Width, Height, bmp);
-    bmp.SaveToFile('E:\SystemProgramming\Files\xdd.bmp');
+    //bmp.SaveToFile('E:\SystemProgramming\Files\xdd.bmp');
     //bmp.Free;
 
-    HBitmapToCanvas(MyHbitmap, Image1);
+    //HBitmapToCanvas(MyHbitmap, Image1);
 
-    //Image1.Refresh;
+    Image1.Refresh;
   end;
 
 end;
 
 
-function GetForm(Out FormHandle: HWND; DrawCallback1: PDrawCallback2;  pAppHwnd: HWND): HResult;
+function GetForm(Out FormHandle: HWND; DrawCallback1: PDrawCallback2;  pAppHwnd: HWND;
+Clbk: PDrawCallback2): HResult;
 begin
-  Form1 := TForm1.Create(nil);
+  //Form1 := TForm1.Create(nil);
+  Form1 := TForm1.CreateParented(pAppHwnd);
   Form1.Show;
   FormHandle := Form1.Handle;
 
+  Form1.Memo1.Lines.Add(IntToStr(integer(@DrawCallback2)));
   //@Form1.DrawCallback := DrawCallback1;
   //Form1.DrawCallback2 := DrawCallback1;
 end;
@@ -142,25 +140,27 @@ begin
   try
     begin
       test := 'E:\SystemProgramming\Files\test.tsv';
-      GetForm(HOutWindow, DrawCallback1, HInWindow);
+      //GetForm(HOutWindow, DrawCallback1, HInWindow);
 
       Result := 1;
     end
   except
     on E: Exception do Result := -1
   end;
-
 end;
 
-function GetExternalWindow3(Clbk: PDrawCallback2; InWindow: HWND; out OutWindow: HWND): HRESULT;
+function GetExternalWindow3(Clbk: Pointer; InWindow: HWND; out OutWindow: HWND;
+  out StatusInfo: WideString; lpReserved: Integer ): HRESULT; stdcall;
 begin
   With TForm1.CreateParented(InWindow) do
     begin
       OutWindow := Handle;
       @DrawCallback2 := Clbk;
-
+      Memo1.Lines.Add(IntToStr(integer(Clbk)));
+      Align :=  alClient;
+      Show;
       //DrawCallback2  := Clbk;
-      GetForm(OutWindow, Clbk, OutWindow);
+      //GetForm(OutWindow, Clbk, OutWindow, Clbk);
     end;
 end;
 
